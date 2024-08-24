@@ -7,11 +7,11 @@ package modelo.beans;
 public class Administrador {
 
     private String usuario_admin;
-    private String pasword;
+    private String password;
 
     public Administrador(String usuario_admin, String pasword) {
         this.usuario_admin = usuario_admin;
-        this.pasword = pasword;
+        this.password = pasword;
     }
 
     public String getUsuario_admin() {
@@ -23,11 +23,11 @@ public class Administrador {
     }
 
     public String getPasword() {
-        return pasword;
+        return password;
     }
 
     public void setPasword(String pasword) {
-        this.pasword = pasword;
+        this.password = pasword;
     }
 
 }

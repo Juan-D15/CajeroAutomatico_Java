@@ -5,6 +5,7 @@
 package Interfaz;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import javax.swing.JPanel;
 
 /**
@@ -58,35 +59,78 @@ public class Login extends javax.swing.JFrame {
         Contenido.setLayout(ContenidoLayout);
         ContenidoLayout.setHorizontalGroup(
             ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 559, Short.MAX_VALUE)
+            .addGap(0, 570, Short.MAX_VALUE)
         );
         ContenidoLayout.setVerticalGroup(
             ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 540, Short.MAX_VALUE)
         );
 
-        getContentPane().add(Contenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 559, 540));
+        getContentPane().add(Contenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 540));
 
         tools.setBackground(new java.awt.Color(0, 8, 66));
         tools.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnAdmin.setBackground(new java.awt.Color(0, 8, 66));
+        btnAdmin.setFont(new java.awt.Font("Poppins Medium", 1, 12)); // NOI18N
+        btnAdmin.setForeground(new java.awt.Color(255, 255, 255));
         btnAdmin.setText("ADMIN");
+        btnAdmin.setBorder(null);
+        btnAdmin.setBorderPainted(false);
+        btnAdmin.setContentAreaFilled(false);
+        btnAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdmin.setFocusable(false);
+        btnAdmin.setOpaque(true);
+        btnAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAdminMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAdminMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAdminMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnAdminMousePressed(evt);
+            }
+        });
         btnAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdminActionPerformed(evt);
             }
         });
-        tools.add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, -1, -1));
+        tools.add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 129, 290, 40));
 
+        btnUser.setBackground(new java.awt.Color(0, 8, 66));
+        btnUser.setFont(new java.awt.Font("Poppins Medium", 1, 12)); // NOI18N
+        btnUser.setForeground(new java.awt.Color(255, 255, 255));
         btnUser.setText("USER");
+        btnUser.setBorder(null);
+        btnUser.setBorderPainted(false);
+        btnUser.setContentAreaFilled(false);
+        btnUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUser.setFocusable(false);
+        btnUser.setOpaque(true);
+        btnUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnUserMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnUserMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnUserMousePressed(evt);
+            }
+        });
         btnUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUserActionPerformed(evt);
             }
         });
-        tools.add(btnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, -1, -1));
+        tools.add(btnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 209, 290, 40));
 
-        getContentPane().add(tools, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 0, 300, 540));
+        getContentPane().add(tools, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 0, 290, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -102,6 +146,41 @@ public class Login extends javax.swing.JFrame {
         Log_User user = new Log_User();
         CambioPanel(user);
     }//GEN-LAST:event_btnUserActionPerformed
+
+    private void btnAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdminMouseEntered
+        // TODO add your handling code here:
+        btnAdmin.setBackground(new Color(12, 33, 193)); //hover
+    }//GEN-LAST:event_btnAdminMouseEntered
+
+    private void btnAdminMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdminMouseExited
+        // TODO add your handling code here:
+        btnAdmin.setBackground(new Color(0, 8, 66));
+    }//GEN-LAST:event_btnAdminMouseExited
+
+    private void btnAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdminMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdminMouseClicked
+
+    private void btnAdminMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdminMousePressed
+        // TODO add your handling code here:
+        btnAdmin.setBackground(new Color(0, 8, 66));
+    }//GEN-LAST:event_btnAdminMousePressed
+
+    private void btnUserMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserMouseEntered
+        // TODO add your handling code here:
+        btnUser.setBackground(new Color(12, 33, 193));
+    }//GEN-LAST:event_btnUserMouseEntered
+
+    private void btnUserMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserMouseExited
+        // TODO add your handling code here:
+        btnUser.setBackground(new Color(0, 8, 66));
+
+    }//GEN-LAST:event_btnUserMouseExited
+
+    private void btnUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserMousePressed
+        // TODO add your handling code here:
+        btnUser.setBackground(new Color(0, 8, 66));
+    }//GEN-LAST:event_btnUserMousePressed
 
     /**
      * @param args the command line arguments

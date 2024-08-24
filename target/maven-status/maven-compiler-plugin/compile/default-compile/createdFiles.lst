@@ -1,7 +1,11 @@
+Interfaz\Login$5.class
+Interfaz\Log_Admin$4.class
 Interfaz\Log_Admin$3.class
+modelo\logic\AdministradorLogic.class
 Interfaz\Log_User$1.class
+Interfaz\Login$4.class
 Interfaz\Log_User.class
-com\mycompany\cajeroautomatico\CajeroAutomatico.class
+modelo\beans\Administrador.class
 Interfaz\Log_User$2.class
 Interfaz\Log_User$3.class
 Interfaz\Login$3.class
@@ -10,4 +14,5 @@ Interfaz\Log_Admin$1.class
 Interfaz\Login$1.class
 Interfaz\Log_Admin$2.class
 Interfaz\Login.class
+modelo\dao\AdministradorDAO.class
 Interfaz\Login$2.class

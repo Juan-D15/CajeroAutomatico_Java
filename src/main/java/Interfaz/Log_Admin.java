@@ -5,6 +5,8 @@
 package Interfaz;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import modelo.logic.AdministradorLogic;
 
 /**
  *
@@ -33,7 +35,7 @@ public class Log_Admin extends javax.swing.JPanel {
         txtNombre = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        txtPasword = new javax.swing.JPasswordField();
+        txtPassword = new javax.swing.JPasswordField();
         lbStitulo1 = new javax.swing.JLabel();
         btnLogAdmin = new javax.swing.JButton();
 
@@ -74,16 +76,16 @@ public class Log_Admin extends javax.swing.JPanel {
         jSeparator2.setForeground(new java.awt.Color(0, 8, 66));
         add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 350, -1));
 
-        txtPasword.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtPasword.setForeground(new java.awt.Color(0, 8, 66));
-        txtPasword.setText("**********");
-        txtPasword.setBorder(null);
-        txtPasword.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtPassword.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(0, 8, 66));
+        txtPassword.setText("**********");
+        txtPassword.setBorder(null);
+        txtPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtPaswordMousePressed(evt);
+                txtPasswordMousePressed(evt);
             }
         });
-        add(txtPasword, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
+        add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
 
         lbStitulo1.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbStitulo1.setForeground(new java.awt.Color(153, 153, 153));
@@ -96,6 +98,11 @@ public class Log_Admin extends javax.swing.JPanel {
         btnLogAdmin.setText("Entrar");
         btnLogAdmin.setBorderPainted(false);
         btnLogAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogAdminActionPerformed(evt);
+            }
+        });
         add(btnLogAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 160, 30));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -110,23 +117,36 @@ public class Log_Admin extends javax.swing.JPanel {
             txtNombre.setForeground(new Color(0, 8, 66));
 
         }
-        if (String.valueOf(txtPasword.getPassword()).isEmpty()) {
-            txtPasword.setText("**********");
-            txtPasword.setForeground(new Color(0, 8, 66));
+        if (String.valueOf(txtPassword.getPassword()).isEmpty()) {
+            txtPassword.setText("**********");
+            txtPassword.setForeground(new Color(0, 8, 66));
         }
     }//GEN-LAST:event_txtNombreMousePressed
 
-    private void txtPaswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPaswordMousePressed
+    private void txtPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMousePressed
         // TODO add your handling code here:
-        if (String.valueOf(txtPasword.getPassword()).equals("**********")) {
-            txtPasword.setText("");
-            txtPasword.setForeground(new Color(0, 8, 66));
+        if (String.valueOf(txtPassword.getPassword()).equals("**********")) {
+            txtPassword.setText("");
+            txtPassword.setForeground(new Color(0, 8, 66));
         }
         if (txtNombre.getText().isEmpty()) {
             txtNombre.setText("Nombre de Usuario");
             txtNombre.setForeground(new Color(0, 8, 66));
         }
-    }//GEN-LAST:event_txtPaswordMousePressed
+    }//GEN-LAST:event_txtPasswordMousePressed
+
+    private void btnLogAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogAdminActionPerformed
+        // TODO add your handling code here:
+        if(!txtNombre.getText().isEmpty() && !String.valueOf(txtPassword.getPassword()).isEmpty()){
+            if(AdministradorLogic.autentificar(txtNombre.getText(),String.valueOf(txtPassword.getPassword()))){
+                //abrir panel
+            }else{
+                JOptionPane.showMessageDialog(null,"Usuario o Contraseña incorrectos");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Ingrese su Usuario o Contraseña");
+        }
+    }//GEN-LAST:event_btnLogAdminActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -137,6 +157,6 @@ public class Log_Admin extends javax.swing.JPanel {
     private javax.swing.JLabel lbStitulo1;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JPasswordField txtPasword;
+    private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 }
