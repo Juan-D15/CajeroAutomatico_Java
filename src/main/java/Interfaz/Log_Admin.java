@@ -1,10 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Interfaz;
 
 import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import modelo.logic.AdministradorLogic;
 
@@ -19,6 +18,12 @@ public class Log_Admin extends javax.swing.JPanel {
      */
     public Log_Admin() {
         initComponents();
+        initListeners();
+    }
+
+    private void CambioJframe(JFrame j) {
+        j.setVisible(true);
+        j.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -45,7 +50,7 @@ public class Log_Admin extends javax.swing.JPanel {
 
         lbTitulo.setFont(new java.awt.Font("Poppins Medium", 0, 24)); // NOI18N
         lbTitulo.setText("Administrador");
-        add(lbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, -1));
+        add(lbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, -1));
 
         lbStitulo.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbStitulo.setForeground(new java.awt.Color(153, 153, 153));
@@ -85,6 +90,11 @@ public class Log_Admin extends javax.swing.JPanel {
                 txtPasswordMousePressed(evt);
             }
         });
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
         add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
 
         lbStitulo1.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
@@ -103,7 +113,7 @@ public class Log_Admin extends javax.swing.JPanel {
                 btnLogAdminActionPerformed(evt);
             }
         });
-        add(btnLogAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 160, 30));
+        add(btnLogAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, 160, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -111,42 +121,31 @@ public class Log_Admin extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMousePressed
-        // TODO add your handling code here:
-        if (txtNombre.getText().equals("Nombre de Usuario")) {
-            txtNombre.setText("");
-            txtNombre.setForeground(new Color(0, 8, 66));
 
-        }
-        if (String.valueOf(txtPassword.getPassword()).isEmpty()) {
-            txtPassword.setText("**********");
-            txtPassword.setForeground(new Color(0, 8, 66));
-        }
     }//GEN-LAST:event_txtNombreMousePressed
 
     private void txtPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMousePressed
-        // TODO add your handling code here:
-        if (String.valueOf(txtPassword.getPassword()).equals("**********")) {
-            txtPassword.setText("");
-            txtPassword.setForeground(new Color(0, 8, 66));
-        }
-        if (txtNombre.getText().isEmpty()) {
-            txtNombre.setText("Nombre de Usuario");
-            txtNombre.setForeground(new Color(0, 8, 66));
-        }
+
     }//GEN-LAST:event_txtPasswordMousePressed
 
     private void btnLogAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogAdminActionPerformed
         // TODO add your handling code here:
-        if(!txtNombre.getText().isEmpty() && !String.valueOf(txtPassword.getPassword()).isEmpty()){
-            if(AdministradorLogic.autentificar(txtNombre.getText(),String.valueOf(txtPassword.getPassword()))){
-                //abrir panel
-            }else{
-                JOptionPane.showMessageDialog(null,"Usuario o Contraseña incorrectos");
+        if (!txtNombre.getText().isEmpty() && !String.valueOf(txtPassword.getPassword()).isEmpty()) {
+            if (AdministradorLogic.autentificar(txtNombre.getText(), String.valueOf(txtPassword.getPassword()))) {
+                //Cambiar al frame de Admin
+                Panel_Admin panelAdm = new Panel_Admin();
+                CambioJframe(panelAdm);
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrectos");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Ingrese su Usuario o Contraseña");
         }
     }//GEN-LAST:event_btnLogAdminActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -159,4 +158,39 @@ public class Log_Admin extends javax.swing.JPanel {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
+
+    private void initListeners() {
+        txtNombre.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (txtNombre.getText().equals("Nombre de Usuario")) {
+                    txtNombre.setText("");
+                    txtNombre.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (txtNombre.getText().isEmpty()) {
+                    txtNombre.setText("Nombre de Usuario");
+                    txtNombre.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
+
+        txtPassword.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (String.valueOf(txtPassword.getPassword()).equals("**********")) {
+                    txtPassword.setText("");
+                    txtPassword.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (String.valueOf(txtPassword.getPassword()).isEmpty()) {
+                    txtPassword.setText("**********");
+                    txtPassword.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
+    }
+
 }

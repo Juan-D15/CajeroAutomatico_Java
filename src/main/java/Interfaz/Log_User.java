@@ -5,6 +5,11 @@
 package Interfaz;
 
 import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import modelo.logic.UsuarioLogic;
 
 /**
  *
@@ -17,6 +22,12 @@ public class Log_User extends javax.swing.JPanel {
      */
     public Log_User() {
         initComponents();
+        initListeners();
+    }
+
+    private void CambioJframe(JFrame j) {
+        j.setVisible(true);
+        j.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -31,10 +42,10 @@ public class Log_User extends javax.swing.JPanel {
         lbTitulo = new javax.swing.JLabel();
         lbStitulo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        txtNoTarjeta = new javax.swing.JTextField();
+        txtNumTarjeta = new javax.swing.JTextField();
         lbStitulo1 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        txtpinUsuario = new javax.swing.JPasswordField();
+        txtPinUser = new javax.swing.JPasswordField();
         btnCambiarPin = new javax.swing.JButton();
         btnLogUsuario = new javax.swing.JButton();
 
@@ -54,21 +65,21 @@ public class Log_User extends javax.swing.JPanel {
         jSeparator1.setForeground(new java.awt.Color(0, 8, 66));
         add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 350, -1));
 
-        txtNoTarjeta.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtNoTarjeta.setForeground(new java.awt.Color(0, 8, 66));
-        txtNoTarjeta.setText("Número Tarjeta");
-        txtNoTarjeta.setBorder(null);
-        txtNoTarjeta.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtNumTarjeta.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtNumTarjeta.setForeground(new java.awt.Color(0, 8, 66));
+        txtNumTarjeta.setText("Número de Tarjeta");
+        txtNumTarjeta.setBorder(null);
+        txtNumTarjeta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtNoTarjetaMousePressed(evt);
+                txtNumTarjetaMousePressed(evt);
             }
         });
-        txtNoTarjeta.addActionListener(new java.awt.event.ActionListener() {
+        txtNumTarjeta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNoTarjetaActionPerformed(evt);
+                txtNumTarjetaActionPerformed(evt);
             }
         });
-        add(txtNoTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 280, 30));
+        add(txtNumTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 280, 30));
 
         lbStitulo1.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbStitulo1.setForeground(new java.awt.Color(153, 153, 153));
@@ -79,16 +90,16 @@ public class Log_User extends javax.swing.JPanel {
         jSeparator2.setForeground(new java.awt.Color(0, 8, 66));
         add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 350, -1));
 
-        txtpinUsuario.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        txtpinUsuario.setForeground(new java.awt.Color(0, 8, 66));
-        txtpinUsuario.setText("**********");
-        txtpinUsuario.setBorder(null);
-        txtpinUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtPinUser.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtPinUser.setForeground(new java.awt.Color(0, 8, 66));
+        txtPinUser.setText("**********");
+        txtPinUser.setBorder(null);
+        txtPinUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtpinUsuarioMousePressed(evt);
+                txtPinUserMousePressed(evt);
             }
         });
-        add(txtpinUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, -1));
+        add(txtPinUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, -1));
 
         btnCambiarPin.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
         btnCambiarPin.setForeground(new java.awt.Color(77, 77, 77));
@@ -105,37 +116,40 @@ public class Log_User extends javax.swing.JPanel {
         btnLogUsuario.setText("Entrar");
         btnLogUsuario.setBorderPainted(false);
         btnLogUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogUsuarioActionPerformed(evt);
+            }
+        });
         add(btnLogUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 160, 30));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNoTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNoTarjetaActionPerformed
+    private void txtNumTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumTarjetaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNoTarjetaActionPerformed
+    }//GEN-LAST:event_txtNumTarjetaActionPerformed
 
-    private void txtNoTarjetaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNoTarjetaMousePressed
+    private void txtNumTarjetaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNumTarjetaMousePressed
+
+    }//GEN-LAST:event_txtNumTarjetaMousePressed
+
+    private void txtPinUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPinUserMousePressed
+
+    }//GEN-LAST:event_txtPinUserMousePressed
+
+    private void btnLogUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogUsuarioActionPerformed
         // TODO add your handling code here:
-        if (txtNoTarjeta.getText().equals("Número Tarjeta")) {
-            txtNoTarjeta.setText("");
-            txtNoTarjeta.setForeground(new Color(0, 8, 66));
-
+        if (!txtNumTarjeta.getText().isEmpty() && !String.valueOf(txtPinUser.getPassword()).isEmpty()) {
+            if (UsuarioLogic.autentificar(txtNumTarjeta.getText(), String.valueOf(txtPinUser.getPassword()))) {
+                //Cambiar al frame de User
+                Panel_User panelUser = new Panel_User(UsuarioLogic.obtener(txtNumTarjeta.getText()));
+                CambioJframe(panelUser);
+            } else {
+                JOptionPane.showMessageDialog(null, "Número de Tarjeta o PIN incorrectos");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese su Número de Trajeta o PIN");
         }
-        if (String.valueOf(txtpinUsuario.getPassword()).isEmpty()) {
-            txtpinUsuario.setText("**********");
-            txtpinUsuario.setForeground(new Color(0, 8, 66));
-        }
-    }//GEN-LAST:event_txtNoTarjetaMousePressed
-
-    private void txtpinUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtpinUsuarioMousePressed
-        // TODO add your handling code here:
-        if (String.valueOf(txtpinUsuario.getPassword()).equals("**********")) {
-            txtpinUsuario.setText("");
-            txtpinUsuario.setForeground(new Color(0, 8, 66));
-        }
-        if (txtNoTarjeta.getText().isEmpty()) {
-            txtNoTarjeta.setText("Número Tarjeta");
-            txtNoTarjeta.setForeground(new Color(0, 8, 66));
-        }
-    }//GEN-LAST:event_txtpinUsuarioMousePressed
+    }//GEN-LAST:event_btnLogUsuarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -146,7 +160,42 @@ public class Log_User extends javax.swing.JPanel {
     private javax.swing.JLabel lbStitulo;
     private javax.swing.JLabel lbStitulo1;
     private javax.swing.JLabel lbTitulo;
-    private javax.swing.JTextField txtNoTarjeta;
-    private javax.swing.JPasswordField txtpinUsuario;
+    private javax.swing.JTextField txtNumTarjeta;
+    private javax.swing.JPasswordField txtPinUser;
     // End of variables declaration//GEN-END:variables
+
+    private void initListeners() {
+        txtNumTarjeta.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (txtNumTarjeta.getText().equals("Número de Tarjeta")) {
+                    txtNumTarjeta.setText("");
+                    txtNumTarjeta.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (txtNumTarjeta.getText().isEmpty()) {
+                    txtNumTarjeta.setText("Número de Tarjeta");
+                    txtNumTarjeta.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
+
+        txtPinUser.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (String.valueOf(txtPinUser.getPassword()).equals("**********")) {
+                    txtPinUser.setText("");
+                    txtPinUser.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (String.valueOf(txtPinUser.getPassword()).isEmpty()) {
+                    txtPinUser.setText("**********");
+                    txtPinUser.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
+
+    }
 }
