@@ -15,6 +15,8 @@ public class Panel_Admin extends javax.swing.JFrame {
     public Panel_Admin() {
         initComponents();
         this.setLocationRelativeTo(null);
+        Init_Cajero panelCajero = new Init_Cajero();
+        CambioPanel(panelCajero);
     }
 
     /**
@@ -28,7 +30,7 @@ public class Panel_Admin extends javax.swing.JFrame {
 
         Tools_Admin = new javax.swing.JPanel();
         btnManejoUsuarios = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnInitCajero = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
         Contenido_Admin = new javax.swing.JPanel();
 
@@ -46,8 +48,13 @@ public class Panel_Admin extends javax.swing.JFrame {
         });
         Tools_Admin.add(btnManejoUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
 
-        jButton2.setText("jButton2");
-        Tools_Admin.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
+        btnInitCajero.setText("Cajero");
+        btnInitCajero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInitCajeroActionPerformed(evt);
+            }
+        });
+        Tools_Admin.add(btnInitCajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
 
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -55,7 +62,7 @@ public class Panel_Admin extends javax.swing.JFrame {
                 btnCerrarSesionActionPerformed(evt);
             }
         });
-        Tools_Admin.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
+        Tools_Admin.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 500, -1, -1));
 
         getContentPane().add(Tools_Admin, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 220, 540));
 
@@ -96,6 +103,12 @@ public class Panel_Admin extends javax.swing.JFrame {
         this.dispose(); // Cierra el Panel_Admin
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
+    private void btnInitCajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInitCajeroActionPerformed
+        // TODO add your handling code here:
+        Init_Cajero panelCajero = new Init_Cajero();
+        CambioPanel(panelCajero);
+    }//GEN-LAST:event_btnInitCajeroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -135,7 +148,7 @@ public class Panel_Admin extends javax.swing.JFrame {
     private javax.swing.JPanel Contenido_Admin;
     private javax.swing.JPanel Tools_Admin;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnInitCajero;
     private javax.swing.JButton btnManejoUsuarios;
-    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }
