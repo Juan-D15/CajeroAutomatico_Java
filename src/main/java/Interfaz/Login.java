@@ -113,6 +113,9 @@ public class Login extends javax.swing.JFrame {
         btnUser.setFocusable(false);
         btnUser.setOpaque(true);
         btnUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUserMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnUserMouseEntered(evt);
             }
@@ -159,6 +162,7 @@ public class Login extends javax.swing.JFrame {
 
     private void btnAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdminMouseClicked
         // TODO add your handling code here:
+        btnAdmin.setBackground(new Color(12, 33, 193)); //hover
     }//GEN-LAST:event_btnAdminMouseClicked
 
     private void btnAdminMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdminMousePressed
@@ -181,6 +185,11 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         btnUser.setBackground(new Color(0, 8, 66));
     }//GEN-LAST:event_btnUserMousePressed
+
+    private void btnUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserMouseClicked
+        // TODO add your handling code here:
+        btnUser.setBackground(new Color(12, 33, 193));
+    }//GEN-LAST:event_btnUserMouseClicked
 
     /**
      * @param args the command line arguments
