@@ -49,6 +49,7 @@ public class Reg_User extends javax.swing.JPanel {
         btnEliminarUser = new javax.swing.JButton();
         btnRegistrarUser = new javax.swing.JButton();
         btnModificarUser = new javax.swing.JButton();
+        btnBuscarUsuario = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(640, 540));
@@ -174,7 +175,7 @@ public class Reg_User extends javax.swing.JPanel {
                 btnEliminarUserActionPerformed(evt);
             }
         });
-        add(btnEliminarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 460, 130, 30));
+        add(btnEliminarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, 130, 30));
 
         btnRegistrarUser.setBackground(new java.awt.Color(12, 33, 193));
         btnRegistrarUser.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
@@ -187,7 +188,7 @@ public class Reg_User extends javax.swing.JPanel {
                 btnRegistrarUserActionPerformed(evt);
             }
         });
-        add(btnRegistrarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 460, 130, 30));
+        add(btnRegistrarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, 130, 30));
 
         btnModificarUser.setBackground(new java.awt.Color(12, 33, 193));
         btnModificarUser.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
@@ -200,7 +201,20 @@ public class Reg_User extends javax.swing.JPanel {
                 btnModificarUserActionPerformed(evt);
             }
         });
-        add(btnModificarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 460, 130, 30));
+        add(btnModificarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 490, 130, 30));
+
+        btnBuscarUsuario.setBackground(new java.awt.Color(12, 33, 193));
+        btnBuscarUsuario.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        btnBuscarUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscarUsuario.setText("Buscar");
+        btnBuscarUsuario.setBorderPainted(false);
+        btnBuscarUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarUsuarioActionPerformed(evt);
+            }
+        });
+        add(btnBuscarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 450, 130, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSaldoUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoUserActionPerformed
@@ -212,6 +226,11 @@ public class Reg_User extends javax.swing.JPanel {
         if (!txtNumTarjeta.getText().isEmpty()) {
             if (UsuarioLogic.eliminar(txtNumTarjeta.getText())) {
                 JOptionPane.showMessageDialog(null, "Usuario Eliminado");
+                txtMontoUser.setText("");
+                txtNombreUser.setText("");
+                txtNumTarjeta.setText("");
+                txtPinUser.setText("");
+                txtSaldoUser.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "El Usuario no existe");
             }
@@ -226,9 +245,22 @@ public class Reg_User extends javax.swing.JPanel {
                 && !String.valueOf(txtPinUser.getPassword()).isEmpty()
                 && !txtSaldoUser.getText().isEmpty()
                 && !txtMontoUser.getText().isEmpty()) {
-            Usuario usuario = new Usuario(txtNombreUser.getText(), txtNumTarjeta.getText(), String.valueOf(txtPinUser.getPassword()), txtSaldoUser.getText(), txtMontoUser.getText());
+
+            String nombre = txtNombreUser.getText();
+            String numTarjeta = txtNumTarjeta.getText();
+            String pin = String.valueOf(txtPinUser.getPassword());
+            String saldo = txtSaldoUser.getText();
+            String monto = txtMontoUser.getText();
+
+            Usuario usuario = new Usuario(nombre, numTarjeta, pin, saldo, monto);
+
             if (UsuarioLogic.insertar(usuario)) {
                 JOptionPane.showMessageDialog(null, "Usuario Registrado");
+                txtMontoUser.setText("");
+                txtNombreUser.setText("");
+                txtNumTarjeta.setText("");
+                txtPinUser.setText("");
+                txtSaldoUser.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario ya existente");
             }
@@ -242,13 +274,31 @@ public class Reg_User extends javax.swing.JPanel {
                 && !String.valueOf(txtPinUser.getPassword()).isEmpty()
                 && !txtSaldoUser.getText().isEmpty()
                 && !txtMontoUser.getText().isEmpty()) {
-            Usuario usuario = new Usuario(txtNombreUser.getText(), txtNumTarjeta.getText(), String.valueOf(txtPinUser.getPassword()), txtSaldoUser.getText(), txtMontoUser.getText());
-            if (UsuarioLogic.modificar(usuario)) {
+
+            String nombre = txtNombreUser.getText();
+            String numTarjeta = txtNumTarjeta.getText();
+            String pin = String.valueOf(txtPinUser.getPassword());
+            String saldo = txtSaldoUser.getText();
+            String monto = txtMontoUser.getText();
+
+            // Crear un objeto Usuario con los nuevos datos
+            Usuario usuarioModificado = new Usuario(nombre, numTarjeta, pin, saldo, monto);
+
+            // Llamar al método modificar
+            if (UsuarioLogic.modificar(usuarioModificado)) {
                 JOptionPane.showMessageDialog(null, "Usuario Modificado");
+                txtMontoUser.setText("");
+                txtNombreUser.setText("");
+                txtNumTarjeta.setText("");
+                txtPinUser.setText("");
+                txtSaldoUser.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "El Usuario no existe");
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
         }
+
     }//GEN-LAST:event_btnModificarUserActionPerformed
     //ESTILO
     private void txtNombreUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreUserMousePressed
@@ -271,8 +321,27 @@ public class Reg_User extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtMontoUserMousePressed
 
+    private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
+        // TODO add your handling code here:
+        if (!txtNumTarjeta.getText().isEmpty()) {
+            Usuario usuario = UsuarioLogic.obtener(txtNumTarjeta.getText());
+            if (usuario != null) {
+                txtNombreUser.setText("");
+                txtNombreUser.setText(usuario.getNombre());
+                txtPinUser.setText("");
+                txtPinUser.setText(usuario.getPIN());
+                txtSaldoUser.setText("");
+                txtSaldoUser.setText(usuario.getSaldo());
+                txtMontoUser.setText("");
+                txtMontoUser.setText(usuario.getMonto());
+            } else {
+                JOptionPane.showMessageDialog(null, "El Usuario no existe");
+            }
+        }
+    }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarUsuario;
     private javax.swing.JButton btnEliminarUser;
     private javax.swing.JButton btnModificarUser;
     private javax.swing.JButton btnRegistrarUser;
