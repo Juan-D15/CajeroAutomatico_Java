@@ -15,6 +15,7 @@ public class UsuarioDAO {
     public UsuarioDAO() {
         usuarios = new ArrayList<>();
     }
+
     public int buscar(String NumTarjeta) {
         int n = -1; // variable si no encontro al usuario
         for (int i = 0; i < usuarios.size(); i++) { //recorre la lista
@@ -35,17 +36,38 @@ public class UsuarioDAO {
         }
     }
 
-    public boolean modificar(Usuario usuario) {
-        if (buscar(usuario.getNumTarjeta()) != -1) { // si el usuario existe
-            Usuario useraux = obtener(usuario.getNumTarjeta());
-            useraux.setNombre(usuario.getNombre());
-            useraux.setNumTarjeta(usuario.getNumTarjeta());
-            useraux.setPIN(usuario.getPIN());
-            useraux.setSaldo(usuario.getSaldo());
-            useraux.setMonto(usuario.getMonto());
+    public boolean modificar(Usuario usuarioModificado) {
+        // Busca al usuario original usando su número de tarjeta actual antes de modificarlo
+        String numeroTarjetaOriginal = usuarioModificado.getNumTarjeta();
+        int indice = buscar(numeroTarjetaOriginal);
+
+        if (indice != -1) { // Si el usuario existe
+            // Obtener el usuario actual
+            Usuario usuarioActual = usuarios.get(indice);
+
+            // Actualizar los datos
+            usuarioActual.setNombre(usuarioModificado.getNombre());
+            usuarioActual.setPIN(usuarioModificado.getPIN());
+            usuarioActual.setSaldo(usuarioModificado.getSaldo());
+            usuarioActual.setMonto(usuarioModificado.getMonto());
+
+            // Si el número de tarjeta ha cambiado, realiza la actualización en la lista
+            if (!usuarioActual.getNumTarjeta().equals(usuarioModificado.getNumTarjeta())) {
+                String nuevoNumeroTarjeta = usuarioModificado.getNumTarjeta();
+
+                // Actualizar el número de tarjeta
+                usuarioActual.setNumTarjeta(nuevoNumeroTarjeta);
+
+                // Elimina el usuario original de la lista usando el índice
+                usuarios.remove(indice);
+
+                // Inserta el usuario modificado con el nuevo número de tarjeta en la posición correcta
+                usuarios.add(usuarioActual);
+            }
+
             return true;
         } else {
-            return false;
+            return false; // Si no se encuentra el usuario
         }
     }
 
