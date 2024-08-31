@@ -11,13 +11,23 @@ public class Usuario {
     private String PIN;
     private String Saldo;
     private String Monto;
+    private String NumCuenta;
 
-    public Usuario(String Nombre, String NumTarjeta, String PIN, String Saldo, String Monto) {
+    public Usuario(String Nombre, String NumCuenta, String NumTarjeta, String PIN, String Saldo, String Monto) {
         this.Nombre = Nombre;
+        this.NumCuenta = NumCuenta;
         this.NumTarjeta = NumTarjeta;
         this.PIN = PIN;
         this.Saldo = Saldo;
         this.Monto = Monto;
+    }
+
+    public Usuario(String NumTarjeta, String PIN) {
+        this.NumTarjeta = NumTarjeta;
+        this.PIN = PIN;
+    }
+
+    public Usuario() {
     }
 
     public String getNombre() {
@@ -59,5 +69,13 @@ public class Usuario {
     public void setMonto(String Monto) {
         this.Monto = Monto;
     }
-    
+
+    public String getNumCuenta() {
+        return NumCuenta;
+    }
+
+    public void setNumCuenta(String NumCuenta) {
+        this.NumCuenta = NumCuenta;
+    }
+
 }
