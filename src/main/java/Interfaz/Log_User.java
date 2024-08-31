@@ -29,7 +29,6 @@ public class Log_User extends javax.swing.JPanel {
         j.setVisible(true);
         j.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,6 +107,11 @@ public class Log_User extends javax.swing.JPanel {
         btnCambiarPin.setBorderPainted(false);
         btnCambiarPin.setContentAreaFilled(false);
         btnCambiarPin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCambiarPin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarPinActionPerformed(evt);
+            }
+        });
         add(btnCambiarPin, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, -1, -1));
 
         btnLogUsuario.setBackground(new java.awt.Color(12, 33, 193));
@@ -150,6 +154,12 @@ public class Log_User extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Ingrese su Número de Trajeta o PIN");
         }
     }//GEN-LAST:event_btnLogUsuarioActionPerformed
+
+    private void btnCambiarPinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarPinActionPerformed
+        // TODO add your handling code here:
+        Pin_Usuario frameCambioPin = new Pin_Usuario();
+        CambioJframe(frameCambioPin);
+    }//GEN-LAST:event_btnCambiarPinActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
