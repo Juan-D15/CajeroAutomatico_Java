@@ -16,6 +16,8 @@ public class Reg_User extends javax.swing.JPanel {
     /**
      * Creates new form Reg_User
      */
+    private Usuario usuarioOriginal;
+
     public Reg_User() {
         initComponents();
         initListeners();
@@ -50,6 +52,9 @@ public class Reg_User extends javax.swing.JPanel {
         btnRegistrarUser = new javax.swing.JButton();
         btnModificarUser = new javax.swing.JButton();
         btnBuscarUsuario = new javax.swing.JButton();
+        lbSTitulo5 = new javax.swing.JLabel();
+        txtNumCuenta = new javax.swing.JTextField();
+        jSeparator6 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(640, 540));
@@ -62,107 +67,77 @@ public class Reg_User extends javax.swing.JPanel {
         lbSTitulo.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbSTitulo.setForeground(new java.awt.Color(153, 153, 153));
         lbSTitulo.setText("Usuario");
-        add(lbSTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
+        add(lbSTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, -1));
 
         txtNombreUser.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtNombreUser.setForeground(new java.awt.Color(0, 8, 66));
         txtNombreUser.setText("Nombre de Usuario");
         txtNombreUser.setBorder(null);
-        txtNombreUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtNombreUserMousePressed(evt);
-            }
-        });
-        add(txtNombreUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, 30));
+        add(txtNombreUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 490, 30));
 
         jSeparator1.setBackground(new java.awt.Color(0, 8, 66));
         jSeparator1.setForeground(new java.awt.Color(0, 8, 66));
-        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 490, 10));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 490, 10));
 
         lbSTitulo1.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbSTitulo1.setForeground(new java.awt.Color(153, 153, 153));
         lbSTitulo1.setText("No. Tarjeta");
-        add(lbSTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
+        add(lbSTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
         txtNumTarjeta.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtNumTarjeta.setForeground(new java.awt.Color(0, 8, 66));
         txtNumTarjeta.setText("Número de Tarjeta");
         txtNumTarjeta.setBorder(null);
-        txtNumTarjeta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtNumTarjetaMousePressed(evt);
-            }
-        });
-        add(txtNumTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, -1, 30));
+        add(txtNumTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 480, 30));
 
         jSeparator2.setBackground(new java.awt.Color(0, 8, 66));
         jSeparator2.setForeground(new java.awt.Color(0, 8, 66));
-        add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 490, 10));
+        add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 490, 10));
 
         lbSTitulo2.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbSTitulo2.setForeground(new java.awt.Color(153, 153, 153));
         lbSTitulo2.setText("PIN");
-        add(lbSTitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, -1, -1));
+        add(lbSTitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, -1, -1));
 
         txtPinUser.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtPinUser.setForeground(new java.awt.Color(0, 8, 66));
         txtPinUser.setText("**********");
         txtPinUser.setBorder(null);
-        txtPinUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtPinUserMousePressed(evt);
-            }
-        });
-        add(txtPinUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, -1, -1));
+        add(txtPinUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 490, -1));
 
         jSeparator3.setBackground(new java.awt.Color(0, 8, 66));
         jSeparator3.setForeground(new java.awt.Color(0, 8, 66));
-        add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 490, 10));
+        add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 490, 10));
 
         lbSTitulo3.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbSTitulo3.setForeground(new java.awt.Color(153, 153, 153));
         lbSTitulo3.setText("Saldo");
-        add(lbSTitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, -1, -1));
+        add(lbSTitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, -1, -1));
 
         txtSaldoUser.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtSaldoUser.setForeground(new java.awt.Color(0, 8, 66));
         txtSaldoUser.setText("Saldo Actual");
         txtSaldoUser.setBorder(null);
-        txtSaldoUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtSaldoUserMousePressed(evt);
-            }
-        });
-        txtSaldoUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSaldoUserActionPerformed(evt);
-            }
-        });
-        add(txtSaldoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, -1, 30));
+        add(txtSaldoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 490, 30));
 
         jSeparator4.setBackground(new java.awt.Color(0, 8, 66));
         jSeparator4.setForeground(new java.awt.Color(0, 8, 66));
-        add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, 490, 10));
+        add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 490, 10));
 
         lbSTitulo4.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbSTitulo4.setForeground(new java.awt.Color(153, 153, 153));
         lbSTitulo4.setText("Monto Máximo");
-        add(lbSTitulo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, -1, -1));
+        add(lbSTitulo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, -1, -1));
 
         txtMontoUser.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtMontoUser.setForeground(new java.awt.Color(0, 8, 66));
         txtMontoUser.setText("Monto Máximo Diario");
         txtMontoUser.setBorder(null);
-        txtMontoUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtMontoUserMousePressed(evt);
-            }
-        });
-        add(txtMontoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, 30));
+        add(txtMontoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, 490, 30));
 
         jSeparator5.setBackground(new java.awt.Color(0, 8, 66));
         jSeparator5.setForeground(new java.awt.Color(0, 8, 66));
-        add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, 490, 10));
+        add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 470, 490, 10));
 
         btnEliminarUser.setBackground(new java.awt.Color(12, 33, 193));
         btnEliminarUser.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
@@ -175,7 +150,7 @@ public class Reg_User extends javax.swing.JPanel {
                 btnEliminarUserActionPerformed(evt);
             }
         });
-        add(btnEliminarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, 130, 30));
+        add(btnEliminarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 490, 130, 30));
 
         btnRegistrarUser.setBackground(new java.awt.Color(12, 33, 193));
         btnRegistrarUser.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
@@ -188,7 +163,7 @@ public class Reg_User extends javax.swing.JPanel {
                 btnRegistrarUserActionPerformed(evt);
             }
         });
-        add(btnRegistrarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, 130, 30));
+        add(btnRegistrarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 130, 30));
 
         btnModificarUser.setBackground(new java.awt.Color(12, 33, 193));
         btnModificarUser.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
@@ -201,7 +176,7 @@ public class Reg_User extends javax.swing.JPanel {
                 btnModificarUserActionPerformed(evt);
             }
         });
-        add(btnModificarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 490, 130, 30));
+        add(btnModificarUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 490, 130, 30));
 
         btnBuscarUsuario.setBackground(new java.awt.Color(12, 33, 193));
         btnBuscarUsuario.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
@@ -214,130 +189,40 @@ public class Reg_User extends javax.swing.JPanel {
                 btnBuscarUsuarioActionPerformed(evt);
             }
         });
-        add(btnBuscarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 450, 130, 30));
+        add(btnBuscarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 490, 130, 30));
+
+        lbSTitulo5.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
+        lbSTitulo5.setForeground(new java.awt.Color(153, 153, 153));
+        lbSTitulo5.setText("No. Cuenta");
+        add(lbSTitulo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
+
+        txtNumCuenta.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtNumCuenta.setForeground(new java.awt.Color(0, 8, 66));
+        txtNumCuenta.setText("Número de Cuenta");
+        txtNumCuenta.setBorder(null);
+        add(txtNumCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 490, 30));
+
+        jSeparator6.setBackground(new java.awt.Color(0, 8, 66));
+        jSeparator6.setForeground(new java.awt.Color(0, 8, 66));
+        add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 490, 10));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtSaldoUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSaldoUserActionPerformed
-
     private void btnEliminarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUserActionPerformed
-        // TODO add your handling code here:
-        if (!txtNumTarjeta.getText().isEmpty()) {
-            if (UsuarioLogic.eliminar(txtNumTarjeta.getText())) {
-                JOptionPane.showMessageDialog(null, "Usuario Eliminado");
-                txtMontoUser.setText("");
-                txtNombreUser.setText("");
-                txtNumTarjeta.setText("");
-                txtPinUser.setText("");
-                txtSaldoUser.setText("");
-            } else {
-                JOptionPane.showMessageDialog(null, "El Usuario no existe");
-            }
-        }
-
+        eliminarUsuario();
     }//GEN-LAST:event_btnEliminarUserActionPerformed
 
     private void btnRegistrarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarUserActionPerformed
-        // TODO add your handling code here:
-        if (!txtNombreUser.getText().isEmpty()
-                && !txtNumTarjeta.getText().isEmpty()
-                && !String.valueOf(txtPinUser.getPassword()).isEmpty()
-                && !txtSaldoUser.getText().isEmpty()
-                && !txtMontoUser.getText().isEmpty()) {
-
-            String nombre = txtNombreUser.getText();
-            String numTarjeta = txtNumTarjeta.getText();
-            String pin = String.valueOf(txtPinUser.getPassword());
-            String saldo = txtSaldoUser.getText();
-            String monto = txtMontoUser.getText();
-
-            Usuario usuario = new Usuario(nombre, numTarjeta, pin, saldo, monto);
-
-            if (UsuarioLogic.insertar(usuario)) {
-                JOptionPane.showMessageDialog(null, "Usuario Registrado");
-                txtMontoUser.setText("");
-                txtNombreUser.setText("");
-                txtNumTarjeta.setText("");
-                txtPinUser.setText("");
-                txtSaldoUser.setText("");
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario ya existente");
-            }
-        }
+        registrarUsuario();
     }//GEN-LAST:event_btnRegistrarUserActionPerformed
 
     private void btnModificarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarUserActionPerformed
-        // TODO add your handling code here:
-        if (!txtNombreUser.getText().isEmpty()
-                && !txtNumTarjeta.getText().isEmpty()
-                && !String.valueOf(txtPinUser.getPassword()).isEmpty()
-                && !txtSaldoUser.getText().isEmpty()
-                && !txtMontoUser.getText().isEmpty()) {
-
-            String nombre = txtNombreUser.getText();
-            String numTarjeta = txtNumTarjeta.getText();
-            String pin = String.valueOf(txtPinUser.getPassword());
-            String saldo = txtSaldoUser.getText();
-            String monto = txtMontoUser.getText();
-
-            // Crear un objeto Usuario con los nuevos datos
-            Usuario usuarioModificado = new Usuario(nombre, numTarjeta, pin, saldo, monto);
-
-            // Llamar al método modificar
-            if (UsuarioLogic.modificar(usuarioModificado)) {
-                JOptionPane.showMessageDialog(null, "Usuario Modificado");
-                txtMontoUser.setText("");
-                txtNombreUser.setText("");
-                txtNumTarjeta.setText("");
-                txtPinUser.setText("");
-                txtSaldoUser.setText("");
-            } else {
-                JOptionPane.showMessageDialog(null, "El Usuario no existe");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
+        if (usuarioOriginal != null) {
+            modificarUsuario(usuarioOriginal);
         }
-
     }//GEN-LAST:event_btnModificarUserActionPerformed
-    //ESTILO
-    private void txtNombreUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreUserMousePressed
-
-    }//GEN-LAST:event_txtNombreUserMousePressed
-
-    private void txtNumTarjetaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNumTarjetaMousePressed
-
-    }//GEN-LAST:event_txtNumTarjetaMousePressed
-
-    private void txtPinUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPinUserMousePressed
-
-    }//GEN-LAST:event_txtPinUserMousePressed
-
-    private void txtSaldoUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSaldoUserMousePressed
-
-    }//GEN-LAST:event_txtSaldoUserMousePressed
-
-    private void txtMontoUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMontoUserMousePressed
-
-    }//GEN-LAST:event_txtMontoUserMousePressed
 
     private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
-        // TODO add your handling code here:
-        if (!txtNumTarjeta.getText().isEmpty()) {
-            Usuario usuario = UsuarioLogic.obtener(txtNumTarjeta.getText());
-            if (usuario != null) {
-                txtNombreUser.setText("");
-                txtNombreUser.setText(usuario.getNombre());
-                txtPinUser.setText("");
-                txtPinUser.setText(usuario.getPIN());
-                txtSaldoUser.setText("");
-                txtSaldoUser.setText(usuario.getSaldo());
-                txtMontoUser.setText("");
-                txtMontoUser.setText(usuario.getMonto());
-            } else {
-                JOptionPane.showMessageDialog(null, "El Usuario no existe");
-            }
-        }
+        usuarioOriginal = buscarUsuario();
     }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -350,14 +235,17 @@ public class Reg_User extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JLabel lbSTitulo;
     private javax.swing.JLabel lbSTitulo1;
     private javax.swing.JLabel lbSTitulo2;
     private javax.swing.JLabel lbSTitulo3;
     private javax.swing.JLabel lbSTitulo4;
+    private javax.swing.JLabel lbSTitulo5;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JTextField txtMontoUser;
     private javax.swing.JTextField txtNombreUser;
+    private javax.swing.JTextField txtNumCuenta;
     private javax.swing.JTextField txtNumTarjeta;
     private javax.swing.JPasswordField txtPinUser;
     private javax.swing.JTextField txtSaldoUser;
@@ -395,7 +283,21 @@ public class Reg_User extends javax.swing.JPanel {
                 }
             }
         });
+        txtNumCuenta.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (txtNumCuenta.getText().equals("Número de Cuenta")) {
+                    txtNumCuenta.setText("");
+                    txtNumCuenta.setForeground(new Color(0, 8, 66));
+                }
+            }
 
+            public void focusLost(FocusEvent evt) {
+                if (txtNumCuenta.getText().isEmpty()) {
+                    txtNumCuenta.setText("Número de Cuenta");
+                    txtNumCuenta.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
         txtPinUser.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent evt) {
                 if (String.valueOf(txtPinUser.getPassword()).equals("**********")) {
@@ -443,5 +345,110 @@ public class Reg_User extends javax.swing.JPanel {
                 }
             }
         });
+    }
+
+    private void modificarUsuario(Usuario usuario) {
+        if (!txtNombreUser.getText().isEmpty()
+                && !txtNumCuenta.getText().isEmpty()
+                && !txtNumTarjeta.getText().isEmpty()
+                && !String.valueOf(txtPinUser.getPassword()).isEmpty()
+                && !txtSaldoUser.getText().isEmpty()
+                && !txtMontoUser.getText().isEmpty()) {
+
+            String nombre = txtNombreUser.getText();
+            String numCuenta = txtNumCuenta.getText();
+            String numTarjeta = txtNumTarjeta.getText(); // Este es el nuevo número de tarjeta que se ingresa
+            String pin = String.valueOf(txtPinUser.getPassword());
+            String saldo = txtSaldoUser.getText();
+            String monto = txtMontoUser.getText();
+
+            // Crear un objeto Usuario con los nuevos datos
+            Usuario usuarioModificado = new Usuario(nombre, numCuenta, numTarjeta, pin, saldo, monto);
+
+            // Llamar al método modificar, pasando el número de tarjeta original
+            if (UsuarioLogic.modificar(usuarioModificado, usuario.getNumTarjeta())) {
+                JOptionPane.showMessageDialog(null, "Usuario Modificado");
+                txtMontoUser.setText("");
+                txtNombreUser.setText("");
+                txtNumTarjeta.setText("");
+                txtNumCuenta.setText("");
+                txtPinUser.setText("");
+                txtSaldoUser.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "El Usuario no existe");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
+        }
+    }
+
+    private Usuario buscarUsuario() {
+        if (!txtNumTarjeta.getText().isEmpty()) {
+            Usuario usuario = UsuarioLogic.obtener(txtNumTarjeta.getText());
+            if (usuario != null) {
+                txtNombreUser.setText("");
+                txtNombreUser.setText(usuario.getNombre());
+                txtNumCuenta.setText("");
+                txtNumCuenta.setText(usuario.getNumCuenta());
+                txtPinUser.setText("");
+                txtPinUser.setText(usuario.getPIN());
+                txtSaldoUser.setText("");
+                txtSaldoUser.setText(usuario.getSaldo());
+                txtMontoUser.setText("");
+                txtMontoUser.setText(usuario.getMonto());
+                return usuario;
+            } else {
+                JOptionPane.showMessageDialog(null, "El Usuario no existe");
+                return null;
+            }
+        }
+        return null;
+    }
+
+    private void eliminarUsuario() {
+        if (!txtNumTarjeta.getText().isEmpty()) {
+            if (UsuarioLogic.eliminar(txtNumTarjeta.getText())) {
+                JOptionPane.showMessageDialog(null, "Usuario Eliminado");
+                txtMontoUser.setText("");
+                txtNombreUser.setText("");
+                txtNumTarjeta.setText("");
+                txtNumCuenta.setText("");
+                txtPinUser.setText("");
+                txtSaldoUser.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "El Usuario no existe");
+            }
+        }
+    }
+
+    private void registrarUsuario() {
+        if (!txtNombreUser.getText().isEmpty()
+                && !txtNumCuenta.getText().isEmpty()
+                && !txtNumTarjeta.getText().isEmpty()
+                && !String.valueOf(txtPinUser.getPassword()).isEmpty()
+                && !txtSaldoUser.getText().isEmpty()
+                && !txtMontoUser.getText().isEmpty()) {
+
+            String nombre = txtNombreUser.getText();
+            String numCuenta = txtNumCuenta.getText();
+            String numTarjeta = txtNumTarjeta.getText();
+            String pin = String.valueOf(txtPinUser.getPassword());
+            String saldo = txtSaldoUser.getText();
+            String monto = txtMontoUser.getText();
+
+            Usuario usuario = new Usuario(nombre, numCuenta, numTarjeta, pin, saldo, monto);
+
+            if (UsuarioLogic.insertar(usuario)) {
+                JOptionPane.showMessageDialog(null, "Usuario Registrado");
+                txtMontoUser.setText("");
+                txtNombreUser.setText("");
+                txtNumTarjeta.setText("");
+                txtNumCuenta.setText("");
+                txtPinUser.setText("");
+                txtSaldoUser.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario ya existente");
+            }
+        }
     }
 }
