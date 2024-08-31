@@ -10,16 +10,16 @@ import modelo.dao.UsuarioDAO;
 public class UsuarioLogic {
 
     private static UsuarioDAO usuariodao = new UsuarioDAO();
-    
+
     public static boolean autentificar(String NumTarjeta, String pin) {
-        if(obtener(NumTarjeta) != null){
+        if (obtener(NumTarjeta) != null) {
             Usuario UserConsulta = obtener(NumTarjeta);
             if (UserConsulta.getNumTarjeta().equals(NumTarjeta) && UserConsulta.getPIN().equals(pin)) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
@@ -28,8 +28,12 @@ public class UsuarioLogic {
         return usuariodao.insertar(usuario);
     }
 
-    public static boolean modificar(Usuario usuario) {
-        return usuariodao.modificar(usuario);
+    public static boolean modificar(Usuario usuario, String numeroTarjetaOriginal) {
+        return usuariodao.modificar(usuario, numeroTarjetaOriginal);
+    }
+
+    public static boolean modificarPin(Usuario usuario) {
+        return usuariodao.modificarPin(usuario);
     }
 
     public static boolean eliminar(String usuario) {
