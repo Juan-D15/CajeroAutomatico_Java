@@ -20,9 +20,6 @@ public class Init_Cajero extends javax.swing.JPanel {
     public Init_Cajero() {
         cajero = new Cajero();
         initComponents();
-        lblTitulo1.setText("Inicializar Cajero: Q0");
-        lblTitulo2.setText("Agregar Efectivo: Q0");
-
     }
 
     private void AgregarBilletesInit() {
@@ -51,7 +48,12 @@ public class Init_Cajero extends javax.swing.JPanel {
             int cantidad = entry.getValue();
             total += cantidad * denominacion;
         }
-        return total;
+        if (total > 10000) {
+            System.out.println("Número mayor a 10,000.00.");
+            return 0;
+        } else {
+            return total;
+        }
     }
 
     private void AgregarEfectivo() {
