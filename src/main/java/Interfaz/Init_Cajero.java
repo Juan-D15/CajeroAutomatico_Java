@@ -3,6 +3,7 @@ package Interfaz;
 import cajero.modelo.Cajero;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,30 +15,36 @@ public class Init_Cajero extends javax.swing.JPanel {
      * Creates new form Init_Cajero
      */
     private Cajero cajero;
-    private Map<Integer, Integer> inicializacion = new HashMap<>();
-    Map<Integer, Integer> nuevoEfectivo = new HashMap<>();
+    public Map<Integer, Integer> inicializacion = new HashMap<>();
+    public Map<Integer, Integer> nuevoEfectivo = new HashMap<>();
 
     public Init_Cajero() {
-        cajero = new Cajero();
+        cajero = Cajero.nuevoCajero();
         initComponents();
     }
 
-    private void AgregarBilletesInit() {
-        int cantidad = Integer.parseInt(txtCantidadBilletes.getText());
-        if (cantidad > 0) {
-            int denominacion = Integer.parseInt((String) cbBilletes.getSelectedItem());
+    private void actualizarTotalInicializacion() {
+        lblTitulo1.setText("Inicializar Cajero: Q" + valorInit());
+    }
 
-            // Verifica si la denominación ya existe en el HashMap
-            if (inicializacion.containsKey(denominacion)) {
-                // Si existe, suma la nueva cantidad a la cantidad existente
-                int cantidadExistente = inicializacion.get(denominacion);
-                inicializacion.put(denominacion, cantidadExistente + cantidad);
+    private void AgregarBilletesInit() {
+        try {
+            int cantidad = Integer.parseInt(txtCantidadBilletes.getText());
+            if (cantidad > 0) {
+                int denominacion = Integer.parseInt((String) cbBilletes.getSelectedItem());
+
+                if (inicializacion.containsKey(denominacion)) {
+                    int cantidadExistente = inicializacion.get(denominacion);
+                    inicializacion.put(denominacion, cantidadExistente + cantidad);
+                } else {
+                    inicializacion.put(denominacion, cantidad);
+                }
+                actualizarTotalInicializacion();
             } else {
-                // Si no existe, simplemente agrega la denominación con la cantidad ingresada
-                inicializacion.put(denominacion, cantidad);
+                JOptionPane.showMessageDialog(this, "Ingrese una cantidad válida", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            System.out.println("Ingrese una cantidad válida.");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -125,11 +132,6 @@ public class Init_Cajero extends javax.swing.JPanel {
 
         txtCantidadBilletes.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtCantidadBilletes.setSelectionColor(new java.awt.Color(12, 33, 193));
-        txtCantidadBilletes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCantidadBilletesActionPerformed(evt);
-            }
-        });
         add(txtCantidadBilletes, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, 132, -1));
 
         jLabel2.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
@@ -177,11 +179,6 @@ public class Init_Cajero extends javax.swing.JPanel {
 
         txtCantidadBilletes_Efect.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtCantidadBilletes_Efect.setSelectionColor(new java.awt.Color(12, 33, 193));
-        txtCantidadBilletes_Efect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCantidadBilletes_EfectActionPerformed(evt);
-            }
-        });
         add(txtCantidadBilletes_Efect, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, 132, -1));
 
         btnAgregarInit.setBackground(new java.awt.Color(12, 33, 193));
@@ -223,18 +220,9 @@ public class Init_Cajero extends javax.swing.JPanel {
         add(btnEnviar_Efect, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 420, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCantidadBilletesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadBilletesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCantidadBilletesActionPerformed
-
-    private void txtCantidadBilletes_EfectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadBilletes_EfectActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCantidadBilletes_EfectActionPerformed
-
     private void btnAgregarInitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarInitActionPerformed
         AgregarBilletesInit();
         System.out.println("Estado actual del Cajero: " + inicializacion);
-        lblTitulo1.setText("Inicializar Cajero: Q" + valorInit());
     }//GEN-LAST:event_btnAgregarInitActionPerformed
 
     private void btnAgregarEfectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEfectActionPerformed
@@ -245,31 +233,35 @@ public class Init_Cajero extends javax.swing.JPanel {
 
     private void btnInitCajerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInitCajerActionPerformed
         // TODO add your handling code here:
-        if (inicializacion != null) {
+        if (valorInit() > 0) {
             boolean flag = cajero.inicializarCajero(inicializacion);
             if (flag) {
                 System.out.println("Cajero Inicializado");
+                lblTitulo1.setText("Inicializar Cajero: Q0");
+                inicializacion.clear(); // Limpiar después de la inicialización
             } else {
                 System.out.println("Error al inicializar el cajero.");
             }
             cajero.mostrarTotal();
         } else {
-            System.out.println("NO HAY NADA");
+            JOptionPane.showMessageDialog(this, "No se puede inicializar el cajero con el monto actual", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnInitCajerActionPerformed
 
     private void btnEnviar_EfectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar_EfectActionPerformed
         // TODO add your handling code here:
-        if (nuevoEfectivo != null) {
+        if (valorEfectivo() > 0) {
             boolean flag = cajero.agregarEfectivo(nuevoEfectivo);
             if (flag) {
                 System.out.println("Efectivo Agregado");
+                lblTitulo2.setText("Agregar Efectivo: Q0");
+                nuevoEfectivo.clear(); // Limpiar después de agregar efectivo
             } else {
                 System.out.println("Error al agregar efectivo.");
             }
             cajero.mostrarTotal();
         } else {
-            System.out.println("NO HAY NADA");
+            JOptionPane.showMessageDialog(this, "No se puede agregar el efectivo con el monto actual", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEnviar_EfectActionPerformed
 
