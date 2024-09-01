@@ -25,4 +25,12 @@ public class Billete {
     public void agregarCantidad(int cantidad) {
         this.cantidad += cantidad;
     }
+
+    public void restarCantidad(int cantidad) {
+        if (this.cantidad >= cantidad) {
+            this.cantidad -= cantidad;
+        } else {
+            System.out.println("Error: No hay suficientes billetes de la denominación " + denominacion);
+        }
+    }
 }
