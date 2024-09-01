@@ -1,5 +1,7 @@
 package modelo.logic;
 
+import cajero.modelo.Cajero;
+import java.util.Map;
 import modelo.beans.Usuario;
 import modelo.dao.UsuarioDAO;
 
@@ -24,6 +26,14 @@ public class UsuarioLogic {
         }
     }
 
+    public static boolean retirar(String numTarjeta, String pin, int cantidad, Cajero cajero) {
+        return usuariodao.retirar(numTarjeta, pin, cantidad, cajero);
+    }
+
+    public static boolean depositar(String numTarjeta, String pin, String numCuentaDestino, Map<Integer, Integer> billetes, Cajero cajero) {
+        return usuariodao.depositar(numTarjeta, pin, numCuentaDestino, billetes, cajero);
+    }
+
     public static boolean insertar(Usuario usuario) {
         return usuariodao.insertar(usuario);
     }
@@ -42,6 +52,14 @@ public class UsuarioLogic {
 
     public static Usuario obtener(String usuario) {
         return usuariodao.obtener(usuario);
+    }
+
+    public static String registrarAcceso(Usuario usuario) {
+        return usuariodao.registrarAcceso(usuario);
+    }
+
+    public static String registrarSalida(Usuario usuario) {
+        return usuariodao.registrarSalida(usuario);
     }
 
 }
