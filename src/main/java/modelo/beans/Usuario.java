@@ -1,5 +1,8 @@
 package modelo.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Juan Diaz
@@ -12,6 +15,12 @@ public class Usuario {
     private String Saldo;
     private String Monto;
     private String NumCuenta;
+    private List<Transaccion> transacciones;
+    private int totalRetirado;
+    private String FechaAcceso;
+    private String HoraAcceso;
+    private String FechaSalida;
+    private String HoraSalida;
 
     public Usuario(String Nombre, String NumCuenta, String NumTarjeta, String PIN, String Saldo, String Monto) {
         this.Nombre = Nombre;
@@ -20,6 +29,8 @@ public class Usuario {
         this.PIN = PIN;
         this.Saldo = Saldo;
         this.Monto = Monto;
+        this.transacciones = new ArrayList<>();
+
     }
 
     public Usuario(String NumTarjeta, String PIN) {
@@ -28,6 +39,26 @@ public class Usuario {
     }
 
     public Usuario() {
+    }
+
+    // Métodos para manejar transacciones
+    public void agregarTransaccion(Transaccion transaccion) {
+        if (transaccion != null) {
+            transacciones.add(transaccion);
+        }
+    }
+
+    public List<Transaccion> getUltimasTransacciones() {
+        int start = Math.max(0, transacciones.size() - 5);
+        return transacciones.subList(start, transacciones.size());
+    }
+
+    public int getTotalRetirado() {
+        return totalRetirado;
+    }
+
+    public void incrementarTotalRetirado(int cantidad) {
+        this.totalRetirado += cantidad;
     }
 
     public String getNombre() {
@@ -78,4 +109,27 @@ public class Usuario {
         this.NumCuenta = NumCuenta;
     }
 
+    public void setFechaAcceso(String FechaAcceso) {
+        this.FechaAcceso = FechaAcceso;
+    }
+
+    public void setHoraAcceso(String HoraAcceso) {
+        this.HoraAcceso = HoraAcceso;
+    }
+
+    public void setFechaSalida(String FechaSalida) {
+        this.FechaSalida = FechaSalida;
+    }
+
+    public void setHoraSalida(String HoraSalida) {
+        this.HoraSalida = HoraSalida;
+    }
+
+    public String getFechaHora_Acceso() {
+        return FechaAcceso + ", " + HoraAcceso;
+    }
+
+    public String getFechaHora_Salida() {
+        return FechaSalida + ", " + HoraSalida;
+    }
 }
