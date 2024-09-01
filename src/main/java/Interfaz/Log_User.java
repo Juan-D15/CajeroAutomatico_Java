@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Interfaz;
 
 import java.awt.Color;
@@ -29,6 +25,7 @@ public class Log_User extends javax.swing.JPanel {
         j.setVisible(true);
         j.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,16 +65,6 @@ public class Log_User extends javax.swing.JPanel {
         txtNumTarjeta.setForeground(new java.awt.Color(0, 8, 66));
         txtNumTarjeta.setText("Número de Tarjeta");
         txtNumTarjeta.setBorder(null);
-        txtNumTarjeta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtNumTarjetaMousePressed(evt);
-            }
-        });
-        txtNumTarjeta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumTarjetaActionPerformed(evt);
-            }
-        });
         add(txtNumTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 280, 30));
 
         lbStitulo1.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
@@ -93,11 +80,6 @@ public class Log_User extends javax.swing.JPanel {
         txtPinUser.setForeground(new java.awt.Color(0, 8, 66));
         txtPinUser.setText("**********");
         txtPinUser.setBorder(null);
-        txtPinUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtPinUserMousePressed(evt);
-            }
-        });
         add(txtPinUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, -1));
 
         btnCambiarPin.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
@@ -128,31 +110,8 @@ public class Log_User extends javax.swing.JPanel {
         add(btnLogUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 390, 160, 30));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNumTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumTarjetaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNumTarjetaActionPerformed
-
-    private void txtNumTarjetaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNumTarjetaMousePressed
-
-    }//GEN-LAST:event_txtNumTarjetaMousePressed
-
-    private void txtPinUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPinUserMousePressed
-
-    }//GEN-LAST:event_txtPinUserMousePressed
-
     private void btnLogUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogUsuarioActionPerformed
-        // TODO add your handling code here:
-        if (!txtNumTarjeta.getText().isEmpty() && !String.valueOf(txtPinUser.getPassword()).isEmpty()) {
-            if (UsuarioLogic.autentificar(txtNumTarjeta.getText(), String.valueOf(txtPinUser.getPassword()))) {
-                //Cambiar al frame de User
-                Panel_User panelUser = new Panel_User(UsuarioLogic.obtener(txtNumTarjeta.getText()));
-                CambioJframe(panelUser);
-            } else {
-                JOptionPane.showMessageDialog(null, "Número de Tarjeta o PIN incorrectos");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Ingrese su Número de Trajeta o PIN");
-        }
+        entrarUsuario();
     }//GEN-LAST:event_btnLogUsuarioActionPerformed
 
     private void btnCambiarPinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarPinActionPerformed
@@ -207,5 +166,19 @@ public class Log_User extends javax.swing.JPanel {
             }
         });
 
+    }
+
+    private void entrarUsuario() {
+        if (!txtNumTarjeta.getText().isEmpty() && !String.valueOf(txtPinUser.getPassword()).isEmpty()) {
+            if (UsuarioLogic.autentificar(txtNumTarjeta.getText(), String.valueOf(txtPinUser.getPassword()))) {
+                //Cambiar al frame de User
+                Panel_User panelUser = new Panel_User(UsuarioLogic.obtener(txtNumTarjeta.getText()));
+                CambioJframe(panelUser);
+            } else {
+                JOptionPane.showMessageDialog(null, "Número de Tarjeta o PIN incorrectos");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese su Número de Trajeta o PIN");
+        }
     }
 }
