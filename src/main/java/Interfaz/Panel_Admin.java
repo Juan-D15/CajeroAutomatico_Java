@@ -32,6 +32,8 @@ public class Panel_Admin extends javax.swing.JFrame {
         btnManejoUsuarios = new javax.swing.JButton();
         btnInitCajero = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
+        btnConsultaUsuarios = new javax.swing.JButton();
+        btnControlUsuarios = new javax.swing.JButton();
         Contenido_Admin = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,7 +56,7 @@ public class Panel_Admin extends javax.swing.JFrame {
                 btnInitCajeroActionPerformed(evt);
             }
         });
-        Tools_Admin.add(btnInitCajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
+        Tools_Admin.add(btnInitCajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
 
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -63,6 +65,22 @@ public class Panel_Admin extends javax.swing.JFrame {
             }
         });
         Tools_Admin.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 500, -1, -1));
+
+        btnConsultaUsuarios.setText("Consulta Usuarios");
+        btnConsultaUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultaUsuariosActionPerformed(evt);
+            }
+        });
+        Tools_Admin.add(btnConsultaUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, -1, -1));
+
+        btnControlUsuarios.setText("Control Usuarios");
+        btnControlUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnControlUsuariosActionPerformed(evt);
+            }
+        });
+        Tools_Admin.add(btnControlUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, -1));
 
         getContentPane().add(Tools_Admin, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 220, 540));
 
@@ -93,21 +111,29 @@ public class Panel_Admin extends javax.swing.JFrame {
         Contenido_Admin.repaint();
     }
     private void btnManejoUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManejoUsuariosActionPerformed
-        // TODO add your handling code here:
         Reg_User regUser = new Reg_User();
         CambioPanel(regUser);
     }//GEN-LAST:event_btnManejoUsuariosActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        // TODO add your handling code here:
         this.dispose(); // Cierra el Panel_Admin
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnInitCajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInitCajeroActionPerformed
-        // TODO add your handling code here:
         Init_Cajero panelCajero = new Init_Cajero();
         CambioPanel(panelCajero);
     }//GEN-LAST:event_btnInitCajeroActionPerformed
+
+    private void btnConsultaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaUsuariosActionPerformed
+        // TODO add your handling code here:
+        Consult_User consultUser = new Consult_User();
+        CambioPanel(consultUser);
+    }//GEN-LAST:event_btnConsultaUsuariosActionPerformed
+
+    private void btnControlUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnControlUsuariosActionPerformed
+        Control_User controlUser = new Control_User();
+        CambioPanel(controlUser);
+    }//GEN-LAST:event_btnControlUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,6 +174,8 @@ public class Panel_Admin extends javax.swing.JFrame {
     private javax.swing.JPanel Contenido_Admin;
     private javax.swing.JPanel Tools_Admin;
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnConsultaUsuarios;
+    private javax.swing.JButton btnControlUsuarios;
     private javax.swing.JButton btnInitCajero;
     private javax.swing.JButton btnManejoUsuarios;
     // End of variables declaration//GEN-END:variables
