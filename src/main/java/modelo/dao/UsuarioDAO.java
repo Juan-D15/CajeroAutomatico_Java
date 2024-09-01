@@ -1,8 +1,12 @@
 package modelo.dao;
 
+import cajero.modelo.Cajero;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import modelo.beans.Usuario;
+import modelo.beans.FechaHora;
+import modelo.beans.Transaccion;
 
 /**
  *
@@ -31,6 +35,17 @@ public class UsuarioDAO {
         int n = -1; // variable si no encontro al usuario
         for (int i = 0; i < usuarios.size(); i++) { //recorre la lista
             if (usuarios.get(i).getPIN().equals(PIN)) { //verifica en la lista si ya existe un usuario
+                n = i;
+                break;
+            }
+        }
+        return n;
+    }
+
+    public int buscarCuenta(String numCuenta) {
+        int n = -1; // variable si no encontro al usuario
+        for (int i = 0; i < usuarios.size(); i++) { //recorre la lista
+            if (usuarios.get(i).getNumCuenta().equals(numCuenta)) { //verifica en la lista si ya existe un usuario
                 n = i;
                 break;
             }
@@ -120,4 +135,134 @@ public class UsuarioDAO {
             return null;
         }
     }
+
+    // Método para registrar la fecha y hora de acceso
+    public String registrarAcceso(Usuario usuario) {
+        FechaHora fh = new FechaHora();
+        usuario.setFechaAcceso(fh.FechaAcceso());
+        usuario.setHoraAcceso(fh.HoraAcceso());
+        String acceso = usuario.getFechaHora_Acceso();
+        //System.out.println("Usuario " + usuario.getNombre() + " ingresó el " + usuario.getFechaAcceso() + " a las " + usuario.getHoraAcceso());
+        return acceso;
+    }
+
+    // Método para registrar la fecha y hora de salida
+    public String registrarSalida(Usuario usuario) {
+        FechaHora fh = new FechaHora();
+        usuario.setFechaSalida(fh.FechaAcceso());
+        usuario.setHoraSalida(fh.HoraAcceso());
+        String salida = usuario.getFechaHora_Salida();
+        System.out.println("Usuario " + usuario.getNombre() + " salio: " + salida);
+        return salida;
+    }
+
+    //METODOS DE RETIRO Y DEPOSITO
+    private void registrarTransaccion(Usuario usuario, String tipo, int cantidad) {
+        FechaHora fh = new FechaHora();
+        Transaccion transaccion = new Transaccion(tipo, cantidad, fh.FechaAcceso(), fh.HoraAcceso());
+        usuario.agregarTransaccion(transaccion);
+    }
+
+    public boolean retirar(String numTarjeta, String pin, int cantidad, Cajero cajero) {
+        int indice = buscar(numTarjeta);
+
+        if (indice != -1) { // Si el usuario existe
+            // Obtener el usuario actual
+            Usuario usuario = usuarios.get(indice);
+            if (usuario != null && usuario.getPIN().equals(pin)) {
+                if (Integer.parseInt(usuario.getSaldo()) >= cantidad) {
+                    if (cajero.disponibilidadBilletes(cantidad)) {
+                        // Actualizar saldo del usuario
+                        int valor = Integer.parseInt(usuario.getSaldo()) - cantidad;
+                        String nuevoSaldo = Integer.toString(valor);
+                        usuario.setSaldo(nuevoSaldo);
+
+                        // Debitar billetes del cajero
+                        cajero.debitarBilletes(cantidad);
+                        usuario.incrementarTotalRetirado(cantidad);
+
+                        // Registrar la transacción
+                        registrarTransaccion(usuario, "Retiro", cantidad);
+
+                        return true;
+                    } else {
+                        System.out.println("El cajero no tiene suficientes billetes para este retiro.");
+                    }
+                } else {
+                    System.out.println("Saldo insuficiente.");
+                }
+            } else {
+                System.out.println("PIN incorrecto o usuario no encontrado.");
+            }
+        }
+        return false;
+    }
+
+    public boolean depositar(String numTarjeta, String pin, String numCuentaDestino, Map<Integer, Integer> billetes, Cajero cajero) {
+        int indiceOrigen = buscar(numTarjeta);
+
+        if (indiceOrigen != -1) { // Si el usuario existe
+            // Obtener el usuario que realiza el depósito
+            Usuario usuarioOrigen = usuarios.get(indiceOrigen);
+
+            if (usuarioOrigen != null && usuarioOrigen.getPIN().equals(pin)) {
+                // Buscar el usuario destino usando el número de cuenta
+                int indiceDestino = buscarCuenta(numCuentaDestino);
+
+                if (indiceDestino != -1) { // Si la cuenta destino existe
+                    // Obtener el usuario destino
+                    Usuario usuarioDestino = usuarios.get(indiceDestino);
+
+                    // Calcular el monto total del depósito
+                    int cantidad = calcularMontoDepositado(billetes);
+                    // Actualizar el saldo del usuario destino
+                    int valor = Integer.parseInt(usuarioDestino.getSaldo()) + cantidad;
+                    String nuevoSaldo = Integer.toString(valor);
+                    usuarioDestino.setSaldo(nuevoSaldo);
+
+                    // Agregar billetes al cajero
+                    cajero.agregarBilletes(billetes);
+
+                    // Registrar la transacción en la cuenta destino
+                    registrarTransaccion(usuarioDestino, "Depósito", cantidad);
+
+                    // Registrar la transacción en la cuenta origen (opcional)
+                    registrarTransaccion(usuarioOrigen, "Depósito a cuenta " + numCuentaDestino, cantidad);
+
+                    return true;
+                } else {
+                    System.out.println("Cuenta destino no encontrada.");
+                }
+            } else {
+                System.out.println("PIN incorrecto o usuario no encontrado.");
+            }
+        } else {
+            System.out.println("Usuario origen no encontrado.");
+        }
+
+        return false;
+    }
+
+    private int calcularMontoDepositado(Map<Integer, Integer> billetes) {
+        int total = 0;
+        for (Map.Entry<Integer, Integer> entry : billetes.entrySet()) {
+            total += entry.getKey() * entry.getValue();
+        }
+        return total;
+    }
+
+    public String verSaldo(String numTarjeta) {
+        int indice = buscar(numTarjeta);
+        if (indice != -1) { // Si el usuario existe
+            // Obtener el usuario actual
+            Usuario usuario = usuarios.get(indice);
+            if (usuario != null) {
+                return usuario.getSaldo();
+            } else {
+                System.out.println("Usuario no encontrado.");
+            }
+        }
+        return null;
+    }
+
 }
