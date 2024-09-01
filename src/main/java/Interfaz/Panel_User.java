@@ -1,10 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Interfaz;
 
+import cajero.modelo.Cajero;
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
 import modelo.beans.Usuario;
+import modelo.logic.UsuarioLogic;
 
 /**
  *
@@ -15,10 +15,13 @@ public class Panel_User extends javax.swing.JFrame {
     /**
      * Creates new form Panel_User
      */
+    private Usuario user;
+
     public Panel_User(Usuario usuario) {
         initComponents();
         this.setLocationRelativeTo(null);
-        lbTitulo.setText("Bienvenido "+usuario.getNombre());
+        lbTitulo.setText("Bienvenido " + usuario.getNombre());
+        user = usuario;
     }
 
     /**
@@ -31,7 +34,13 @@ public class Panel_User extends javax.swing.JFrame {
     private void initComponents() {
 
         Tools_User = new javax.swing.JPanel();
+        btnCerrarSesion = new javax.swing.JButton();
+        btnRetiros = new javax.swing.JButton();
+        btnDepositos = new javax.swing.JButton();
+        btnTransacciones = new javax.swing.JButton();
+        btnSaldo = new javax.swing.JButton();
         Contenido_User = new javax.swing.JPanel();
+        titulo = new javax.swing.JPanel();
         lbTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -39,45 +48,133 @@ public class Panel_User extends javax.swing.JFrame {
 
         Tools_User.setBackground(new java.awt.Color(0, 8, 66));
 
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+
+        btnRetiros.setText("Retiros");
+        btnRetiros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetirosActionPerformed(evt);
+            }
+        });
+
+        btnDepositos.setText("Depositos");
+        btnDepositos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDepositosActionPerformed(evt);
+            }
+        });
+
+        btnTransacciones.setText("Transacciones");
+
+        btnSaldo.setText("Saldo");
+
         javax.swing.GroupLayout Tools_UserLayout = new javax.swing.GroupLayout(Tools_User);
         Tools_User.setLayout(Tools_UserLayout);
         Tools_UserLayout.setHorizontalGroup(
             Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Tools_UserLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSaldo)
+                    .addComponent(btnDepositos)
+                    .addComponent(btnRetiros))
+                .addGap(70, 70, 70))
+            .addGroup(Tools_UserLayout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addGroup(Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnTransacciones)
+                    .addGroup(Tools_UserLayout.createSequentialGroup()
+                        .addComponent(btnCerrarSesion)
+                        .addGap(7, 7, 7)))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         Tools_UserLayout.setVerticalGroup(
             Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Tools_UserLayout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(btnRetiros)
+                .addGap(33, 33, 33)
+                .addComponent(btnDepositos)
+                .addGap(37, 37, 37)
+                .addComponent(btnTransacciones)
+                .addGap(30, 30, 30)
+                .addComponent(btnSaldo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion)
+                .addGap(29, 29, 29))
         );
 
         getContentPane().add(Tools_User, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 220, 540));
 
         Contenido_User.setBackground(new java.awt.Color(255, 255, 255));
 
-        lbTitulo.setFont(new java.awt.Font("Poppins Medium", 0, 24)); // NOI18N
-        lbTitulo.setText("Nombre");
-
         javax.swing.GroupLayout Contenido_UserLayout = new javax.swing.GroupLayout(Contenido_User);
         Contenido_User.setLayout(Contenido_UserLayout);
         Contenido_UserLayout.setHorizontalGroup(
             Contenido_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Contenido_UserLayout.createSequentialGroup()
-                .addGap(266, 266, 266)
-                .addComponent(lbTitulo)
-                .addContainerGap(277, Short.MAX_VALUE))
+            .addGap(0, 640, Short.MAX_VALUE)
         );
         Contenido_UserLayout.setVerticalGroup(
             Contenido_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Contenido_UserLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(lbTitulo)
-                .addContainerGap(482, Short.MAX_VALUE))
+            .addGap(0, 480, Short.MAX_VALUE)
         );
 
-        getContentPane().add(Contenido_User, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 540));
+        getContentPane().add(Contenido_User, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 640, 480));
+
+        titulo.setBackground(new java.awt.Color(255, 255, 255));
+
+        lbTitulo.setFont(new java.awt.Font("Poppins Medium", 0, 24)); // NOI18N
+        lbTitulo.setText("Nombre");
+
+        javax.swing.GroupLayout tituloLayout = new javax.swing.GroupLayout(titulo);
+        titulo.setLayout(tituloLayout);
+        tituloLayout.setHorizontalGroup(
+            tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tituloLayout.createSequentialGroup()
+                .addGap(260, 260, 260)
+                .addComponent(lbTitulo)
+                .addContainerGap(283, Short.MAX_VALUE))
+        );
+        tituloLayout.setVerticalGroup(
+            tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tituloLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbTitulo)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void CambioPanel(JPanel p) {
+        p.setSize(650, 490);
+        p.setLocation(0, 0);
+
+        Contenido_User.removeAll();
+        Contenido_User.add(p, BorderLayout.CENTER);
+        Contenido_User.revalidate();
+        Contenido_User.repaint();
+    }
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        UsuarioLogic.registrarSalida(user);
+        this.dispose();
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnRetirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirosActionPerformed
+        Retiros_User panelRetiros = new Retiros_User();
+        CambioPanel(panelRetiros);
+    }//GEN-LAST:event_btnRetirosActionPerformed
+
+    private void btnDepositosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositosActionPerformed
+        Depositos_User panelDepositos = new Depositos_User();
+        CambioPanel(panelDepositos);
+    }//GEN-LAST:event_btnDepositosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,6 +214,12 @@ public class Panel_User extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Contenido_User;
     private javax.swing.JPanel Tools_User;
+    private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnDepositos;
+    private javax.swing.JButton btnRetiros;
+    private javax.swing.JButton btnSaldo;
+    private javax.swing.JButton btnTransacciones;
     private javax.swing.JLabel lbTitulo;
+    private javax.swing.JPanel titulo;
     // End of variables declaration//GEN-END:variables
 }
