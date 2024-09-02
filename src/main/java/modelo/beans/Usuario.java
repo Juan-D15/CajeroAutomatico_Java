@@ -14,9 +14,12 @@ public class Usuario {
     private String PIN;
     private String Saldo;
     private String Monto;
+    private String MontoDisponible;
     private String NumCuenta;
     private List<Transaccion> transacciones;
     private int totalRetirado;
+    private int totalDepositado;
+    private boolean cambioPIN;
     private String FechaAcceso;
     private String HoraAcceso;
     private String FechaSalida;
@@ -29,6 +32,10 @@ public class Usuario {
         this.PIN = PIN;
         this.Saldo = Saldo;
         this.Monto = Monto;
+        this.MontoDisponible = Monto;
+        this.totalRetirado = 0;
+        this.totalDepositado = 0;
+        this.cambioPIN = false;
         this.transacciones = new ArrayList<>();
 
     }
@@ -48,9 +55,16 @@ public class Usuario {
         }
     }
 
-    public List<Transaccion> getUltimasTransacciones() {
-        int start = Math.max(0, transacciones.size() - 5);
-        return transacciones.subList(start, transacciones.size());
+    public List<Transaccion> getTransacciones() {
+        return transacciones;
+    }
+
+    public int getTotalDepositado() {
+        return totalDepositado;
+    }
+
+    public void incrementarTotalDepositado(int cantidad) {
+        this.totalDepositado += cantidad;
     }
 
     public int getTotalRetirado() {
@@ -59,6 +73,14 @@ public class Usuario {
 
     public void incrementarTotalRetirado(int cantidad) {
         this.totalRetirado += cantidad;
+    }
+
+    public boolean haCambiadoPIN() {
+        return cambioPIN;
+    }
+
+    public void setCambioPIN(boolean cambioPIN) {
+        this.cambioPIN = cambioPIN;
     }
 
     public String getNombre() {
@@ -101,6 +123,14 @@ public class Usuario {
         this.Monto = Monto;
     }
 
+    public String getMontoDisponible() {
+        return MontoDisponible;
+    }
+
+    public void setMontoDisponible(String MontoDisponible) {
+        this.MontoDisponible = MontoDisponible;
+    }
+
     public String getNumCuenta() {
         return NumCuenta;
     }
@@ -125,6 +155,15 @@ public class Usuario {
         this.HoraSalida = HoraSalida;
     }
 
+    public String getFechaSalida() {
+        return FechaSalida;
+    }
+
+    public String getHoraSalida() {
+        return HoraSalida;
+    }
+
+    //Fecha y Hora juntos
     public String getFechaHora_Acceso() {
         return FechaAcceso + ", " + HoraAcceso;
     }
