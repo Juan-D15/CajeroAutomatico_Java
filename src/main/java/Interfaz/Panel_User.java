@@ -37,8 +37,7 @@ public class Panel_User extends javax.swing.JFrame {
         btnCerrarSesion = new javax.swing.JButton();
         btnRetiros = new javax.swing.JButton();
         btnDepositos = new javax.swing.JButton();
-        btnTransacciones = new javax.swing.JButton();
-        btnSaldo = new javax.swing.JButton();
+        btnGestionUsuario = new javax.swing.JButton();
         Contenido_User = new javax.swing.JPanel();
         titulo = new javax.swing.JPanel();
         lbTitulo = new javax.swing.JLabel();
@@ -69,42 +68,42 @@ public class Panel_User extends javax.swing.JFrame {
             }
         });
 
-        btnTransacciones.setText("Transacciones");
-
-        btnSaldo.setText("Saldo");
+        btnGestionUsuario.setText("Gestión Cuenta");
+        btnGestionUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionUsuarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout Tools_UserLayout = new javax.swing.GroupLayout(Tools_User);
         Tools_User.setLayout(Tools_UserLayout);
         Tools_UserLayout.setHorizontalGroup(
             Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Tools_UserLayout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(btnCerrarSesion)
+                .addContainerGap(55, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Tools_UserLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSaldo)
-                    .addComponent(btnDepositos)
-                    .addComponent(btnRetiros))
-                .addGap(70, 70, 70))
-            .addGroup(Tools_UserLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addGroup(Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnTransacciones)
+                .addGroup(Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGestionUsuario)
                     .addGroup(Tools_UserLayout.createSequentialGroup()
-                        .addComponent(btnCerrarSesion)
-                        .addGap(7, 7, 7)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)
+                        .addGroup(Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnDepositos)
+                            .addComponent(btnRetiros))))
+                .addGap(41, 41, 41))
         );
         Tools_UserLayout.setVerticalGroup(
             Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Tools_UserLayout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addGap(108, 108, 108)
                 .addComponent(btnRetiros)
-                .addGap(33, 33, 33)
+                .addGap(40, 40, 40)
                 .addComponent(btnDepositos)
-                .addGap(37, 37, 37)
-                .addComponent(btnTransacciones)
-                .addGap(30, 30, 30)
-                .addComponent(btnSaldo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                .addGap(60, 60, 60)
+                .addComponent(btnGestionUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion)
                 .addGap(29, 29, 29))
         );
@@ -136,9 +135,9 @@ public class Panel_User extends javax.swing.JFrame {
         tituloLayout.setHorizontalGroup(
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tituloLayout.createSequentialGroup()
-                .addGap(260, 260, 260)
+                .addGap(259, 259, 259)
                 .addComponent(lbTitulo)
-                .addContainerGap(283, Short.MAX_VALUE))
+                .addContainerGap(284, Short.MAX_VALUE))
         );
         tituloLayout.setVerticalGroup(
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,6 +174,12 @@ public class Panel_User extends javax.swing.JFrame {
         Depositos_User panelDepositos = new Depositos_User();
         CambioPanel(panelDepositos);
     }//GEN-LAST:event_btnDepositosActionPerformed
+
+    private void btnGestionUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionUsuarioActionPerformed
+        // TODO add your handling code here:
+        Gestion_User panelGestion = new Gestion_User(user);
+        CambioPanel(panelGestion);
+    }//GEN-LAST:event_btnGestionUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,9 +221,8 @@ public class Panel_User extends javax.swing.JFrame {
     private javax.swing.JPanel Tools_User;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnDepositos;
+    private javax.swing.JButton btnGestionUsuario;
     private javax.swing.JButton btnRetiros;
-    private javax.swing.JButton btnSaldo;
-    private javax.swing.JButton btnTransacciones;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel titulo;
     // End of variables declaration//GEN-END:variables
