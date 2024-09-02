@@ -1,7 +1,9 @@
 package modelo.logic;
 
 import cajero.modelo.Cajero;
+import java.util.List;
 import java.util.Map;
+import modelo.beans.Transaccion;
 import modelo.beans.Usuario;
 import modelo.dao.UsuarioDAO;
 
@@ -12,7 +14,7 @@ import modelo.dao.UsuarioDAO;
 public class UsuarioLogic {
 
     private static UsuarioDAO usuariodao = new UsuarioDAO();
-
+    //Autentificar el Usuario
     public static boolean autentificar(String NumTarjeta, String pin) {
         if (obtener(NumTarjeta) != null) {
             Usuario UserConsulta = obtener(NumTarjeta);
@@ -26,12 +28,36 @@ public class UsuarioLogic {
         }
     }
 
+    public static List<Usuario> listaUsuarios() {
+        return usuariodao.listaUsuarios();
+    }
+
+    public static List<Usuario> listaAccesoUsuarios() {
+        return usuariodao.listaAccesoUsuarios();
+    }
+
+    public static List<Transaccion> getUltimasTransacciones(Usuario usuario){
+        return usuariodao.getUltimasTransacciones(usuario);
+    }
+
     public static boolean retirar(String numTarjeta, String pin, int cantidad, Cajero cajero) {
         return usuariodao.retirar(numTarjeta, pin, cantidad, cajero);
     }
 
     public static boolean depositar(String numTarjeta, String pin, String numCuentaDestino, Map<Integer, Integer> billetes, Cajero cajero) {
         return usuariodao.depositar(numTarjeta, pin, numCuentaDestino, billetes, cajero);
+    }
+
+    public static int obtenerTotalRetiradoPorTodos() {
+        return usuariodao.obtenerTotalRetiradoPorTodos();
+    }
+
+    public static double obtenerPromedioDepositadoPorTodos() {
+        return usuariodao.obtenerPromedioDepositadoPorTodos();
+    }
+
+    public static List<Usuario> obtenerUsuariosConCambioPIN() {
+        return usuariodao.obtenerUsuariosConCambioPIN();
     }
 
     public static boolean insertar(Usuario usuario) {
