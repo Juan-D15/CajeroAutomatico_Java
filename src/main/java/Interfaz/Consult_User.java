@@ -178,7 +178,9 @@ public class Consult_User extends javax.swing.JPanel {
                 txtSaldoActual.setText("");
                 txtSaldoActual.setText(usuario.getSaldo());
                 txtUltimoAcceso.setText("");
-                txtUltimoAcceso.setText(usuario.getFechaHora_Salida());
+                if (usuario.getFechaHora_Salida() != null) {
+                    txtUltimoAcceso.setText(usuario.getFechaHora_Salida());
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "El Usuario no existe");
             }
