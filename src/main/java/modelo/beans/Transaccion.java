@@ -51,8 +51,4 @@ public class Transaccion {
         this.hora = hora;
     }
 
-    @Override
-    public String toString() {
-        return tipo + ": Q." + monto + " - " + fecha + " " + hora;
-    }
 }
