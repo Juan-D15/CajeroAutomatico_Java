@@ -16,6 +16,7 @@ public class Depositos_User extends javax.swing.JPanel {
      * Creates new form Depositos_User
      */
     private Cajero cajero;
+    public Map<Integer, Integer> cantidadDeposito = new HashMap<>();
 
     public Depositos_User() {
         cajero = Cajero.getInstancia();  // Usar la instancia actual
@@ -47,6 +48,7 @@ public class Depositos_User extends javax.swing.JPanel {
         cbBilletes = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         txtCantidadBilletes = new javax.swing.JTextField();
+        btnAgregar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -115,7 +117,7 @@ public class Depositos_User extends javax.swing.JPanel {
                 btnDepositarActionPerformed(evt);
             }
         });
-        add(btnDepositar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 430, 130, 30));
+        add(btnDepositar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 430, 130, 30));
 
         jLabel5.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 153, 153));
@@ -137,14 +139,35 @@ public class Depositos_User extends javax.swing.JPanel {
         txtCantidadBilletes.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtCantidadBilletes.setSelectionColor(new java.awt.Color(12, 33, 193));
         add(txtCantidadBilletes, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, 132, -1));
+
+        btnAgregar.setBackground(new java.awt.Color(12, 33, 193));
+        btnAgregar.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregar.setText("Agregar");
+        btnAgregar.setBorderPainted(false);
+        btnAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+        add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 130, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDepositarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositarActionPerformed
         depositarUsuario();
+        lbValor.setText(Integer.toString(valorDeposito()));
+
     }//GEN-LAST:event_btnDepositarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        agregarBilletes();
+        lbValor.setText(Integer.toString(valorDeposito()));
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnDepositar;
     private javax.swing.JComboBox<String> cbBilletes;
     private javax.swing.JLabel jLabel5;
@@ -181,11 +204,41 @@ public class Depositos_User extends javax.swing.JPanel {
 
             if (exito) {
                 JOptionPane.showMessageDialog(this, "Depósito realizado con éxito.");
+                cantidadDeposito.clear();
             } else {
                 JOptionPane.showMessageDialog(this, "Error en el depósito. Verifique los datos e intente nuevamente.");
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos para la denominación y la cantidad de billetes.");
         }
+    }
+
+    private void agregarBilletes() {
+        int cantidad = Integer.parseInt(txtCantidadBilletes.getText());
+        if (cantidad > 0) {
+            int denominacion = Integer.parseInt((String) cbBilletes.getSelectedItem());
+
+            // Verifica si la denominación ya existe en el HashMap
+            if (cantidadDeposito.containsKey(denominacion)) {
+                // Si existe, suma la nueva cantidad a la cantidad existente
+                int cantidadExistente = cantidadDeposito.get(denominacion);
+                cantidadDeposito.put(denominacion, cantidadExistente + cantidad);
+            } else {
+                // Si no existe, simplemente agrega la denominación con la cantidad ingresada
+                cantidadDeposito.put(denominacion, cantidad);
+            }
+        } else {
+            System.out.println("Ingrese una cantidad válida.");
+        }
+    }
+
+    private int valorDeposito() {
+        int total = 0;
+        for (Map.Entry<Integer, Integer> entry : cantidadDeposito.entrySet()) {
+            int denominacion = entry.getKey();
+            int cantidad = entry.getValue();
+            total += cantidad * denominacion;
+        }
+        return total;
     }
 }
