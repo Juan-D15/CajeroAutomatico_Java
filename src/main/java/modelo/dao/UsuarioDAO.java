@@ -15,11 +15,13 @@ import modelo.beans.Transaccion;
 public class UsuarioDAO {
 
     private List<Usuario> usuarios;
+    private List<Usuario> ultimoAcceso;
 
     public UsuarioDAO() {
         usuarios = new ArrayList<>();
+        ultimoAcceso = new ArrayList<>();
     }
-
+    //Buscar un usuario por el numero de tarjeta
     public int buscar(String NumTarjeta) {
         int n = -1; // variable si no encontro al usuario
         for (int i = 0; i < usuarios.size(); i++) { //recorre la lista
@@ -30,7 +32,7 @@ public class UsuarioDAO {
         }
         return n;
     }
-
+    //Buscar un usuario por el pin
     public int buscarPin(String PIN) {
         int n = -1; // variable si no encontro al usuario
         for (int i = 0; i < usuarios.size(); i++) { //recorre la lista
@@ -41,7 +43,7 @@ public class UsuarioDAO {
         }
         return n;
     }
-
+    //Buscar un usuario por en numero de cuenta
     public int buscarCuenta(String numCuenta) {
         int n = -1; // variable si no encontro al usuario
         for (int i = 0; i < usuarios.size(); i++) { //recorre la lista
@@ -52,7 +54,7 @@ public class UsuarioDAO {
         }
         return n;
     }
-
+    //Agregar a un Usuario
     public boolean insertar(Usuario usuario) {
         if (buscar(usuario.getNumTarjeta()) == -1 && buscarPin(usuario.getPIN()) == -1) { // si el usuario no existe
             usuarios.add(usuario); //agrega al usuario
@@ -61,7 +63,7 @@ public class UsuarioDAO {
             return false;
         }
     }
-
+    //Modificar datos de un usuario
     public boolean modificar(Usuario usuarioModificado, String numeroTarjetaOriginal) {
         // Buscar al usuario original usando el número de tarjeta anterior
         int indice = buscar(numeroTarjetaOriginal);
@@ -100,7 +102,7 @@ public class UsuarioDAO {
             return false; // Si no se encuentra el usuario
         }
     }
-
+    //Modificar el PIN de un usuario
     public boolean modificarPin(Usuario usuarioModificado) {
         // Busca al usuario original usando su número de tarjeta actual antes de modificarlo
         String numeroTarjetaOriginal = usuarioModificado.getNumTarjeta();
@@ -112,13 +114,13 @@ public class UsuarioDAO {
 
             // Actualizar los datos
             usuarioActual.setPIN(usuarioModificado.getPIN());
-
+            usuarioActual.setCambioPIN(true); //Le asigna verdadero si cambio de pin
             return true;
         } else {
             return false; // Si no se encuentra el usuario
         }
     }
-
+    //Eliminar un usuario
     public boolean eliminar(String usuario) {
         if (buscar(usuario) != -1) { // si el usuario existe
             usuarios.remove(buscar(usuario));
@@ -127,7 +129,7 @@ public class UsuarioDAO {
             return false;
         }
     }
-
+    //Obtener un usuario
     public Usuario obtener(String usuario) {
         if (buscar(usuario) != -1) { //si el usuario existe
             return usuarios.get(buscar(usuario)); //obtiene el indice donde lo encontro
@@ -153,10 +155,11 @@ public class UsuarioDAO {
         usuario.setHoraSalida(fh.HoraAcceso());
         String salida = usuario.getFechaHora_Salida();
         System.out.println("Usuario " + usuario.getNombre() + " salio: " + salida);
+        ultimoAcceso.add(usuario);
         return salida;
     }
 
-    //METODOS DE RETIRO Y DEPOSITO
+    //METODOS DE RETIRO, DEPOSITO Y TRANSACCIONES
     private void registrarTransaccion(Usuario usuario, String tipo, int cantidad) {
         FechaHora fh = new FechaHora();
         Transaccion transaccion = new Transaccion(tipo, cantidad, fh.FechaAcceso(), fh.HoraAcceso());
@@ -170,12 +173,19 @@ public class UsuarioDAO {
             // Obtener el usuario actual
             Usuario usuario = usuarios.get(indice);
             if (usuario != null && usuario.getPIN().equals(pin)) {
-                if (Integer.parseInt(usuario.getSaldo()) >= cantidad) {
+                if (Integer.parseInt(usuario.getSaldo()) >= cantidad
+                        && cantidad <= Integer.parseInt(usuario.getMonto())
+                        && cantidad <= Integer.parseInt(usuario.getMontoDisponible())) {
                     if (cajero.disponibilidadBilletes(cantidad)) {
                         // Actualizar saldo del usuario
                         int valor = Integer.parseInt(usuario.getSaldo()) - cantidad;
                         String nuevoSaldo = Integer.toString(valor);
                         usuario.setSaldo(nuevoSaldo);
+
+                        // Actualiza el monto diario disponible del usuario
+                        int montoDisponible = Integer.parseInt(usuario.getMonto()) - cantidad;
+                        String nuevoDisponible = Integer.toString(montoDisponible);
+                        usuario.setMontoDisponible(nuevoDisponible);
 
                         // Debitar billetes del cajero
                         cajero.debitarBilletes(cantidad);
@@ -222,13 +232,13 @@ public class UsuarioDAO {
 
                     // Agregar billetes al cajero
                     cajero.agregarBilletes(billetes);
+                    usuarioDestino.incrementarTotalDepositado(cantidad);
 
-                    // Registrar la transacción en la cuenta destino
-                    registrarTransaccion(usuarioDestino, "Depósito", cantidad);
+                    // Registrar la transacción en la cuenta destino/origen
+                    registrarTransaccion(usuarioOrigen, "Depósito", cantidad);
 
                     // Registrar la transacción en la cuenta origen (opcional)
-                    registrarTransaccion(usuarioOrigen, "Depósito a cuenta " + numCuentaDestino, cantidad);
-
+                    //registrarTransaccion(usuarioOrigen, "Depósito a cuenta " + numCuentaDestino, cantidad);
                     return true;
                 } else {
                     System.out.println("Cuenta destino no encontrada.");
@@ -243,6 +253,7 @@ public class UsuarioDAO {
         return false;
     }
 
+    // Calcular el monto total del depósito
     private int calcularMontoDepositado(Map<Integer, Integer> billetes) {
         int total = 0;
         for (Map.Entry<Integer, Integer> entry : billetes.entrySet()) {
@@ -251,18 +262,48 @@ public class UsuarioDAO {
         return total;
     }
 
-    public String verSaldo(String numTarjeta) {
-        int indice = buscar(numTarjeta);
-        if (indice != -1) { // Si el usuario existe
-            // Obtener el usuario actual
-            Usuario usuario = usuarios.get(indice);
-            if (usuario != null) {
-                return usuario.getSaldo();
-            } else {
-                System.out.println("Usuario no encontrado.");
-            }
+    //Total retirado por todos los usuarios
+    public int obtenerTotalRetiradoPorTodos() {
+        int total = 0;
+        for (Usuario usuario : usuarios) {
+            total += usuario.getTotalRetirado();
         }
-        return null;
+        System.out.println("TOTAL RETIRADO TODOS: "+total);
+        return total;
     }
 
+    //Promedio depositado de todos los usuarios
+    public double obtenerPromedioDepositadoPorTodos() {
+        int totalDepositado = 0;
+        for (Usuario usuario : usuarios) {
+            totalDepositado += usuario.getTotalDepositado();
+        }
+        return !usuarios.isEmpty() ? (double) totalDepositado / usuarios.size() : 0;
+    }
+    
+    //Lista de usuario que hicieron cambio de PIN
+    public List<Usuario> obtenerUsuariosConCambioPIN() {
+        List<Usuario> usuariosConCambioPIN = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            if (usuario.haCambiadoPIN()) {
+                usuariosConCambioPIN.add(usuario);
+            }
+        }
+        return usuariosConCambioPIN;
+    }
+
+    //Ultimas 5 transacciones del ususario
+    public List<Transaccion> getUltimasTransacciones(Usuario usuario) {
+        int start = Math.max(0, usuario.getTransacciones().size() - 5);
+        return usuario.getTransacciones().subList(start, usuario.getTransacciones().size());
+    }
+    
+    //Lista de Usuarios
+    public List<Usuario> listaUsuarios() {
+        return usuarios;
+    }
+    //Lista de acceso de Usuarios
+    public List<Usuario> listaAccesoUsuarios() {
+        return ultimoAcceso;
+    }
 }
