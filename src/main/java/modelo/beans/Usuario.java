@@ -46,6 +46,52 @@ public class Usuario {
     }
 
     public Usuario() {
+        this.transacciones = new ArrayList<>();
+    }
+
+    // Implementa un toString para guardar los datos en formato CSV
+    @Override
+    public String toString() {
+        // Convierte la lista de transacciones a una cadena separada por ";"
+        String transaccionesString = transacciones.stream()
+                .map(Transaccion::toString) // Suponiendo que Transaccion también tiene un toString implementado
+                .reduce((a, b) -> a + ";" + b)
+                .orElse("");
+
+        return Nombre + "," + NumCuenta + "," + NumTarjeta + "," + PIN + ","
+                + Saldo + "," + Monto + "," + MontoDisponible + "," + totalRetirado + ","
+                + totalDepositado + "," + cambioPIN + "," + FechaSalida + "," + HoraSalida + ","
+                + transaccionesString;
+    }
+
+    // Implementa un fromString para cargar los datos desde el archivo
+    public static Usuario fromString(String line) {
+        String[] data = line.split(",");
+
+        Usuario usuario = new Usuario();
+        usuario.setNombre(data[0]);
+        usuario.setNumCuenta(data[1]);
+        usuario.setNumTarjeta(data[2]);
+        usuario.setPIN(data[3]);
+        usuario.setSaldo(data[4]);
+        usuario.setMonto(data[5]);
+        usuario.setMontoDisponible(data[6]);
+        usuario.setTotalRetirado(Integer.parseInt(data[7]));
+        usuario.setTotalDepositado(Integer.parseInt(data[8]));
+        usuario.setCambioPIN(Boolean.parseBoolean(data[9]));
+        usuario.setFechaSalida(data[10]);
+        usuario.setHoraSalida(data[11]);
+
+        // Si hay transacciones en la línea, cargarlas
+        if (data.length > 12) {
+            String[] transaccionesData = data[12].split(";");
+            for (String transaccionString : transaccionesData) {
+                Transaccion transaccion = Transaccion.fromString(transaccionString);
+                usuario.getTransacciones().add(transaccion);
+            }
+        }
+
+        return usuario;
     }
 
     // Métodos para manejar transacciones
@@ -63,12 +109,20 @@ public class Usuario {
         return totalDepositado;
     }
 
-    public void incrementarTotalDepositado(int cantidad) {
-        this.totalDepositado += cantidad;
-    }
-
     public int getTotalRetirado() {
         return totalRetirado;
+    }
+
+    public void setTotalRetirado(int totalRetirado) {
+        this.totalRetirado = totalRetirado;
+    }
+
+    public void setTotalDepositado(int totalDepositado) {
+        this.totalDepositado = totalDepositado;
+    }
+
+    public void incrementarTotalDepositado(int cantidad) {
+        this.totalDepositado += cantidad;
     }
 
     public void incrementarTotalRetirado(int cantidad) {
@@ -156,11 +210,17 @@ public class Usuario {
     }
 
     public String getFechaSalida() {
-        return FechaSalida;
+        if (FechaSalida != null) {
+            return FechaSalida;
+        }
+        return "";
     }
 
     public String getHoraSalida() {
-        return HoraSalida;
+        if (HoraSalida != null) {
+            return HoraSalida;
+        }
+        return "";
     }
 
     //Fecha y Hora juntos
