@@ -133,6 +133,20 @@ public class Log_User extends javax.swing.JPanel {
     private javax.swing.JPasswordField txtPinUser;
     // End of variables declaration//GEN-END:variables
 
+    private void entrarUsuario() {
+        if (!txtNumTarjeta.getText().isEmpty() && !String.valueOf(txtPinUser.getPassword()).isEmpty()) {
+            if (UsuarioLogic.autentificar(txtNumTarjeta.getText(), String.valueOf(txtPinUser.getPassword()))) {
+                //Cambiar al frame de User
+                Panel_User panelUser = new Panel_User(UsuarioLogic.obtener(txtNumTarjeta.getText()));
+                CambioJframe(panelUser);
+            } else {
+                JOptionPane.showMessageDialog(null, "Número de Tarjeta o PIN incorrectos");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese su Número de Trajeta o PIN");
+        }
+    }
+
     private void initListeners() {
         txtNumTarjeta.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent evt) {
@@ -166,19 +180,5 @@ public class Log_User extends javax.swing.JPanel {
             }
         });
 
-    }
-
-    private void entrarUsuario() {
-        if (!txtNumTarjeta.getText().isEmpty() && !String.valueOf(txtPinUser.getPassword()).isEmpty()) {
-            if (UsuarioLogic.autentificar(txtNumTarjeta.getText(), String.valueOf(txtPinUser.getPassword()))) {
-                //Cambiar al frame de User
-                Panel_User panelUser = new Panel_User(UsuarioLogic.obtener(txtNumTarjeta.getText()));
-                CambioJframe(panelUser);
-            } else {
-                JOptionPane.showMessageDialog(null, "Número de Tarjeta o PIN incorrectos");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Ingrese su Número de Trajeta o PIN");
-        }
     }
 }
