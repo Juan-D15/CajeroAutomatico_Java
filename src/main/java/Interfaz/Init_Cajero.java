@@ -27,6 +27,10 @@ public class Init_Cajero extends javax.swing.JPanel {
         lblTitulo1.setText("Inicializar Cajero: Q" + valorInit());
     }
 
+    private void actualizarTotalEfectivo() {
+        lblTitulo2.setText("Agregar Efectivo: Q" + valorEfectivo());
+    }
+
     private void AgregarBilletesInit() {
         try {
             int cantidad = Integer.parseInt(txtCantidadBilletes.getText());
@@ -48,21 +52,6 @@ public class Init_Cajero extends javax.swing.JPanel {
         }
     }
 
-    private int valorInit() {
-        int total = 0;
-        for (Map.Entry<Integer, Integer> entry : inicializacion.entrySet()) {
-            int denominacion = entry.getKey();
-            int cantidad = entry.getValue();
-            total += cantidad * denominacion;
-        }
-        if (total > 10000) {
-            System.out.println("Número mayor a 10,000.00.");
-            return 0;
-        } else {
-            return total;
-        }
-    }
-
     private void AgregarEfectivo() {
         int cantidad = Integer.parseInt(txtCantidadBilletes_Efect.getText());
         if (cantidad > 0) {
@@ -77,9 +66,20 @@ public class Init_Cajero extends javax.swing.JPanel {
                 // Si no existe, simplemente agrega la denominación con la cantidad ingresada
                 nuevoEfectivo.put(denominacion, cantidad);
             }
+            actualizarTotalEfectivo();
         } else {
             System.out.println("Ingrese una cantidad válida.");
         }
+    }
+
+    private int valorInit() {
+        int total = 0;
+        for (Map.Entry<Integer, Integer> entry : inicializacion.entrySet()) {
+            int denominacion = entry.getKey();
+            int cantidad = entry.getValue();
+            total += cantidad * denominacion;
+        }
+        return total;
     }
 
     private int valorEfectivo() {
@@ -89,7 +89,40 @@ public class Init_Cajero extends javax.swing.JPanel {
             int cantidad = entry.getValue();
             total += cantidad * denominacion;
         }
-        return total;
+
+        return total + valorInit();
+    }
+
+    public void inicializarCajero() {
+        if (valorInit() > 0) {
+            boolean flag = cajero.inicializarCajero(inicializacion);
+            if (flag) {
+                System.out.println("Cajero Inicializado");
+                inicializacion.clear(); // Limpiar después de la inicialización
+            } else {
+                System.out.println("Error al inicializar el cajero.");
+                inicializacion.clear();
+            }
+            cajero.mostrarTotal();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se puede inicializar el cajero con el monto actual", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void enviarEfectivoCajero() {
+        if (valorEfectivo() > 0) {
+            boolean flag = cajero.agregarEfectivo(nuevoEfectivo);
+            if (flag) {
+                System.out.println("Efectivo Agregado");
+                nuevoEfectivo.clear(); // Limpiar después de agregar efectivo
+            } else {
+                System.out.println("Error al agregar efectivo.");
+                inicializacion.clear();
+            }
+            cajero.mostrarTotal();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se puede agregar el efectivo con el monto actual", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -232,37 +265,11 @@ public class Init_Cajero extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAgregarEfectActionPerformed
 
     private void btnInitCajerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInitCajerActionPerformed
-        // TODO add your handling code here:
-        if (valorInit() > 0) {
-            boolean flag = cajero.inicializarCajero(inicializacion);
-            if (flag) {
-                System.out.println("Cajero Inicializado");
-                lblTitulo1.setText("Inicializar Cajero: Q0");
-                inicializacion.clear(); // Limpiar después de la inicialización
-            } else {
-                System.out.println("Error al inicializar el cajero.");
-            }
-            cajero.mostrarTotal();
-        } else {
-            JOptionPane.showMessageDialog(this, "No se puede inicializar el cajero con el monto actual", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        inicializarCajero();
     }//GEN-LAST:event_btnInitCajerActionPerformed
 
     private void btnEnviar_EfectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar_EfectActionPerformed
-        // TODO add your handling code here:
-        if (valorEfectivo() > 0) {
-            boolean flag = cajero.agregarEfectivo(nuevoEfectivo);
-            if (flag) {
-                System.out.println("Efectivo Agregado");
-                lblTitulo2.setText("Agregar Efectivo: Q0");
-                nuevoEfectivo.clear(); // Limpiar después de agregar efectivo
-            } else {
-                System.out.println("Error al agregar efectivo.");
-            }
-            cajero.mostrarTotal();
-        } else {
-            JOptionPane.showMessageDialog(this, "No se puede agregar el efectivo con el monto actual", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        enviarEfectivoCajero();
     }//GEN-LAST:event_btnEnviar_EfectActionPerformed
 
 
