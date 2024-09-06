@@ -37,6 +37,8 @@ public class Panel_Admin extends javax.swing.JFrame {
         Contenido_Admin = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Tools_Admin.setBackground(new java.awt.Color(0, 8, 66));
