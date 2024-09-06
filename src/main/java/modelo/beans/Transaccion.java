@@ -18,6 +18,16 @@ public class Transaccion {
         this.hora = hora;
     }
 
+    @Override
+    public String toString() {
+        return tipo + "|" + monto + "|" + fecha + "|" + hora;
+    }
+
+    public static Transaccion fromString(String line) {
+        String[] data = line.split("\\|");
+        return new Transaccion(data[0], Integer.parseInt(data[1]), data[2], data[3]);
+    }
+
     // Getters y setters
     public String getTipo() {
         return tipo;
