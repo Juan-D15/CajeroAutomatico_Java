@@ -14,6 +14,7 @@ import modelo.dao.UsuarioDAO;
 public class UsuarioLogic {
 
     private static UsuarioDAO usuariodao = new UsuarioDAO();
+
     //Autentificar el Usuario
     public static boolean autentificar(String NumTarjeta, String pin) {
         if (obtener(NumTarjeta) != null) {
@@ -36,7 +37,11 @@ public class UsuarioLogic {
         return usuariodao.listaAccesoUsuarios();
     }
 
-    public static List<Transaccion> getUltimasTransacciones(Usuario usuario){
+    public static void cargarUsuarios() {
+        usuariodao.cargarUsuarios();
+    }
+
+    public static List<Transaccion> getUltimasTransacciones(Usuario usuario) {
         return usuariodao.getUltimasTransacciones(usuario);
     }
 
