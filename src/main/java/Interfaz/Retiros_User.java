@@ -114,6 +114,7 @@ public class Retiros_User extends javax.swing.JPanel {
 
     private void btnRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirarActionPerformed
         retirarUsuario();
+        cajero.mostrarTotal();
     }//GEN-LAST:event_btnRetirarActionPerformed
 
 
