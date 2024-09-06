@@ -1,5 +1,10 @@
 package cajero.modelo;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +25,7 @@ public class Cajero {
         billetes = new HashMap<>();
         inicializado = false;
         inicializarDenominaciones();
+        cargarEstado();
     }
 
     // Método estático para obtener la única instancia de la clase
@@ -34,6 +40,55 @@ public class Cajero {
     public static Cajero nuevoCajero() {
         instancia = new Cajero();
         return instancia;
+    }
+
+    // Guardar el estado del cajero en un archivo .txt
+    private void guardarEstado() {
+        // Ruta relativa a la carpeta "datosCajero" en el proyecto
+        File directory = new File("datosCajero");
+        if (!directory.exists()) {
+            directory.mkdirs(); // Crea la carpeta si no existe
+        }
+
+        File file = new File(directory, "estadoCajero.txt");
+        try {
+            if (!file.exists()) {
+                file.createNewFile(); // Crea el archivo si no existe
+            }
+
+            try (FileWriter writer = new FileWriter(file, false)) { // Sobrescribe el archivo
+                for (Map.Entry<Integer, Billete> entry : billetes.entrySet()) {
+                    Billete billete = entry.getValue();
+                    writer.write(billete.getDenominacion() + "," + billete.getCantidad() + System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Cargar el estado del cajero desde un archivo .txt
+    private void cargarEstado() {
+        // Especifica la ruta relativa a la carpeta "datosCajero"
+        File file = new File("datosCajero", "estadoCajero.txt");
+
+        // Verifica si el archivo existe antes de intentar leerlo
+        if (file.exists()) {
+            billetes.clear(); // Limpiar los billetes para evitar duplicados
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] data = line.split(",");
+                    int denominacion = Integer.parseInt(data[0]);
+                    int cantidad = Integer.parseInt(data[1]);
+                    billetes.put(denominacion, new Billete(denominacion, cantidad));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("El archivo 'estadoCajero.txt' no existe en la carpeta 'datosCajero'.");
+        }
     }
 
     private void inicializarDenominaciones() {
@@ -67,6 +122,7 @@ public class Cajero {
             }
 
             inicializado = true;
+            guardarEstado();
             System.out.println("Cajero inicializado con éxito.");
             return true;
         }
@@ -104,6 +160,7 @@ public class Cajero {
             }
 
             System.out.println("Efectivo agregado con éxito.");
+            guardarEstado();
             return true;
         }
         return false;
