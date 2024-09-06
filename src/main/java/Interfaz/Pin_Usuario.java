@@ -4,6 +4,9 @@
  */
 package Interfaz;
 
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import javax.swing.JOptionPane;
 import modelo.beans.Usuario;
 import modelo.logic.UsuarioLogic;
@@ -20,6 +23,7 @@ public class Pin_Usuario extends javax.swing.JFrame {
     public Pin_Usuario() {
         initComponents();
         this.setLocationRelativeTo(null);
+        initListeners();
     }
 
     /**
@@ -84,7 +88,7 @@ public class Pin_Usuario extends javax.swing.JFrame {
 
         txtPinUser.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtPinUser.setForeground(new java.awt.Color(0, 8, 66));
-        txtPinUser.setText("**********");
+        txtPinUser.setText("****");
         txtPinUser.setBorder(null);
         txtPinUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -105,7 +109,7 @@ public class Pin_Usuario extends javax.swing.JFrame {
 
         txtPinUserConfirm.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtPinUserConfirm.setForeground(new java.awt.Color(0, 8, 66));
-        txtPinUserConfirm.setText("**********");
+        txtPinUserConfirm.setText("****");
         txtPinUserConfirm.setBorder(null);
         txtPinUserConfirm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -241,4 +245,54 @@ public class Pin_Usuario extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPinUser;
     private javax.swing.JPasswordField txtPinUserConfirm;
     // End of variables declaration//GEN-END:variables
+
+    private void initListeners() {
+        txtNumTarjeta.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (txtNumTarjeta.getText().equals("Número de Tarjeta")) {
+                    txtNumTarjeta.setText("");
+                    txtNumTarjeta.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (txtNumTarjeta.getText().isEmpty()) {
+                    txtNumTarjeta.setText("Número de Tarjeta");
+                    txtNumTarjeta.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
+
+        txtPinUser.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (String.valueOf(txtPinUser.getPassword()).equals("****")) {
+                    txtPinUser.setText("");
+                    txtPinUser.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (String.valueOf(txtPinUser.getPassword()).isEmpty()) {
+                    txtPinUser.setText("****");
+                    txtPinUser.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
+
+        txtPinUserConfirm.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (String.valueOf(txtPinUserConfirm.getPassword()).equals("****")) {
+                    txtPinUserConfirm.setText("");
+                    txtPinUserConfirm.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (String.valueOf(txtPinUserConfirm.getPassword()).isEmpty()) {
+                    txtPinUserConfirm.setText("****");
+                    txtPinUserConfirm.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
+    }
 }
