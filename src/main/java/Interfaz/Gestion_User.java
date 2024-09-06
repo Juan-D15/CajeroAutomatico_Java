@@ -89,6 +89,7 @@ public class Gestion_User extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(640, 480));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbTitulo.setFont(new java.awt.Font("Poppins Medium", 0, 24)); // NOI18N
