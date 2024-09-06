@@ -157,6 +157,7 @@ public class Depositos_User extends javax.swing.JPanel {
     private void btnDepositarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositarActionPerformed
         depositarUsuario();
         lbValor.setText(Integer.toString(valorDeposito()));
+        cajero.mostrarTotal();
 
     }//GEN-LAST:event_btnDepositarActionPerformed
 
