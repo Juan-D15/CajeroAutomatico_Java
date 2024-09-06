@@ -1,6 +1,11 @@
 package modelo.dao;
 
 import cajero.modelo.Cajero;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +25,55 @@ public class UsuarioDAO {
     public UsuarioDAO() {
         usuarios = new ArrayList<>();
         ultimoAcceso = new ArrayList<>();
+        cargarUsuarios();
     }
+
+    // Guardar usuarios en un archivo .txt
+    private void guardarUsuarios() {
+        // Ruta relativa a la carpeta "datosUsuarios" en el proyecto
+        File directory = new File("datosUsuarios");
+        if (!directory.exists()) {
+            directory.mkdirs(); // Crea la carpeta si no existe
+        }
+
+        File file = new File(directory, "Usuarios.txt");
+        try {
+            if (!file.exists()) {
+                file.createNewFile(); // Crea el archivo si no existe
+            }
+
+            try (FileWriter writer = new FileWriter(file, false)) { // Sobrescribe el archivo
+                for (Usuario usuario : usuarios) {
+                    writer.write(usuario.toString() + System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Cargar usuarios desde un archivo .txt
+    public void cargarUsuarios() {
+        // Especifica la ruta relativa a la carpeta "datosUsuarios"
+        File file = new File("datosUsuarios", "Usuarios.txt");
+
+        // Verifica si el archivo existe antes de intentar leerlo
+        if (file.exists()) {
+            usuarios.clear(); // Limpiar la lista para evitar duplicados
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Usuario usuario = Usuario.fromString(line);  // Implementa un método que convierta una línea en un Usuario
+                    usuarios.add(usuario);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("El archivo 'Usuarios.txt' no existe en la carpeta 'datosUsuarios'.");
+        }
+    }
+
     //Buscar un usuario por el numero de tarjeta
     public int buscar(String NumTarjeta) {
         int n = -1; // variable si no encontro al usuario
@@ -32,6 +85,7 @@ public class UsuarioDAO {
         }
         return n;
     }
+
     //Buscar un usuario por el pin
     public int buscarPin(String PIN) {
         int n = -1; // variable si no encontro al usuario
@@ -43,6 +97,7 @@ public class UsuarioDAO {
         }
         return n;
     }
+
     //Buscar un usuario por en numero de cuenta
     public int buscarCuenta(String numCuenta) {
         int n = -1; // variable si no encontro al usuario
@@ -54,15 +109,18 @@ public class UsuarioDAO {
         }
         return n;
     }
+
     //Agregar a un Usuario
     public boolean insertar(Usuario usuario) {
         if (buscar(usuario.getNumTarjeta()) == -1 && buscarPin(usuario.getPIN()) == -1) { // si el usuario no existe
             usuarios.add(usuario); //agrega al usuario
+            guardarUsuarios();
             return true;
         } else {
             return false;
         }
     }
+
     //Modificar datos de un usuario
     public boolean modificar(Usuario usuarioModificado, String numeroTarjetaOriginal) {
         // Buscar al usuario original usando el número de tarjeta anterior
@@ -96,12 +154,13 @@ public class UsuarioDAO {
                 // Inserta el usuario con el nuevo número de tarjeta
                 usuarios.add(usuarioNuevo);
             }
-
+            guardarUsuarios();
             return true;
         } else {
             return false; // Si no se encuentra el usuario
         }
     }
+
     //Modificar el PIN de un usuario
     public boolean modificarPin(Usuario usuarioModificado) {
         // Busca al usuario original usando su número de tarjeta actual antes de modificarlo
@@ -115,20 +174,24 @@ public class UsuarioDAO {
             // Actualizar los datos
             usuarioActual.setPIN(usuarioModificado.getPIN());
             usuarioActual.setCambioPIN(true); //Le asigna verdadero si cambio de pin
+            guardarUsuarios();
             return true;
         } else {
             return false; // Si no se encuentra el usuario
         }
     }
+
     //Eliminar un usuario
     public boolean eliminar(String usuario) {
         if (buscar(usuario) != -1) { // si el usuario existe
             usuarios.remove(buscar(usuario));
+            guardarUsuarios();
             return true;
         } else {
             return false;
         }
     }
+
     //Obtener un usuario
     public Usuario obtener(String usuario) {
         if (buscar(usuario) != -1) { //si el usuario existe
@@ -156,6 +219,7 @@ public class UsuarioDAO {
         String salida = usuario.getFechaHora_Salida();
         System.out.println("Usuario " + usuario.getNombre() + " salio: " + salida);
         ultimoAcceso.add(usuario);
+        guardarUsuarios();
         return salida;
     }
 
@@ -164,6 +228,7 @@ public class UsuarioDAO {
         FechaHora fh = new FechaHora();
         Transaccion transaccion = new Transaccion(tipo, cantidad, fh.FechaAcceso(), fh.HoraAcceso());
         usuario.agregarTransaccion(transaccion);
+        guardarUsuarios();
     }
 
     public boolean retirar(String numTarjeta, String pin, int cantidad, Cajero cajero) {
@@ -193,7 +258,7 @@ public class UsuarioDAO {
 
                         // Registrar la transacción
                         registrarTransaccion(usuario, "Retiro", cantidad);
-
+                        guardarUsuarios();
                         return true;
                     } else {
                         System.out.println("El cajero no tiene suficientes billetes para este retiro.");
@@ -239,6 +304,7 @@ public class UsuarioDAO {
 
                     // Registrar la transacción en la cuenta origen (opcional)
                     //registrarTransaccion(usuarioOrigen, "Depósito a cuenta " + numCuentaDestino, cantidad);
+                    guardarUsuarios();
                     return true;
                 } else {
                     System.out.println("Cuenta destino no encontrada.");
@@ -268,7 +334,7 @@ public class UsuarioDAO {
         for (Usuario usuario : usuarios) {
             total += usuario.getTotalRetirado();
         }
-        System.out.println("TOTAL RETIRADO TODOS: "+total);
+        System.out.println("TOTAL RETIRADO TODOS: " + total);
         return total;
     }
 
@@ -280,7 +346,7 @@ public class UsuarioDAO {
         }
         return !usuarios.isEmpty() ? (double) totalDepositado / usuarios.size() : 0;
     }
-    
+
     //Lista de usuario que hicieron cambio de PIN
     public List<Usuario> obtenerUsuariosConCambioPIN() {
         List<Usuario> usuariosConCambioPIN = new ArrayList<>();
@@ -297,11 +363,12 @@ public class UsuarioDAO {
         int start = Math.max(0, usuario.getTransacciones().size() - 5);
         return usuario.getTransacciones().subList(start, usuario.getTransacciones().size());
     }
-    
+
     //Lista de Usuarios
     public List<Usuario> listaUsuarios() {
         return usuarios;
     }
+
     //Lista de acceso de Usuarios
     public List<Usuario> listaAccesoUsuarios() {
         return ultimoAcceso;
