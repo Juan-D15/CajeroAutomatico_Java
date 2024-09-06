@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import modelo.beans.Administrador;
 import modelo.logic.AdministradorLogic;
+import modelo.logic.UsuarioLogic;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Login extends javax.swing.JFrame {
         CambioPanel(user);
         Administrador admin = new Administrador("admin1", "123");
         AdministradorLogic.insertar(admin);
+        UsuarioLogic.cargarUsuarios();
     }
 
     private void CambioPanel(JPanel p) {
@@ -59,14 +61,14 @@ public class Login extends javax.swing.JFrame {
         Contenido.setLayout(ContenidoLayout);
         ContenidoLayout.setHorizontalGroup(
             ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGap(0, 610, Short.MAX_VALUE)
         );
         ContenidoLayout.setVerticalGroup(
             ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 540, Short.MAX_VALUE)
         );
 
-        getContentPane().add(Contenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 540));
+        getContentPane().add(Contenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 540));
 
         tools.setBackground(new java.awt.Color(0, 8, 66));
         tools.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -74,7 +76,7 @@ public class Login extends javax.swing.JFrame {
         btnAdmin.setBackground(new java.awt.Color(0, 8, 66));
         btnAdmin.setFont(new java.awt.Font("Poppins Medium", 1, 12)); // NOI18N
         btnAdmin.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdmin.setText("ADMIN");
+        btnAdmin.setText("ADMINISTRADOR");
         btnAdmin.setBorder(null);
         btnAdmin.setBorderPainted(false);
         btnAdmin.setContentAreaFilled(false);
@@ -100,12 +102,12 @@ public class Login extends javax.swing.JFrame {
                 btnAdminActionPerformed(evt);
             }
         });
-        tools.add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 129, 290, 40));
+        tools.add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 250, 40));
 
         btnUser.setBackground(new java.awt.Color(0, 8, 66));
         btnUser.setFont(new java.awt.Font("Poppins Medium", 1, 12)); // NOI18N
         btnUser.setForeground(new java.awt.Color(255, 255, 255));
-        btnUser.setText("USER");
+        btnUser.setText("USUARIO");
         btnUser.setBorder(null);
         btnUser.setBorderPainted(false);
         btnUser.setContentAreaFilled(false);
@@ -131,9 +133,9 @@ public class Login extends javax.swing.JFrame {
                 btnUserActionPerformed(evt);
             }
         });
-        tools.add(btnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 209, 290, 40));
+        tools.add(btnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 250, 40));
 
-        getContentPane().add(tools, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 0, 290, 540));
+        getContentPane().add(tools, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 0, 250, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
