@@ -26,6 +26,7 @@ public class UsuarioDAO {
         usuarios = new ArrayList<>();
         ultimoAcceso = new ArrayList<>();
         cargarUsuarios();
+        cargarAccesoUsuarios();
     }
 
     // Guardar usuarios en un archivo .txt
@@ -71,6 +72,51 @@ public class UsuarioDAO {
             }
         } else {
             System.out.println("El archivo 'Usuarios.txt' no existe en la carpeta 'datosUsuarios'.");
+        }
+    }
+
+    private void guardarAccesoUsuarios() {
+        // Ruta relativa a la carpeta "datosUsuarios" en el proyecto
+        File directory = new File("accesoUsuarios");
+        if (!directory.exists()) {
+            directory.mkdirs(); // Crea la carpeta si no existe
+        }
+
+        File file = new File(directory, "AccesoUsuarios.txt");
+        try {
+            if (!file.exists()) {
+                file.createNewFile(); // Crea el archivo si no existe
+            }
+
+            try (FileWriter writer = new FileWriter(file, false)) { // Sobrescribe el archivo
+                for (Usuario usuario : ultimoAcceso) {
+                    writer.write(usuario.toString() + System.lineSeparator());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Cargar usuarios desde un archivo .txt
+    public void cargarAccesoUsuarios() {
+        // Especifica la ruta relativa a la carpeta "datosUsuarios"
+        File file = new File("accesoUsuarios", "AccesoUsuarios.txt");
+
+        // Verifica si el archivo existe antes de intentar leerlo
+        if (file.exists()) {
+            ultimoAcceso.clear(); // Limpiar la lista para evitar duplicados
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Usuario usuario = Usuario.fromString(line);  // Implementa un método que convierta una línea en un Usuario
+                    ultimoAcceso.add(usuario);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("El archivo 'AccesoUsuarios.txt' no existe en la carpeta 'datosUsuarios'.");
         }
     }
 
@@ -220,6 +266,7 @@ public class UsuarioDAO {
         System.out.println("Usuario " + usuario.getNombre() + " salio: " + salida);
         ultimoAcceso.add(usuario);
         guardarUsuarios();
+        guardarAccesoUsuarios();
         return salida;
     }
 
