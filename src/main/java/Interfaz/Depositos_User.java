@@ -1,9 +1,14 @@
 package Interfaz;
 
 import cajero.modelo.Cajero;
+import control.actividades.Actividades_Usuario_Administrador;
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import modelo.beans.Usuario;
 import modelo.logic.UsuarioLogic;
 
 /**
@@ -21,6 +26,7 @@ public class Depositos_User extends javax.swing.JPanel {
     public Depositos_User() {
         cajero = Cajero.getInstancia();  // Usar la instancia actual
         initComponents();
+        initListeners();
     }
 
     /**
@@ -83,7 +89,7 @@ public class Depositos_User extends javax.swing.JPanel {
 
         txtPinUser.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtPinUser.setForeground(new java.awt.Color(0, 8, 66));
-        txtPinUser.setText("**********");
+        txtPinUser.setText("****");
         txtPinUser.setBorder(null);
         add(txtPinUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 490, -1));
 
@@ -205,6 +211,13 @@ public class Depositos_User extends javax.swing.JPanel {
 
             if (exito) {
                 JOptionPane.showMessageDialog(this, "Depósito realizado con éxito.");
+                Usuario obtener = UsuarioLogic.obtener(numTarjeta);
+                String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
+                Actividades_Usuario_Administrador.registrarActividadUsuario("Usuario: " + obtener.getNombre()
+                        + " Número de Tarjeta: " + numTarjeta
+                        + " Número de Cuenta: " + obtener.getNumCuenta()
+                        + " Depositó: " + Integer.toString(valorDeposito())
+                        + " Fecha y Hora: " + Fecha_Hora);
                 cantidadDeposito.clear();
             } else {
                 JOptionPane.showMessageDialog(this, "Error en el depósito. Verifique los datos e intente nuevamente.");
@@ -241,5 +254,54 @@ public class Depositos_User extends javax.swing.JPanel {
             total += cantidad * denominacion;
         }
         return total;
+    }
+
+    private void initListeners() {
+        txtNumTarjeta.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (txtNumTarjeta.getText().equals("Número de Tarjeta")) {
+                    txtNumTarjeta.setText("");
+                    txtNumTarjeta.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (txtNumTarjeta.getText().isEmpty()) {
+                    txtNumTarjeta.setText("Número de Tarjeta");
+                    txtNumTarjeta.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
+
+        txtNumCuenta.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (txtNumCuenta.getText().equals("Número de Cuenta")) {
+                    txtNumCuenta.setText("");
+                    txtNumCuenta.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (txtNumCuenta.getText().isEmpty()) {
+                    txtNumCuenta.setText("Número de Cuenta");
+                    txtNumCuenta.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
+        txtPinUser.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (String.valueOf(txtPinUser.getPassword()).equals("****")) {
+                    txtPinUser.setText("");
+                    txtPinUser.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (String.valueOf(txtPinUser.getPassword()).isEmpty()) {
+                    txtPinUser.setText("****");
+                    txtPinUser.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
     }
 }

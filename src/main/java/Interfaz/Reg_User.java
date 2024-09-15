@@ -1,5 +1,6 @@
 package Interfaz;
 
+import control.actividades.Actividades_Usuario_Administrador;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -374,6 +375,16 @@ public class Reg_User extends javax.swing.JPanel {
                 txtNumCuenta.setText("");
                 txtPinUser.setText("");
                 txtSaldoUser.setText("");
+                Usuario obtener = UsuarioLogic.obtener(usuarioModificado.getNumTarjeta());
+                String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
+                Actividades_Usuario_Administrador.registrarActividadAdministrador("Se Modifico un Usuario: "
+                        + "Nombre: " + obtener.getNombre()
+                        + " Número de Cuenta: " + obtener.getNumCuenta()
+                        + " Número de Tarjeta: " + obtener.getNumTarjeta()
+                        + " PIN: " + obtener.getPIN()
+                        + " Saldo: " + obtener.getSaldo()
+                        + " Monto: " + obtener.getMonto()
+                        + " Fecha y Hora: " + Fecha_Hora);
             } else {
                 JOptionPane.showMessageDialog(null, "El Usuario no existe");
             }
@@ -396,6 +407,16 @@ public class Reg_User extends javax.swing.JPanel {
                 txtSaldoUser.setText(usuario.getSaldo());
                 txtMontoUser.setText("");
                 txtMontoUser.setText(usuario.getMonto());
+                Usuario obtener = UsuarioLogic.obtener(txtNumTarjeta.getText());
+                String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
+                Actividades_Usuario_Administrador.registrarActividadAdministrador("Se Buscó un Usuario: "
+                        + "Nombre: " + obtener.getNombre()
+                        + " Número de Cuenta: " + obtener.getNumCuenta()
+                        + " Número de Tarjeta: " + obtener.getNumTarjeta()
+                        + " PIN: " + obtener.getPIN()
+                        + " Saldo: " + obtener.getSaldo()
+                        + " Monto: " + obtener.getMonto()
+                        + " Fecha y Hora: " + Fecha_Hora);
                 return usuario;
             } else {
                 JOptionPane.showMessageDialog(null, "El Usuario no existe");
@@ -407,6 +428,16 @@ public class Reg_User extends javax.swing.JPanel {
 
     private void eliminarUsuario() {
         if (!txtNumTarjeta.getText().isEmpty()) {
+            Usuario obtener = UsuarioLogic.obtener(txtNumTarjeta.getText());
+            String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
+            Actividades_Usuario_Administrador.registrarActividadAdministrador("Se Eliminó un Usuario: "
+                    + "Nombre: " + obtener.getNombre()
+                    + " Número de Cuenta: " + obtener.getNumCuenta()
+                    + " Número de Tarjeta: " + obtener.getNumTarjeta()
+                    + " PIN: " + obtener.getPIN()
+                    + " Saldo: " + obtener.getSaldo()
+                    + " Monto: " + obtener.getMonto()
+                    + " Fecha y Hora: " + Fecha_Hora);
             if (UsuarioLogic.eliminar(txtNumTarjeta.getText())) {
                 JOptionPane.showMessageDialog(null, "Usuario Eliminado");
                 txtMontoUser.setText("");
@@ -437,9 +468,17 @@ public class Reg_User extends javax.swing.JPanel {
             String monto = txtMontoUser.getText();
 
             Usuario usuario = new Usuario(nombre, numCuenta, numTarjeta, pin, saldo, monto);
-
             if (UsuarioLogic.insertar(usuario)) {
                 JOptionPane.showMessageDialog(null, "Usuario Registrado");
+                String Fecha_Hora = UsuarioLogic.registrarAcceso(usuario);
+                Actividades_Usuario_Administrador.registrarActividadAdministrador("Se Registro un Usuario: "
+                        + "Nombre: " + nombre
+                        + " Número de Cuenta: " + numCuenta
+                        + " Número de Tarjeta: " + numTarjeta
+                        + " PIN: " + pin
+                        + " Saldo: " + saldo
+                        + " Monto: " + monto
+                        + " Fecha y Hora: " + Fecha_Hora);
                 txtMontoUser.setText("");
                 txtNombreUser.setText("");
                 txtNumTarjeta.setText("");

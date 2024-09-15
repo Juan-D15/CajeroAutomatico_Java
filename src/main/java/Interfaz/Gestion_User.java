@@ -35,14 +35,14 @@ public class Gestion_User extends javax.swing.JPanel {
         ejecutarTodo();
     }
 
-    private void agregar_TablaTransacciones(int monto, String tipo, String fecha, String hora) {
-        tablaTransacciones.addRow(new Object[]{monto, tipo, fecha, hora});
-    }
-
     private void ejecutarTodo() {
         ultimasTransacciones();
         montoDisponible();
         montoMaximoretiro();
+    }
+
+    private void agregar_TablaTransacciones(int monto, String tipo, String fecha, String hora) {
+        tablaTransacciones.addRow(new Object[]{monto, tipo, fecha, hora});
     }
 
     private void ultimasTransacciones() {

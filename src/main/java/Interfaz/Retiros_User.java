@@ -1,10 +1,12 @@
 package Interfaz;
 
 import cajero.modelo.Cajero;
+import control.actividades.Actividades_Usuario_Administrador;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JOptionPane;
+import modelo.beans.Usuario;
 import modelo.logic.UsuarioLogic;
 
 /**
@@ -88,7 +90,7 @@ public class Retiros_User extends javax.swing.JPanel {
 
         txtPinUser.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtPinUser.setForeground(new java.awt.Color(0, 8, 66));
-        txtPinUser.setText("**********");
+        txtPinUser.setText("****");
         txtPinUser.setBorder(null);
         add(txtPinUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 490, -1));
 
@@ -144,6 +146,14 @@ public class Retiros_User extends javax.swing.JPanel {
 
             if (exito) {
                 JOptionPane.showMessageDialog(this, "Retiro realizado con éxito.");
+                Usuario obtener = UsuarioLogic.obtener(numTarjeta);
+                String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
+                Actividades_Usuario_Administrador.registrarActividadUsuario("Usuario: " + obtener.getNombre()
+                        + " Número de Tarjeta: " + numTarjeta
+                        + " Número de Cuenta: " + obtener.getNumCuenta()
+                        + " Retiró: " + cantidad
+                        + " Fecha y Hora: " + Fecha_Hora);
+
             } else {
                 JOptionPane.showMessageDialog(this, "Error en el retiro. Verifique los datos o saldo insuficiente.");
             }
@@ -171,7 +181,7 @@ public class Retiros_User extends javax.swing.JPanel {
 
         txtPinUser.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent evt) {
-                if (String.valueOf(txtPinUser.getPassword()).equals("**********")) {
+                if (String.valueOf(txtPinUser.getPassword()).equals("****")) {
                     txtPinUser.setText("");
                     txtPinUser.setForeground(new Color(0, 8, 66));
                 }
@@ -179,7 +189,7 @@ public class Retiros_User extends javax.swing.JPanel {
 
             public void focusLost(FocusEvent evt) {
                 if (String.valueOf(txtPinUser.getPassword()).isEmpty()) {
-                    txtPinUser.setText("**********");
+                    txtPinUser.setText("****");
                     txtPinUser.setForeground(new Color(0, 8, 66));
                 }
             }

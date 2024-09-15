@@ -1,9 +1,12 @@
 package Interfaz;
 
 import cajero.modelo.Cajero;
+import control.actividades.Actividades_Usuario_Administrador;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import modelo.beans.Administrador;
+import modelo.logic.AdministradorLogic;
 
 /**
  *
@@ -15,114 +18,14 @@ public class Init_Cajero extends javax.swing.JPanel {
      * Creates new form Init_Cajero
      */
     private Cajero cajero;
+    private Administrador administrador;
     public Map<Integer, Integer> inicializacion = new HashMap<>();
     public Map<Integer, Integer> nuevoEfectivo = new HashMap<>();
 
-    public Init_Cajero() {
+    public Init_Cajero(Administrador admin) {
         cajero = Cajero.nuevoCajero();
         initComponents();
-    }
-
-    private void actualizarTotalInicializacion() {
-        lblTitulo1.setText("Inicializar Cajero: Q" + valorInit());
-    }
-
-    private void actualizarTotalEfectivo() {
-        lblTitulo2.setText("Agregar Efectivo: Q" + valorEfectivo());
-    }
-
-    private void AgregarBilletesInit() {
-        try {
-            int cantidad = Integer.parseInt(txtCantidadBilletes.getText());
-            if (cantidad > 0) {
-                int denominacion = Integer.parseInt((String) cbBilletes.getSelectedItem());
-
-                if (inicializacion.containsKey(denominacion)) {
-                    int cantidadExistente = inicializacion.get(denominacion);
-                    inicializacion.put(denominacion, cantidadExistente + cantidad);
-                } else {
-                    inicializacion.put(denominacion, cantidad);
-                }
-                actualizarTotalInicializacion();
-            } else {
-                JOptionPane.showMessageDialog(this, "Ingrese una cantidad válida", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void AgregarEfectivo() {
-        int cantidad = Integer.parseInt(txtCantidadBilletes_Efect.getText());
-        if (cantidad > 0) {
-            int denominacion = Integer.parseInt((String) cbBilletes_Efect.getSelectedItem());
-
-            // Verifica si la denominación ya existe en el HashMap
-            if (nuevoEfectivo.containsKey(denominacion)) {
-                // Si existe, suma la nueva cantidad a la cantidad existente
-                int cantidadExistente = nuevoEfectivo.get(denominacion);
-                nuevoEfectivo.put(denominacion, cantidadExistente + cantidad);
-            } else {
-                // Si no existe, simplemente agrega la denominación con la cantidad ingresada
-                nuevoEfectivo.put(denominacion, cantidad);
-            }
-            actualizarTotalEfectivo();
-        } else {
-            System.out.println("Ingrese una cantidad válida.");
-        }
-    }
-
-    private int valorInit() {
-        int total = 0;
-        for (Map.Entry<Integer, Integer> entry : inicializacion.entrySet()) {
-            int denominacion = entry.getKey();
-            int cantidad = entry.getValue();
-            total += cantidad * denominacion;
-        }
-        return total;
-    }
-
-    private int valorEfectivo() {
-        int total = 0;
-        for (Map.Entry<Integer, Integer> entry : nuevoEfectivo.entrySet()) {
-            int denominacion = entry.getKey();
-            int cantidad = entry.getValue();
-            total += cantidad * denominacion;
-        }
-
-        return total + valorInit();
-    }
-
-    public void inicializarCajero() {
-        if (valorInit() > 0) {
-            boolean flag = cajero.inicializarCajero(inicializacion);
-            if (flag) {
-                System.out.println("Cajero Inicializado");
-                inicializacion.clear(); // Limpiar después de la inicialización
-            } else {
-                System.out.println("Error al inicializar el cajero.");
-                inicializacion.clear();
-            }
-            cajero.mostrarTotal();
-        } else {
-            JOptionPane.showMessageDialog(this, "No se puede inicializar el cajero con el monto actual", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    public void enviarEfectivoCajero() {
-        if (valorEfectivo() > 0) {
-            boolean flag = cajero.agregarEfectivo(nuevoEfectivo);
-            if (flag) {
-                System.out.println("Efectivo Agregado");
-                nuevoEfectivo.clear(); // Limpiar después de agregar efectivo
-            } else {
-                System.out.println("Error al agregar efectivo.");
-                inicializacion.clear();
-            }
-            cajero.mostrarTotal();
-        } else {
-            JOptionPane.showMessageDialog(this, "No se puede agregar el efectivo con el monto actual", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        administrador = admin;
     }
 
     /**
@@ -289,4 +192,112 @@ public class Init_Cajero extends javax.swing.JPanel {
     private javax.swing.JTextField txtCantidadBilletes;
     private javax.swing.JTextField txtCantidadBilletes_Efect;
     // End of variables declaration//GEN-END:variables
+
+    private void actualizarTotalInicializacion() {
+        lblTitulo1.setText("Inicializar Cajero: Q" + valorInit());
+    }
+
+    private void actualizarTotalEfectivo() {
+        lblTitulo2.setText("Agregar Efectivo: Q" + valorEfectivo());
+    }
+
+    private void AgregarBilletesInit() {
+        try {
+            int cantidad = Integer.parseInt(txtCantidadBilletes.getText());
+            if (cantidad > 0) {
+                int denominacion = Integer.parseInt((String) cbBilletes.getSelectedItem());
+
+                if (inicializacion.containsKey(denominacion)) {
+                    int cantidadExistente = inicializacion.get(denominacion);
+                    inicializacion.put(denominacion, cantidadExistente + cantidad);
+                } else {
+                    inicializacion.put(denominacion, cantidad);
+                }
+                actualizarTotalInicializacion();
+            } else {
+                JOptionPane.showMessageDialog(this, "Ingrese una cantidad válida", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void AgregarEfectivo() {
+        int cantidad = Integer.parseInt(txtCantidadBilletes_Efect.getText());
+        if (cantidad > 0) {
+            int denominacion = Integer.parseInt((String) cbBilletes_Efect.getSelectedItem());
+
+            // Verifica si la denominación ya existe en el HashMap
+            if (nuevoEfectivo.containsKey(denominacion)) {
+                // Si existe, suma la nueva cantidad a la cantidad existente
+                int cantidadExistente = nuevoEfectivo.get(denominacion);
+                nuevoEfectivo.put(denominacion, cantidadExistente + cantidad);
+            } else {
+                // Si no existe, simplemente agrega la denominación con la cantidad ingresada
+                nuevoEfectivo.put(denominacion, cantidad);
+            }
+            actualizarTotalEfectivo();
+        } else {
+            System.out.println("Ingrese una cantidad válida.");
+        }
+    }
+
+    private int valorInit() {
+        int total = 0;
+        for (Map.Entry<Integer, Integer> entry : inicializacion.entrySet()) {
+            int denominacion = entry.getKey();
+            int cantidad = entry.getValue();
+            total += cantidad * denominacion;
+        }
+        return total;
+    }
+
+    private int valorEfectivo() {
+        int total = 0;
+        for (Map.Entry<Integer, Integer> entry : nuevoEfectivo.entrySet()) {
+            int denominacion = entry.getKey();
+            int cantidad = entry.getValue();
+            total += cantidad * denominacion;
+        }
+
+        return total + valorInit();
+    }
+
+    public void inicializarCajero() {
+        if (valorInit() > 0) {
+            boolean flag = cajero.inicializarCajero(inicializacion);
+            if (flag) {
+                System.out.println("Cajero Inicializado");
+                String Fecha_Hora = AdministradorLogic.registrarAcceso(administrador);
+                Actividades_Usuario_Administrador.registrarActividadAdministrador("Inicialización Cajero: " + "Admistrador: " + administrador.getUsuario_admin()
+                        + "  Cantidad: " + cajero.obtenerTotal()
+                        + " Fecha y Hora: " + Fecha_Hora
+                );
+
+                inicializacion.clear(); // Limpiar después de la inicialización
+            } else {
+                System.out.println("Error al inicializar el cajero.");
+                inicializacion.clear();
+            }
+            cajero.mostrarTotal();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se puede inicializar el cajero con el monto actual", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void enviarEfectivoCajero() {
+        if (valorEfectivo() > 0) {
+            boolean flag = cajero.agregarEfectivo(nuevoEfectivo);
+            if (flag) {
+                System.out.println("Efectivo Agregado");
+                nuevoEfectivo.clear(); // Limpiar después de agregar efectivo
+            } else {
+                System.out.println("Error al agregar efectivo.");
+                inicializacion.clear();
+            }
+            cajero.mostrarTotal();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se puede agregar el efectivo con el monto actual", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }

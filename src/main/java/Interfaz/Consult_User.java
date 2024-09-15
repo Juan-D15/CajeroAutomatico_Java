@@ -1,9 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Interfaz;
 
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import javax.swing.JOptionPane;
 import modelo.beans.Usuario;
 import modelo.logic.UsuarioLogic;
@@ -19,6 +18,7 @@ public class Consult_User extends javax.swing.JPanel {
      */
     public Consult_User() {
         initComponents();
+        initListeners();
     }
 
     /**
@@ -76,6 +76,7 @@ public class Consult_User extends javax.swing.JPanel {
 
         txtNumTarjeta.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtNumTarjeta.setForeground(new java.awt.Color(0, 8, 66));
+        txtNumTarjeta.setText("Número de Tarjeta");
         txtNumTarjeta.setBorder(null);
         add(txtNumTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 480, 30));
 
@@ -90,6 +91,7 @@ public class Consult_User extends javax.swing.JPanel {
 
         txtNumCuenta.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtNumCuenta.setForeground(new java.awt.Color(0, 8, 66));
+        txtNumCuenta.setText("Número de Cuenta");
         txtNumCuenta.setBorder(null);
         add(txtNumCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 490, 30));
 
@@ -104,6 +106,7 @@ public class Consult_User extends javax.swing.JPanel {
 
         txtCantRetirada.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtCantRetirada.setForeground(new java.awt.Color(0, 8, 66));
+        txtCantRetirada.setText("Cantidad Retirada");
         txtCantRetirada.setBorder(null);
         add(txtCantRetirada, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 490, 30));
 
@@ -118,6 +121,7 @@ public class Consult_User extends javax.swing.JPanel {
 
         txtSaldoActual.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtSaldoActual.setForeground(new java.awt.Color(0, 8, 66));
+        txtSaldoActual.setText("Saldo Actual");
         txtSaldoActual.setBorder(null);
         add(txtSaldoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 490, 30));
 
@@ -127,11 +131,12 @@ public class Consult_User extends javax.swing.JPanel {
 
         lbSTitulo8.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbSTitulo8.setForeground(new java.awt.Color(153, 153, 153));
-        lbSTitulo8.setText("Ultimo Acceso");
+        lbSTitulo8.setText("Último Acceso");
         add(lbSTitulo8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, -1, -1));
 
         txtUltimoAcceso.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtUltimoAcceso.setForeground(new java.awt.Color(0, 8, 66));
+        txtUltimoAcceso.setText("Último Acceso");
         txtUltimoAcceso.setBorder(null);
         add(txtUltimoAcceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 490, 30));
 
@@ -179,9 +184,93 @@ public class Consult_User extends javax.swing.JPanel {
                 txtSaldoActual.setText(usuario.getSaldo());
                 txtUltimoAcceso.setText("");
                 txtUltimoAcceso.setText(usuario.getFechaHora_Salida());
+                
+                
             } else {
                 JOptionPane.showMessageDialog(null, "El Usuario no existe");
             }
         }
+    }
+
+    private void initListeners() {
+        txtNumTarjeta.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (txtNumTarjeta.getText().equals("Número de Tarjeta")) {
+                    txtNumTarjeta.setText("");
+                    txtNumTarjeta.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (txtNumTarjeta.getText().isEmpty()) {
+                    txtNumTarjeta.setText("Número de Tarjeta");
+                    txtNumTarjeta.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
+
+        txtNumCuenta.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (txtNumCuenta.getText().equals("Número de Cuenta")) {
+                    txtNumCuenta.setText("");
+                    txtNumCuenta.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (txtNumCuenta.getText().isEmpty()) {
+                    txtNumCuenta.setText("Número de Cuenta");
+                    txtNumCuenta.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
+
+        txtCantRetirada.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (txtCantRetirada.getText().equals("Cantidad Retirada")) {
+                    txtCantRetirada.setText("");
+                    txtCantRetirada.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (txtCantRetirada.getText().isEmpty()) {
+                    txtCantRetirada.setText("Cantidad Retirada");
+                    txtCantRetirada.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
+
+        txtSaldoActual.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (txtSaldoActual.getText().equals("Saldo Actual")) {
+                    txtSaldoActual.setText("");
+                    txtSaldoActual.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (txtSaldoActual.getText().isEmpty()) {
+                    txtSaldoActual.setText("Saldo Actual");
+                    txtSaldoActual.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
+
+        txtUltimoAcceso.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent evt) {
+                if (txtUltimoAcceso.getText().equals("Último Acceso")) {
+                    txtUltimoAcceso.setText("");
+                    txtUltimoAcceso.setForeground(new Color(0, 8, 66));
+                }
+            }
+
+            public void focusLost(FocusEvent evt) {
+                if (txtUltimoAcceso.getText().isEmpty()) {
+                    txtUltimoAcceso.setText("Último Acceso");
+                    txtUltimoAcceso.setForeground(new Color(0, 8, 66));
+                }
+            }
+        });
     }
 }

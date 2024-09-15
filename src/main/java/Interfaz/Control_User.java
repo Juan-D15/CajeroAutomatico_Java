@@ -1,6 +1,7 @@
 package Interfaz;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import modelo.beans.Usuario;
@@ -33,8 +34,16 @@ public class Control_User extends javax.swing.JPanel {
         tblAccesoUsuarios.setModel(tablaAcceso);
         tblAccesoUsuarios.setEnabled(false);
         //Ejecutar desde el inicio
+        UsuarioLogic.cargarAccesoUsuarios();
         ejecucionTodo();
 
+    }
+
+    private void ejecucionTodo() {
+        totalRetirado();
+        promedioDepositado();
+        usuariosCambioPin();
+        usuariosAcceso();
     }
 
     private void agregar_TablaPIN(String Usuario, String numTarjeta, String numCuenta, String Pin) {
@@ -43,13 +52,6 @@ public class Control_User extends javax.swing.JPanel {
 
     private void agregar_TablaAcceso(String Usuario, String numTarjeta, String numCuenta, String Fecha, String Hora) {
         tablaAcceso.addRow(new Object[]{Usuario, numTarjeta, numCuenta, Fecha, Hora});
-    }
-
-    private void ejecucionTodo() {
-        totalRetirado();
-        promedioDepositado();
-        usuariosCambioPin();
-        usuariosAcceso();
     }
 
     private void totalRetirado() {
@@ -80,30 +82,13 @@ public class Control_User extends javax.swing.JPanel {
     private void usuariosAcceso() {
         List<Usuario> accesosUsuarios = UsuarioLogic.listaAccesoUsuarios();
         if (accesosUsuarios != null) {
-            //si la lista esta vacia
-            if(accesosUsuarios.isEmpty()){
+            if (accesosUsuarios.isEmpty()) {
                 return;
             }
-            
-            // Lista final para procesar
-            List<Usuario> usuariosAcceso = new ArrayList<>();
 
-            // Obtener el último usuario que accedió
-            Usuario ultimoAcceso = accesosUsuarios.get(0);  // El primer acceso es el más reciente
-            Usuario ultimoUsuario = UsuarioLogic.obtener(ultimoAcceso.getNumTarjeta());
-            if (ultimoUsuario != null) {
-                usuariosAcceso.add(ultimoUsuario);  // Añadir el último usuario primero
-            }
+            List<Usuario> usuariosAcceso = new ArrayList<>(accesosUsuarios);
+            Collections.reverse(usuariosAcceso);  // Invertir la lista para que el último acceso sea el primero
 
-            // Luego añadir el resto de los usuarios
-            for (Usuario usuario : UsuarioLogic.listaAccesoUsuarios()) {
-                // Verificar que no se repita el último usuario
-                if (usuariosAcceso.isEmpty() || !usuario.getNumTarjeta().equals(usuariosAcceso.get(0).getNumTarjeta())) {
-                    usuariosAcceso.add(usuario);
-                }
-            }
-
-            //Agregar a la Tabla
             for (Usuario usuario : usuariosAcceso) {
                 String nombre = usuario.getNombre();
                 String numTarjeta = usuario.getNumTarjeta();
@@ -112,9 +97,7 @@ public class Control_User extends javax.swing.JPanel {
                 String Hora = usuario.getHoraSalida();
                 agregar_TablaAcceso(nombre, numTarjeta, numCuenta, Fecha, Hora);
             }
-
         }
-
     }
 
     /**

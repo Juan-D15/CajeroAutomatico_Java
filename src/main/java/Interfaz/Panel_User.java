@@ -1,7 +1,8 @@
 package Interfaz;
 
-import cajero.modelo.Cajero;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import modelo.beans.Usuario;
 import modelo.logic.UsuarioLogic;
@@ -35,43 +36,141 @@ public class Panel_User extends javax.swing.JFrame {
 
         Tools_User = new javax.swing.JPanel();
         btnCerrarSesion = new javax.swing.JButton();
-        btnRetiros = new javax.swing.JButton();
         btnDepositos = new javax.swing.JButton();
         btnGestionUsuario = new javax.swing.JButton();
+        btnRetiros = new javax.swing.JButton();
         Contenido_User = new javax.swing.JPanel();
         titulo = new javax.swing.JPanel();
         lbTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Tools_User.setBackground(new java.awt.Color(0, 8, 66));
 
+        btnCerrarSesion.setBackground(new java.awt.Color(0, 8, 66));
+        btnCerrarSesion.setFont(new java.awt.Font("Poppins Medium", 1, 12)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
         btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.setBorderPainted(false);
+        btnCerrarSesion.setContentAreaFilled(false);
+        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrarSesion.setFocusable(false);
+        btnCerrarSesion.setOpaque(true);
+        btnCerrarSesion.setPreferredSize(new java.awt.Dimension(220, 40));
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMousePressed(evt);
+            }
+        });
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarSesionActionPerformed(evt);
             }
         });
 
-        btnRetiros.setText("Retiros");
-        btnRetiros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRetirosActionPerformed(evt);
+        btnDepositos.setBackground(new java.awt.Color(0, 8, 66));
+        btnDepositos.setFont(new java.awt.Font("Poppins Medium", 1, 12)); // NOI18N
+        btnDepositos.setForeground(new java.awt.Color(255, 255, 255));
+        btnDepositos.setText("Depositos");
+        btnDepositos.setBorder(null);
+        btnDepositos.setBorderPainted(false);
+        btnDepositos.setContentAreaFilled(false);
+        btnDepositos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDepositos.setFocusable(false);
+        btnDepositos.setOpaque(true);
+        btnDepositos.setPreferredSize(new java.awt.Dimension(220, 40));
+        btnDepositos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDepositosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDepositosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDepositosMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnDepositosMousePressed(evt);
             }
         });
-
-        btnDepositos.setText("Depositos");
         btnDepositos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDepositosActionPerformed(evt);
             }
         });
 
-        btnGestionUsuario.setText("Gestión Cuenta");
+        btnGestionUsuario.setBackground(new java.awt.Color(0, 8, 66));
+        btnGestionUsuario.setFont(new java.awt.Font("Poppins Medium", 1, 12)); // NOI18N
+        btnGestionUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionUsuario.setText("Gestión Usuario");
+        btnGestionUsuario.setBorder(null);
+        btnGestionUsuario.setBorderPainted(false);
+        btnGestionUsuario.setContentAreaFilled(false);
+        btnGestionUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGestionUsuario.setFocusable(false);
+        btnGestionUsuario.setOpaque(true);
+        btnGestionUsuario.setPreferredSize(new java.awt.Dimension(220, 40));
+        btnGestionUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGestionUsuarioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnGestionUsuarioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGestionUsuarioMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnGestionUsuarioMousePressed(evt);
+            }
+        });
         btnGestionUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGestionUsuarioActionPerformed(evt);
+            }
+        });
+
+        btnRetiros.setBackground(new java.awt.Color(0, 8, 66));
+        btnRetiros.setFont(new java.awt.Font("Poppins Medium", 1, 12)); // NOI18N
+        btnRetiros.setForeground(new java.awt.Color(255, 255, 255));
+        btnRetiros.setText("Retiros");
+        btnRetiros.setBorder(null);
+        btnRetiros.setBorderPainted(false);
+        btnRetiros.setContentAreaFilled(false);
+        btnRetiros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRetiros.setFocusable(false);
+        btnRetiros.setOpaque(true);
+        btnRetiros.setPreferredSize(new java.awt.Dimension(220, 40));
+        btnRetiros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRetirosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRetirosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRetirosMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnRetirosMousePressed(evt);
+            }
+        });
+        btnRetiros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetirosActionPerformed(evt);
             }
         });
 
@@ -79,33 +178,24 @@ public class Panel_User extends javax.swing.JFrame {
         Tools_User.setLayout(Tools_UserLayout);
         Tools_UserLayout.setHorizontalGroup(
             Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnDepositos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnRetiros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(Tools_UserLayout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(btnCerrarSesion)
-                .addContainerGap(55, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Tools_UserLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGestionUsuario)
-                    .addGroup(Tools_UserLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnDepositos)
-                            .addComponent(btnRetiros))))
-                .addGap(41, 41, 41))
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(btnGestionUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         Tools_UserLayout.setVerticalGroup(
             Tools_UserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Tools_UserLayout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(btnRetiros)
-                .addGap(40, 40, 40)
-                .addComponent(btnDepositos)
-                .addGap(60, 60, 60)
-                .addComponent(btnGestionUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
-                .addComponent(btnCerrarSesion)
-                .addGap(29, 29, 29))
+                .addGap(116, 116, 116)
+                .addComponent(btnRetiros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(btnDepositos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(btnGestionUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(Tools_User, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 220, 540));
@@ -128,58 +218,127 @@ public class Panel_User extends javax.swing.JFrame {
         titulo.setBackground(new java.awt.Color(255, 255, 255));
 
         lbTitulo.setFont(new java.awt.Font("Poppins Medium", 0, 24)); // NOI18N
-        lbTitulo.setText("Nombre");
+        lbTitulo.setText("Bienvenido Usuario");
 
         javax.swing.GroupLayout tituloLayout = new javax.swing.GroupLayout(titulo);
         titulo.setLayout(tituloLayout);
         tituloLayout.setHorizontalGroup(
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tituloLayout.createSequentialGroup()
-                .addGap(259, 259, 259)
-                .addComponent(lbTitulo)
-                .addContainerGap(284, Short.MAX_VALUE))
+            .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
         );
         tituloLayout.setVerticalGroup(
             tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tituloLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbTitulo)
-                .addContainerGap(17, Short.MAX_VALUE))
+            .addComponent(lbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
         getContentPane().add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void CambioPanel(JPanel p) {
-        p.setSize(650, 490);
-        p.setLocation(0, 0);
 
-        Contenido_User.removeAll();
-        Contenido_User.add(p, BorderLayout.CENTER);
-        Contenido_User.revalidate();
-        Contenido_User.repaint();
-    }
+    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
+        // TODO add your handling code here:
+        btnCerrarSesion.setBackground(new Color(12, 33, 193));
+    }//GEN-LAST:event_btnCerrarSesionMouseClicked
+
+    private void btnCerrarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseEntered
+        // TODO add your handling code here:
+        btnCerrarSesion.setBackground(new Color(12, 33, 193));
+    }//GEN-LAST:event_btnCerrarSesionMouseEntered
+
+    private void btnCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseExited
+        // TODO add your handling code here:
+        btnCerrarSesion.setBackground(new Color(0, 8, 66));
+    }//GEN-LAST:event_btnCerrarSesionMouseExited
+
+    private void btnCerrarSesionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMousePressed
+        // TODO add your handling code here:
+        btnCerrarSesion.setBackground(new Color(0, 8, 66));
+    }//GEN-LAST:event_btnCerrarSesionMousePressed
+
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        // TODO add your handling code here:
         UsuarioLogic.registrarSalida(user);
-        this.dispose();
+        logout();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
-    private void btnRetirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirosActionPerformed
-        Retiros_User panelRetiros = new Retiros_User();
-        CambioPanel(panelRetiros);
-    }//GEN-LAST:event_btnRetirosActionPerformed
+    private void btnGestionUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionUsuarioMouseClicked
+        // TODO add your handling code here:
+        btnGestionUsuario.setBackground(new Color(12, 33, 193));
+    }//GEN-LAST:event_btnGestionUsuarioMouseClicked
 
-    private void btnDepositosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositosActionPerformed
-        Depositos_User panelDepositos = new Depositos_User();
-        CambioPanel(panelDepositos);
-    }//GEN-LAST:event_btnDepositosActionPerformed
+    private void btnGestionUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionUsuarioMouseEntered
+        // TODO add your handling code here:
+        btnGestionUsuario.setBackground(new Color(12, 33, 193));
+    }//GEN-LAST:event_btnGestionUsuarioMouseEntered
+
+    private void btnGestionUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionUsuarioMouseExited
+        // TODO add your handling code here:
+        btnGestionUsuario.setBackground(new Color(0, 8, 66));
+    }//GEN-LAST:event_btnGestionUsuarioMouseExited
+
+    private void btnGestionUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGestionUsuarioMousePressed
+        // TODO add your handling code here:
+        btnGestionUsuario.setBackground(new Color(0, 8, 66));
+    }//GEN-LAST:event_btnGestionUsuarioMousePressed
 
     private void btnGestionUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionUsuarioActionPerformed
         // TODO add your handling code here:
-        Gestion_User panelGestion = new Gestion_User(user);
-        CambioPanel(panelGestion);
+        Gestion_User gestionUser = new Gestion_User(user);
+        CambioPanel(gestionUser);
     }//GEN-LAST:event_btnGestionUsuarioActionPerformed
+
+    private void btnDepositosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDepositosMouseClicked
+        // TODO add your handling code here:
+        btnDepositos.setBackground(new Color(12, 33, 193));
+    }//GEN-LAST:event_btnDepositosMouseClicked
+
+    private void btnDepositosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDepositosMouseEntered
+        // TODO add your handling code here:
+        btnDepositos.setBackground(new Color(12, 33, 193));
+    }//GEN-LAST:event_btnDepositosMouseEntered
+
+    private void btnDepositosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDepositosMouseExited
+        // TODO add your handling code here:
+        btnDepositos.setBackground(new Color(0, 8, 66));
+    }//GEN-LAST:event_btnDepositosMouseExited
+
+    private void btnDepositosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDepositosMousePressed
+        // TODO add your handling code here:
+        btnDepositos.setBackground(new Color(0, 8, 66));
+    }//GEN-LAST:event_btnDepositosMousePressed
+
+    private void btnDepositosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositosActionPerformed
+        // TODO add your handling code here:
+        Depositos_User user = new Depositos_User();
+        CambioPanel(user);
+    }//GEN-LAST:event_btnDepositosActionPerformed
+
+    private void btnRetirosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRetirosMouseClicked
+        // TODO add your handling code here:
+        btnRetiros.setBackground(new Color(12, 33, 193));
+    }//GEN-LAST:event_btnRetirosMouseClicked
+
+    private void btnRetirosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRetirosMouseEntered
+        // TODO add your handling code here:
+        btnRetiros.setBackground(new Color(12, 33, 193));
+    }//GEN-LAST:event_btnRetirosMouseEntered
+
+    private void btnRetirosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRetirosMouseExited
+        // TODO add your handling code here:
+        btnRetiros.setBackground(new Color(0, 8, 66));
+    }//GEN-LAST:event_btnRetirosMouseExited
+
+    private void btnRetirosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRetirosMousePressed
+        // TODO add your handling code here:
+        btnRetiros.setBackground(new Color(0, 8, 66));
+    }//GEN-LAST:event_btnRetirosMousePressed
+
+    private void btnRetirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetirosActionPerformed
+        // TODO add your handling code here:
+        Retiros_User user = new Retiros_User();
+        CambioPanel(user);
+    }//GEN-LAST:event_btnRetirosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,4 +385,23 @@ public class Panel_User extends javax.swing.JFrame {
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JPanel titulo;
     // End of variables declaration//GEN-END:variables
+
+    private void logout() {
+        // Mostrar el frame de login
+        JFrame loginFrame = new Login(); // Creamos una nueva instancia del Login
+        loginFrame.setVisible(true); // Mostramos el Login
+
+        // Cerrar el frame actual del administrador
+        this.dispose(); // Cerramos el frame actual (Panel_Admin)
+    }
+
+    private void CambioPanel(JPanel p) {
+        p.setSize(650, 490);
+        p.setLocation(0, 0);
+
+        Contenido_User.removeAll();
+        Contenido_User.add(p, BorderLayout.CENTER);
+        Contenido_User.revalidate();
+        Contenido_User.repaint();
+    }
 }

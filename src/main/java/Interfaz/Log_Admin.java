@@ -1,11 +1,16 @@
 package Interfaz;
 
+import control.actividades.Actividades_Usuario_Administrador;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import modelo.beans.Administrador;
+import modelo.beans.Usuario;
 import modelo.logic.AdministradorLogic;
+import modelo.logic.UsuarioLogic;
 
 /**
  *
@@ -19,11 +24,6 @@ public class Log_Admin extends javax.swing.JPanel {
     public Log_Admin() {
         initComponents();
         initListeners();
-    }
-
-    private void CambioJframe(JFrame j) {
-        j.setVisible(true);
-        j.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -75,7 +75,7 @@ public class Log_Admin extends javax.swing.JPanel {
         txtPassword.setForeground(new java.awt.Color(0, 8, 66));
         txtPassword.setText("**********");
         txtPassword.setBorder(null);
-        add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, -1, -1));
+        add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 350, -1));
 
         lbStitulo1.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbStitulo1.setForeground(new java.awt.Color(153, 153, 153));
@@ -112,6 +112,38 @@ public class Log_Admin extends javax.swing.JPanel {
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 
+    private void loginAdmin() {
+        Panel_Admin panelAdmin = new Panel_Admin(AdministradorLogic.obtener(txtNombre.getText()));
+        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        topFrame.setVisible(false);  // Oculta el frame de login
+
+        // Mostrar el panel de administrador en un nuevo JFrame
+        panelAdmin.setVisible(true);
+    }
+
+    private void entrarAdmin() {
+        if (!txtNombre.getText().isEmpty() && !String.valueOf(txtPassword.getPassword()).isEmpty()) {
+            String Nombre = txtNombre.getText();
+            Administrador obtener = AdministradorLogic.obtener(Nombre);
+            String Fecha_Hora = AdministradorLogic.registrarAcceso(obtener);
+            if (AdministradorLogic.autentificar(txtNombre.getText(), String.valueOf(txtPassword.getPassword()))) {
+                //Cambiar al frame de Admin
+                loginAdmin();
+                Actividades_Usuario_Administrador.registrarActividadAdministrador("Login Admin: " + "Administradot: " + Nombre
+                        + " Fecha y Hora: " + Fecha_Hora);
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrectos");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrese su Usuario o Contraseña");
+        }
+    }
+
+    private void CambioJframe(JFrame j) {
+        j.setVisible(true);
+        j.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+
     private void initListeners() {
         txtNombre.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent evt) {
@@ -144,20 +176,6 @@ public class Log_Admin extends javax.swing.JPanel {
                 }
             }
         });
-    }
-
-    private void entrarAdmin() {
-        if (!txtNombre.getText().isEmpty() && !String.valueOf(txtPassword.getPassword()).isEmpty()) {
-            if (AdministradorLogic.autentificar(txtNombre.getText(), String.valueOf(txtPassword.getPassword()))) {
-                //Cambiar al frame de Admin
-                Panel_Admin panelAdm = new Panel_Admin();
-                CambioJframe(panelAdm);
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrectos");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Ingrese su Usuario o Contraseña");
-        }
     }
 
 }

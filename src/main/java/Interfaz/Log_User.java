@@ -1,10 +1,13 @@
 package Interfaz;
 
+import control.actividades.Actividades_Usuario_Administrador;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import modelo.beans.Usuario;
 import modelo.logic.UsuarioLogic;
 
 /**
@@ -19,11 +22,6 @@ public class Log_User extends javax.swing.JPanel {
     public Log_User() {
         initComponents();
         initListeners();
-    }
-
-    private void CambioJframe(JFrame j) {
-        j.setVisible(true);
-        j.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -78,7 +76,7 @@ public class Log_User extends javax.swing.JPanel {
 
         txtPinUser.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtPinUser.setForeground(new java.awt.Color(0, 8, 66));
-        txtPinUser.setText("**********");
+        txtPinUser.setText("****");
         txtPinUser.setBorder(null);
         add(txtPinUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, -1));
 
@@ -133,18 +131,37 @@ public class Log_User extends javax.swing.JPanel {
     private javax.swing.JPasswordField txtPinUser;
     // End of variables declaration//GEN-END:variables
 
+    private void loginUsuario() {
+        Panel_User panelUser = new Panel_User(UsuarioLogic.obtener(txtNumTarjeta.getText()));
+        JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        topFrame.setVisible(false);  // Oculta el frame de login
+
+        // Mostrar el panel de administrador en un nuevo JFrame
+        panelUser.setVisible(true);
+    }
+
     private void entrarUsuario() {
         if (!txtNumTarjeta.getText().isEmpty() && !String.valueOf(txtPinUser.getPassword()).isEmpty()) {
+            Usuario obtener = UsuarioLogic.obtener(txtNumTarjeta.getText());
+            String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
             if (UsuarioLogic.autentificar(txtNumTarjeta.getText(), String.valueOf(txtPinUser.getPassword()))) {
                 //Cambiar al frame de User
-                Panel_User panelUser = new Panel_User(UsuarioLogic.obtener(txtNumTarjeta.getText()));
-                CambioJframe(panelUser);
+                loginUsuario();
+                Actividades_Usuario_Administrador.registrarActividadUsuario("Login Usuario: " + "Usuario: " + obtener.getNombre()
+                        + " Número de Tarjeta: " + txtNumTarjeta.getText()
+                        + " Número de Cuenta: " + obtener.getNumCuenta()
+                        + " Fecha y Hora: " + Fecha_Hora);
             } else {
                 JOptionPane.showMessageDialog(null, "Número de Tarjeta o PIN incorrectos");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Ingrese su Número de Trajeta o PIN");
         }
+    }
+
+    private void CambioJframe(JFrame j) {
+        j.setVisible(true);
+        j.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     private void initListeners() {
@@ -166,7 +183,7 @@ public class Log_User extends javax.swing.JPanel {
 
         txtPinUser.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent evt) {
-                if (String.valueOf(txtPinUser.getPassword()).equals("**********")) {
+                if (String.valueOf(txtPinUser.getPassword()).equals("****")) {
                     txtPinUser.setText("");
                     txtPinUser.setForeground(new Color(0, 8, 66));
                 }
@@ -174,7 +191,7 @@ public class Log_User extends javax.swing.JPanel {
 
             public void focusLost(FocusEvent evt) {
                 if (String.valueOf(txtPinUser.getPassword()).isEmpty()) {
-                    txtPinUser.setText("**********");
+                    txtPinUser.setText("****");
                     txtPinUser.setForeground(new Color(0, 8, 66));
                 }
             }

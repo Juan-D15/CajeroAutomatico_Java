@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Interfaz;
 
+import control.actividades.Actividades_Usuario_Administrador;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -49,6 +46,8 @@ public class Pin_Usuario extends javax.swing.JFrame {
         btnCambiarPin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -66,17 +65,7 @@ public class Pin_Usuario extends javax.swing.JFrame {
         txtNumTarjeta.setForeground(new java.awt.Color(0, 8, 66));
         txtNumTarjeta.setText("Número de Tarjeta");
         txtNumTarjeta.setBorder(null);
-        txtNumTarjeta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtNumTarjetaMousePressed(evt);
-            }
-        });
-        txtNumTarjeta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumTarjetaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtNumTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 280, 30));
+        jPanel1.add(txtNumTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 350, 30));
 
         jSeparator1.setBackground(new java.awt.Color(0, 8, 66));
         jSeparator1.setForeground(new java.awt.Color(0, 8, 66));
@@ -90,16 +79,11 @@ public class Pin_Usuario extends javax.swing.JFrame {
         txtPinUser.setForeground(new java.awt.Color(0, 8, 66));
         txtPinUser.setText("****");
         txtPinUser.setBorder(null);
-        txtPinUser.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtPinUserMousePressed(evt);
-            }
-        });
-        jPanel1.add(txtPinUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, -1, -1));
+        jPanel1.add(txtPinUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 350, -1));
 
         lbStitulo1.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbStitulo1.setForeground(new java.awt.Color(153, 153, 153));
-        lbStitulo1.setText("PIN");
+        lbStitulo1.setText("Nuevo PIN");
         jPanel1.add(lbStitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, -1, -1));
 
         lbStitulo2.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
@@ -111,12 +95,7 @@ public class Pin_Usuario extends javax.swing.JFrame {
         txtPinUserConfirm.setForeground(new java.awt.Color(0, 8, 66));
         txtPinUserConfirm.setText("****");
         txtPinUserConfirm.setBorder(null);
-        txtPinUserConfirm.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtPinUserConfirmMousePressed(evt);
-            }
-        });
-        jPanel1.add(txtPinUserConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
+        jPanel1.add(txtPinUserConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 350, -1));
 
         jSeparator3.setBackground(new java.awt.Color(0, 8, 66));
         jSeparator3.setForeground(new java.awt.Color(0, 8, 66));
@@ -149,51 +128,9 @@ public class Pin_Usuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNumTarjetaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNumTarjetaMousePressed
-
-    }//GEN-LAST:event_txtNumTarjetaMousePressed
-
-    private void txtNumTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumTarjetaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNumTarjetaActionPerformed
-
-    private void txtPinUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPinUserMousePressed
-
-    }//GEN-LAST:event_txtPinUserMousePressed
-
-    private void txtPinUserConfirmMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPinUserConfirmMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPinUserConfirmMousePressed
-
     private void btnCambiarPinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarPinActionPerformed
-
-        if (!txtNumTarjeta.getText().isEmpty()
-                && !String.valueOf(txtPinUser.getPassword()).isEmpty()
-                && !String.valueOf(txtPinUserConfirm.getPassword()).isEmpty()) {
-
-            String numTarjeta = txtNumTarjeta.getText();
-            String pin = String.valueOf(txtPinUser.getPassword());
-
-            // Crear un objeto Usuario con los nuevos datos
-            Usuario usuarioModificado = new Usuario(numTarjeta, pin);
-
-            // Llamar al método modificar
-            if (String.valueOf(txtPinUserConfirm.getPassword()).equals(String.valueOf(txtPinUser.getPassword()))) {
-                if (UsuarioLogic.modificarPin(usuarioModificado)) {
-                    JOptionPane.showMessageDialog(null, "Usuario Modificado");
-                    txtNumTarjeta.setText("");
-                    txtPinUser.setText("");
-                    txtPinUserConfirm.setText("");
-                } else {
-                    JOptionPane.showMessageDialog(null, "El Usuario no existe");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "El pin es incorrecto");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
-        }
-
+        cambiarPin();
+        this.dispose();
     }//GEN-LAST:event_btnCambiarPinActionPerformed
 
     /**
@@ -245,6 +182,45 @@ public class Pin_Usuario extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPinUser;
     private javax.swing.JPasswordField txtPinUserConfirm;
     // End of variables declaration//GEN-END:variables
+
+    private void cambiarPin() {
+        if (!txtNumTarjeta.getText().isEmpty()
+                && !String.valueOf(txtPinUser.getPassword()).isEmpty()
+                && !String.valueOf(txtPinUserConfirm.getPassword()).isEmpty()) {
+
+            String numTarjeta = txtNumTarjeta.getText();
+            String pin = String.valueOf(txtPinUser.getPassword());
+
+            // Crear un objeto Usuario con los nuevos datos
+            Usuario usuarioModificado = new Usuario(numTarjeta, pin);
+
+            // Llamar al método modificar
+            if (String.valueOf(txtPinUserConfirm.getPassword()).equals(String.valueOf(txtPinUser.getPassword()))) {
+                if (UsuarioLogic.modificarPin(usuarioModificado)) {
+                    JOptionPane.showMessageDialog(null, "Usuario Modificado");
+                    Usuario obtener = UsuarioLogic.obtener(usuarioModificado.getNumTarjeta());
+                    String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
+                    Actividades_Usuario_Administrador.registrarActividadUsuario("Cambio de PIN Usuario: "
+                            + "Nombre: " + obtener.getNombre()
+                            + " Número de Cuenta: " + obtener.getNumCuenta()
+                            + " Número de Tarjeta: " + obtener.getNumTarjeta()
+                            + " Nuevo PIN: " + pin
+                            + " Saldo: " + obtener.getSaldo()
+                            + " Monto: " + obtener.getMonto()
+                            + " Fecha y Hora: " + Fecha_Hora);
+                    txtNumTarjeta.setText("");
+                    txtPinUser.setText("");
+                    txtPinUserConfirm.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "El Usuario no existe");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El pin es incorrecto");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
+        }
+    }
 
     private void initListeners() {
         txtNumTarjeta.addFocusListener(new FocusAdapter() {

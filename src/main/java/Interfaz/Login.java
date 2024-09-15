@@ -26,16 +26,6 @@ public class Login extends javax.swing.JFrame {
         UsuarioLogic.cargarUsuarios();
     }
 
-    private void CambioPanel(JPanel p) {
-        p.setSize(570, 560);
-        p.setLocation(0, 0);
-
-        Contenido.removeAll();
-        Contenido.add(p, BorderLayout.CENTER);
-        Contenido.revalidate();
-        Contenido.repaint();
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,6 +73,7 @@ public class Login extends javax.swing.JFrame {
         btnAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdmin.setFocusable(false);
         btnAdmin.setOpaque(true);
+        btnAdmin.setPreferredSize(new java.awt.Dimension(250, 40));
         btnAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAdminMouseClicked(evt);
@@ -114,6 +105,7 @@ public class Login extends javax.swing.JFrame {
         btnUser.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUser.setFocusable(false);
         btnUser.setOpaque(true);
+        btnUser.setPreferredSize(new java.awt.Dimension(250, 40));
         btnUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnUserMouseClicked(evt);
@@ -234,4 +226,13 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btnUser;
     private javax.swing.JPanel tools;
     // End of variables declaration//GEN-END:variables
+    private void CambioPanel(JPanel p) {
+        p.setSize(570, 560);
+        p.setLocation(0, 0);
+
+        Contenido.removeAll();
+        Contenido.add(p, BorderLayout.CENTER);
+        Contenido.revalidate();
+        Contenido.repaint();
+    }
 }
