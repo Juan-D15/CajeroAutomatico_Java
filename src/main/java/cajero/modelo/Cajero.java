@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -113,7 +114,7 @@ public class Cajero {
             }
 
             if (total != max_Inicial) {
-                System.out.println("No se puede inicializar con menos de Q. 10,000.00.");
+                JOptionPane.showMessageDialog(null, "No se puede inicializar el cajero con el monto actual", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
             // Inicializar los billetes en el cajero
@@ -137,7 +138,7 @@ public class Cajero {
     public boolean agregarEfectivo(Map<Integer, Integer> cantidades) {
         if (cantidades != null) {
             if (!inicializado) {
-                System.out.println("El cajero no ha sido inicializado.");
+                JOptionPane.showMessageDialog(null, "El cajero no ha sido inicializado.");
                 return false;
             }
 
@@ -150,7 +151,7 @@ public class Cajero {
                 nuevoTotal += cantidad * denominacion;
 
                 if (nuevoTotal > max_Total) {
-                    System.out.println("No se puede superar el límite de Q. 30,000.00. Operación cancelada.");
+                    JOptionPane.showMessageDialog(null, "No se puede superar el límite de Q. 30,000.00. Operación cancelada.", "Error", JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
             }
@@ -170,7 +171,7 @@ public class Cajero {
         }
         return false;
     }
-
+    //Verifica la disponibilidad de Billetes para los retiros
     public boolean disponibilidadBilletes(int cantidad) {
         Map<Integer, Integer> billetesNecesarios = calcularBilletes(cantidad);
 
@@ -199,6 +200,7 @@ public class Cajero {
                 billete.restarCantidad(cantidadADebitar);
             }
         }
+        guardarEstado();
     }
 
     public void agregarBilletes(Map<Integer, Integer> cantidades) {
@@ -212,6 +214,7 @@ public class Cajero {
             }
         }
         System.out.println("Billetes agregados con éxito.");
+        guardarEstado();
     }
 
     private Map<Integer, Integer> calcularBilletes(int cantidad) {
@@ -242,7 +245,7 @@ public class Cajero {
 
         return resultado;
     }
-
+    //Obtiene la cantidad total que hay en el cajero
     public int obtenerTotal() {
         int total_Obtener = 0;
         for (Billete billete : billetes.values()) {
