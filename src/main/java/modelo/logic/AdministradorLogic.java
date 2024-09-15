@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package modelo.logic;
 
 import modelo.beans.Administrador;
@@ -16,16 +12,20 @@ public class AdministradorLogic {
     private static AdministradorDAO administradordao = new AdministradorDAO();
 
     public static boolean autentificar(String usuario_admin, String password) {
-        if(obtener(usuario_admin) != null){
+        if (obtener(usuario_admin) != null) {
             Administrador AdmConsulta = obtener(usuario_admin);
             if (AdmConsulta.getUsuario_admin().equals(usuario_admin) && AdmConsulta.getPasword().equals(password)) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
+    }
+
+    public static String registrarAcceso(Administrador usuario) {
+        return administradordao.registrarAcceso(usuario);
     }
 
     public static boolean insertar(Administrador administrador) {
