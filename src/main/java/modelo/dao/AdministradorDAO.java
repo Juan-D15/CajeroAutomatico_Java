@@ -3,6 +3,7 @@ package modelo.dao;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.beans.Administrador;
+import modelo.beans.FechaHora;
 
 /**
  *
@@ -14,6 +15,14 @@ public class AdministradorDAO {
 
     public AdministradorDAO() {
         administradores = new ArrayList<>();
+    }
+
+    public String registrarAcceso(Administrador admin) {
+        FechaHora fh = new FechaHora();
+        admin.setFechaAcceso(fh.FechaAcceso());
+        admin.setHoraAcceso(fh.HoraAcceso());
+        String acceso = admin.getFechaHora_Acceso();
+        return acceso;
     }
 
     public int buscar(String usuario_admin) {
