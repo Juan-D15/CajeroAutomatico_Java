@@ -40,6 +40,10 @@ public class UsuarioLogic {
     public static void cargarUsuarios() {
         usuariodao.cargarUsuarios();
     }
+    
+    public static void cargarAccesoUsuarios(){
+        usuariodao.cargarAccesoUsuarios();
+    }
 
     public static List<Transaccion> getUltimasTransacciones(Usuario usuario) {
         return usuariodao.getUltimasTransacciones(usuario);
