@@ -8,6 +8,8 @@ public class Administrador {
 
     private String usuario_admin;
     private String password;
+    private String FechaAcceso;
+    private String HoraAcceso;
 
     public Administrador(String usuario_admin, String pasword) {
         this.usuario_admin = usuario_admin;
@@ -30,4 +32,16 @@ public class Administrador {
         this.password = pasword;
     }
 
+    public void setFechaAcceso(String FechaAcceso) {
+        this.FechaAcceso = FechaAcceso;
+    }
+
+    public void setHoraAcceso(String HoraAcceso) {
+        this.HoraAcceso = HoraAcceso;
+    }
+
+    //Fecha y Hora juntos
+    public String getFechaHora_Acceso() {
+        return FechaAcceso + ", " + HoraAcceso;
+    }
 }
