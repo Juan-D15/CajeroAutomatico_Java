@@ -3,7 +3,6 @@ package Interfaz;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JPanel;
-import modelo.beans.Administrador;
 import modelo.logic.AdministradorLogic;
 import modelo.logic.UsuarioLogic;
 
@@ -21,9 +20,8 @@ public class Login extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         Log_User user = new Log_User();
         CambioPanel(user);
-        Administrador admin = new Administrador("admin1", "123");
-        AdministradorLogic.insertar(admin);
         UsuarioLogic.cargarUsuarios();
+        AdministradorLogic.cargarAdministradores();
     }
 
     /**
