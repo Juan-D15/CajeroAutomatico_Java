@@ -24,20 +24,12 @@ public class AdministradorLogic {
         }
     }
 
+    public static void cargarAdministradores() {
+        administradordao.cargarAdministradores();
+    }
+
     public static String registrarAcceso(Administrador usuario) {
         return administradordao.registrarAcceso(usuario);
-    }
-
-    public static boolean insertar(Administrador administrador) {
-        return administradordao.insertar(administrador);
-    }
-
-    public static boolean modificar(Administrador administrador) {
-        return administradordao.modificar(administrador);
-    }
-
-    public static boolean eliminar(String administrador) {
-        return administradordao.eliminar(administrador);
     }
 
     public static Administrador obtener(String administrador) {
