@@ -40,13 +40,17 @@ public class UsuarioLogic {
     public static void cargarUsuarios() {
         usuariodao.cargarUsuarios();
     }
-    
-    public static void cargarAccesoUsuarios(){
+
+    public static void cargarAccesoUsuarios() {
         usuariodao.cargarAccesoUsuarios();
     }
 
-    public static List<Transaccion> getUltimasTransacciones(Usuario usuario) {
-        return usuariodao.getUltimasTransacciones(usuario);
+    public static List<Transaccion> UltimasTransacciones(Usuario usuario) {
+        return usuariodao.UltimasTransacciones(usuario);
+    }
+
+    public static List<Transaccion> transaccionesUsuarios(Usuario usuario) {
+        return usuariodao.transaccionesUsuarios(usuario);
     }
 
     public static boolean retirar(String numTarjeta, String pin, int cantidad, Cajero cajero) {
