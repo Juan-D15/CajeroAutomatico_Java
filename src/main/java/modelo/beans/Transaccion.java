@@ -1,5 +1,7 @@
 package modelo.beans;
 
+import java.util.UUID;
+
 /**
  *
  * @author Juan Diaz
@@ -10,22 +12,31 @@ public class Transaccion {
     private int monto;
     private String fecha;
     private String hora;
+    private String token; // token único
 
     public Transaccion(String tipo, int monto, String fecha, String hora) {
         this.tipo = tipo;
         this.monto = monto;
         this.fecha = fecha;
         this.hora = hora;
+        this.token = generarToken(); // Generar el token al crear la transacción
+
+    }
+
+    private String generarToken() {
+        return UUID.randomUUID().toString();
     }
 
     @Override
     public String toString() {
-        return tipo + "|" + monto + "|" + fecha + "|" + hora;
+        return token + "|" + tipo + "|" + monto + "|" + fecha + "|" + hora;
     }
 
     public static Transaccion fromString(String line) {
         String[] data = line.split("\\|");
-        return new Transaccion(data[0], Integer.parseInt(data[1]), data[2], data[3]);
+        Transaccion transaccion = new Transaccion(data[1], Integer.parseInt(data[2]), data[3], data[4]);
+        transaccion.setToken(data[0]);
+        return transaccion;
     }
 
     // Getters y setters
@@ -59,6 +70,14 @@ public class Transaccion {
 
     public void setHora(String hora) {
         this.hora = hora;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 }
