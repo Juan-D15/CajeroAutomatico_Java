@@ -16,6 +16,17 @@ public class Administrador {
         this.password = pasword;
     }
 
+    @Override
+    public String toString() {
+        return usuario_admin + "," + password + "," + FechaAcceso + "," + HoraAcceso;
+    }
+
+    public static Administrador fromString(String line) {
+        String[] data = line.split(",");
+
+        return new Administrador(data[0], data[1]);
+    }
+
     public String getUsuario_admin() {
         return usuario_admin;
     }
