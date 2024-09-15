@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Interfaz;
 
 /**
@@ -20,7 +16,7 @@ public class Gestion_User extends javax.swing.JPanel {
      * Creates new form Gestion_User
      */
     DefaultTableModel tablaTransacciones;
-    private Usuario user;
+    private Usuario user; //Referencia del usuario
 
     public Gestion_User(Usuario usuario) {
         initComponents();
@@ -33,38 +29,6 @@ public class Gestion_User extends javax.swing.JPanel {
         tblTransacciones.setEnabled(false);
 
         ejecutarTodo();
-    }
-
-    private void ejecutarTodo() {
-        ultimasTransacciones();
-        montoDisponible();
-        montoMaximoretiro();
-    }
-
-    private void agregar_TablaTransacciones(int monto, String tipo, String fecha, String hora) {
-        tablaTransacciones.addRow(new Object[]{monto, tipo, fecha, hora});
-    }
-
-    private void ultimasTransacciones() {
-        List<Transaccion> transacciones = UsuarioLogic.getUltimasTransacciones(user);
-        if (transacciones != null) {
-            for (Transaccion usuario : transacciones) {
-                int monto = usuario.getMonto();
-                String tipo = usuario.getTipo();
-                String fecha = usuario.getFecha();
-                String hora = usuario.getHora();
-
-                agregar_TablaTransacciones(monto, tipo, fecha, hora);
-            }
-        }
-    }
-
-    private void montoMaximoretiro() {
-        txtMontoMaximo.setText(user.getMonto());
-    }
-
-    private void montoDisponible() {
-        txtMontoDisponible.setText(user.getMontoDisponible());
     }
 
     /**
@@ -87,6 +51,9 @@ public class Gestion_User extends javax.swing.JPanel {
         lbSTitulo3 = new javax.swing.JLabel();
         txtMontoDisponible = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
+        lbSTitulo4 = new javax.swing.JLabel();
+        txtSaldoDisponible = new javax.swing.JTextField();
+        jSeparator3 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(640, 480));
@@ -99,7 +66,7 @@ public class Gestion_User extends javax.swing.JPanel {
         lbSTitulo.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbSTitulo.setForeground(new java.awt.Color(0, 8, 66));
         lbSTitulo.setText("Saldo Disponible");
-        add(lbSTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
+        add(lbSTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, -1));
 
         tblTransacciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -114,7 +81,7 @@ public class Gestion_User extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblTransacciones);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 510, 190));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 510, 170));
 
         lbSTitulo1.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbSTitulo1.setForeground(new java.awt.Color(0, 8, 66));
@@ -124,30 +91,44 @@ public class Gestion_User extends javax.swing.JPanel {
         lbSTitulo2.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbSTitulo2.setForeground(new java.awt.Color(153, 153, 153));
         lbSTitulo2.setText("Monto Máximo Retiro");
-        add(lbSTitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, -1, -1));
+        add(lbSTitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, -1, -1));
 
         txtMontoMaximo.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtMontoMaximo.setForeground(new java.awt.Color(0, 8, 66));
         txtMontoMaximo.setBorder(null);
-        add(txtMontoMaximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 160, 30));
+        add(txtMontoMaximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 400, 160, 30));
 
         jSeparator1.setBackground(new java.awt.Color(0, 8, 66));
         jSeparator1.setForeground(new java.awt.Color(0, 8, 66));
-        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, 160, 10));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 430, 160, 10));
 
         lbSTitulo3.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
         lbSTitulo3.setForeground(new java.awt.Color(153, 153, 153));
         lbSTitulo3.setText("Monto Disponible en el Día");
-        add(lbSTitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 370, -1, -1));
+        add(lbSTitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 380, -1, -1));
 
         txtMontoDisponible.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtMontoDisponible.setForeground(new java.awt.Color(0, 8, 66));
         txtMontoDisponible.setBorder(null);
-        add(txtMontoDisponible, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 390, 160, 30));
+        add(txtMontoDisponible, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 400, 160, 30));
 
         jSeparator2.setBackground(new java.awt.Color(0, 8, 66));
         jSeparator2.setForeground(new java.awt.Color(0, 8, 66));
-        add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 420, 160, 10));
+        add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 430, 160, 10));
+
+        lbSTitulo4.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
+        lbSTitulo4.setForeground(new java.awt.Color(153, 153, 153));
+        lbSTitulo4.setText("Saldo");
+        add(lbSTitulo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
+
+        txtSaldoDisponible.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        txtSaldoDisponible.setForeground(new java.awt.Color(0, 8, 66));
+        txtSaldoDisponible.setBorder(null);
+        add(txtSaldoDisponible, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 160, 30));
+
+        jSeparator3.setBackground(new java.awt.Color(0, 8, 66));
+        jSeparator3.setForeground(new java.awt.Color(0, 8, 66));
+        add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 160, 10));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -155,14 +136,53 @@ public class Gestion_User extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lbSTitulo;
     private javax.swing.JLabel lbSTitulo1;
     private javax.swing.JLabel lbSTitulo2;
     private javax.swing.JLabel lbSTitulo3;
+    private javax.swing.JLabel lbSTitulo4;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JTable tblTransacciones;
     private javax.swing.JTextField txtMontoDisponible;
     private javax.swing.JTextField txtMontoMaximo;
+    private javax.swing.JTextField txtSaldoDisponible;
     // End of variables declaration//GEN-END:variables
 
+    private void ejecutarTodo() {
+        ultimasTransacciones();
+        saldoDisponible();
+        montoDisponible();
+        montoMaximoretiro();
+    }
+
+    private void agregar_TablaTransacciones(String tipo, int monto, String fecha, String hora) {
+        tablaTransacciones.addRow(new Object[]{tipo, monto, fecha, hora});
+    }
+
+    private void ultimasTransacciones() {
+        List<Transaccion> transacciones = UsuarioLogic.UltimasTransacciones(user);
+        if (transacciones != null) {
+            for (Transaccion usuario : transacciones) {
+                int monto = usuario.getMonto();
+                String tipo = usuario.getTipo();
+                String fecha = usuario.getFecha();
+                String hora = usuario.getHora();
+
+                agregar_TablaTransacciones(tipo, monto, fecha, hora);
+            }
+        }
+    }
+
+    private void montoMaximoretiro() {
+        txtMontoMaximo.setText(user.getMonto());
+    }
+
+    private void montoDisponible() {
+        txtMontoDisponible.setText(user.getMontoDisponible());
+    }
+
+    private void saldoDisponible() {
+        txtSaldoDisponible.setText(user.getSaldo());
+    }
 }
