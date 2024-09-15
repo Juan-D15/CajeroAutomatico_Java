@@ -47,6 +47,7 @@ public class Consult_User extends javax.swing.JPanel {
         lbSTitulo8 = new javax.swing.JLabel();
         txtUltimoAcceso = new javax.swing.JTextField();
         jSeparator9 = new javax.swing.JSeparator();
+        btnTransacciones = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(640, 540));
@@ -63,7 +64,7 @@ public class Consult_User extends javax.swing.JPanel {
                 btnConsultUserActionPerformed(evt);
             }
         });
-        add(btnConsultUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 470, 130, 30));
+        add(btnConsultUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 480, 130, 30));
 
         lbTitulo.setFont(new java.awt.Font("Poppins Medium", 0, 24)); // NOI18N
         lbTitulo.setText("Consulta de Usuarios");
@@ -143,15 +144,36 @@ public class Consult_User extends javax.swing.JPanel {
         jSeparator9.setBackground(new java.awt.Color(0, 8, 66));
         jSeparator9.setForeground(new java.awt.Color(0, 8, 66));
         add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 490, 10));
+
+        btnTransacciones.setBackground(new java.awt.Color(12, 33, 193));
+        btnTransacciones.setFont(new java.awt.Font("Poppins Medium", 0, 14)); // NOI18N
+        btnTransacciones.setForeground(new java.awt.Color(255, 255, 255));
+        btnTransacciones.setText("Transacciones");
+        btnTransacciones.setBorderPainted(false);
+        btnTransacciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnTransacciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransaccionesActionPerformed(evt);
+            }
+        });
+        add(btnTransacciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 480, 140, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultUserActionPerformed
         buscarUsuario();
     }//GEN-LAST:event_btnConsultUserActionPerformed
 
+    private void btnTransaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransaccionesActionPerformed
+        // TODO add your handling code here:
+        Transacciones_User tabla = new Transacciones_User(UsuarioLogic.obtener(txtNumTarjeta.getText()));
+        tabla.setDefaultCloseOperation(Transacciones_User.DISPOSE_ON_CLOSE);
+        tabla.setVisible(true);
+    }//GEN-LAST:event_btnTransaccionesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultUser;
+    private javax.swing.JButton btnTransacciones;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
@@ -184,8 +206,7 @@ public class Consult_User extends javax.swing.JPanel {
                 txtSaldoActual.setText(usuario.getSaldo());
                 txtUltimoAcceso.setText("");
                 txtUltimoAcceso.setText(usuario.getFechaHora_Salida());
-                
-                
+
             } else {
                 JOptionPane.showMessageDialog(null, "El Usuario no existe");
             }
