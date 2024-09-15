@@ -1,6 +1,7 @@
 package modelo.dao;
 
 import cajero.modelo.Cajero;
+import control.actividades.RegistroActividades;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import modelo.beans.Usuario;
 import modelo.beans.FechaHora;
 import modelo.beans.Transaccion;
@@ -121,7 +123,7 @@ public class UsuarioDAO {
     }
 
     //Buscar un usuario por el numero de tarjeta
-    public int buscar(String NumTarjeta) {
+    private int buscar(String NumTarjeta) {
         int n = -1; // variable si no encontro al usuario
         for (int i = 0; i < usuarios.size(); i++) { //recorre la lista
             if (usuarios.get(i).getNumTarjeta().equals(NumTarjeta)) { //verifica en la lista si ya existe un usuario
@@ -133,7 +135,7 @@ public class UsuarioDAO {
     }
 
     //Buscar un usuario por el pin
-    public int buscarPin(String PIN) {
+    private int buscarPin(String PIN) {
         int n = -1; // variable si no encontro al usuario
         for (int i = 0; i < usuarios.size(); i++) { //recorre la lista
             if (usuarios.get(i).getPIN().equals(PIN)) { //verifica en la lista si ya existe un usuario
@@ -145,7 +147,7 @@ public class UsuarioDAO {
     }
 
     //Buscar un usuario por en numero de cuenta
-    public int buscarCuenta(String numCuenta) {
+    private int buscarCuenta(String numCuenta) {
         int n = -1; // variable si no encontro al usuario
         for (int i = 0; i < usuarios.size(); i++) { //recorre la lista
             if (usuarios.get(i).getNumCuenta().equals(numCuenta)) { //verifica en la lista si ya existe un usuario
@@ -247,35 +249,50 @@ public class UsuarioDAO {
         }
     }
 
-    // Método para registrar la fecha y hora de acceso
-    public String registrarAcceso(Usuario usuario) {
-        FechaHora fh = new FechaHora();
-        usuario.setFechaAcceso(fh.FechaAcceso());
-        usuario.setHoraAcceso(fh.HoraAcceso());
-        String acceso = usuario.getFechaHora_Acceso();
-        //System.out.println("Usuario " + usuario.getNombre() + " ingresó el " + usuario.getFechaAcceso() + " a las " + usuario.getHoraAcceso());
-        return acceso;
-    }
-
-    // Método para registrar la fecha y hora de salida
-    public String registrarSalida(Usuario usuario) {
-        FechaHora fh = new FechaHora();
-        usuario.setFechaSalida(fh.FechaAcceso());
-        usuario.setHoraSalida(fh.HoraAcceso());
-        String salida = usuario.getFechaHora_Salida();
-        System.out.println("Usuario " + usuario.getNombre() + " salio: " + salida);
-        ultimoAcceso.add(usuario);
-        guardarUsuarios();
-        guardarAccesoUsuarios();
-        return salida;
-    }
-
     //METODOS DE RETIRO, DEPOSITO Y TRANSACCIONES
     private void registrarTransaccion(Usuario usuario, String tipo, int cantidad) {
         FechaHora fh = new FechaHora();
         Transaccion transaccion = new Transaccion(tipo, cantidad, fh.FechaAcceso(), fh.HoraAcceso());
         usuario.agregarTransaccion(transaccion);
         guardarUsuarios();
+        //Registro de actividades
+        String Fecha_Hora = fh.FechaAcceso() + ", " + fh.HoraAcceso();
+        String token = transaccion.getToken();
+        RegistroActividades.registrarTransacciones("Token: " + token
+                + " Tipo: " + tipo
+                + " Monto: " + cantidad
+                + " Fecha y Hora: " + Fecha_Hora);
+
+        if (tipo.equals("Depósito")) {
+            RegistroActividades.registrarDepositos("Usuario: " + usuario.getNombre()
+                    + " Número de Tarjeta: " + usuario.getNumTarjeta()
+                    + " Número de Cuenta: " + usuario.getNumCuenta()
+                    + " Depositó: " + Integer.toString(cantidad)
+                    + "Token: " + token
+                    + " Fecha y Hora: " + Fecha_Hora);
+        } else if (tipo.equals("Retiro")) {
+            RegistroActividades.registrarRetiros("Usuario: " + usuario.getNombre()
+                    + " Número de Tarjeta: " + usuario.getNumTarjeta()
+                    + " Número de Cuenta: " + usuario.getNumCuenta()
+                    + " Retiro: " + Integer.toString(cantidad)
+                    + "Token: " + token
+                    + " Fecha y Hora: " + Fecha_Hora);
+        }
+
+    }
+
+    //Ultimas 5 transacciones del ususario
+    public List<Transaccion> UltimasTransacciones(Usuario usuario) {
+        int start = Math.max(0, usuario.getTransacciones().size() - 5);
+        return usuario.getTransacciones().subList(start, usuario.getTransacciones().size());
+    }
+
+    //Lista de las transacciones del usuario
+    public List<Transaccion> transaccionesUsuarios(Usuario usuario) {
+        if (usuario != null) {
+            return usuario.getTransacciones();
+        }
+        return null;
     }
 
     public boolean retirar(String numTarjeta, String pin, int cantidad, Cajero cajero) {
@@ -308,13 +325,13 @@ public class UsuarioDAO {
                         guardarUsuarios();
                         return true;
                     } else {
-                        System.out.println("El cajero no tiene suficientes billetes para este retiro.");
+                        JOptionPane.showMessageDialog(null, "El cajero no tiene suficientes billetes para este retiro.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    System.out.println("Saldo insuficiente.");
+                    JOptionPane.showMessageDialog(null, "Saldo insuficiente.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                System.out.println("PIN incorrecto o usuario no encontrado.");
+                JOptionPane.showMessageDialog(null, "PIN incorrecto o usuario no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         return false;
@@ -354,13 +371,13 @@ public class UsuarioDAO {
                     guardarUsuarios();
                     return true;
                 } else {
-                    System.out.println("Cuenta destino no encontrada.");
+                    JOptionPane.showMessageDialog(null, "Cuenta destino no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                System.out.println("PIN incorrecto o usuario no encontrado.");
+                JOptionPane.showMessageDialog(null, "PIN incorrecto o usuario no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            System.out.println("Usuario origen no encontrado.");
+            JOptionPane.showMessageDialog(null, "Usuario origen no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         return false;
@@ -405,10 +422,27 @@ public class UsuarioDAO {
         return usuariosConCambioPIN;
     }
 
-    //Ultimas 5 transacciones del ususario
-    public List<Transaccion> getUltimasTransacciones(Usuario usuario) {
-        int start = Math.max(0, usuario.getTransacciones().size() - 5);
-        return usuario.getTransacciones().subList(start, usuario.getTransacciones().size());
+    // Método para registrar la fecha y hora de acceso
+    public String registrarAcceso(Usuario usuario) {
+        FechaHora fh = new FechaHora();
+        usuario.setFechaAcceso(fh.FechaAcceso());
+        usuario.setHoraAcceso(fh.HoraAcceso());
+        String acceso = usuario.getFechaHora_Acceso();
+        //System.out.println("Usuario " + usuario.getNombre() + " ingresó el " + usuario.getFechaAcceso() + " a las " + usuario.getHoraAcceso());
+        return acceso;
+    }
+
+    // Método para registrar la fecha y hora de salida
+    public String registrarSalida(Usuario usuario) {
+        FechaHora fh = new FechaHora();
+        usuario.setFechaSalida(fh.FechaAcceso());
+        usuario.setHoraSalida(fh.HoraAcceso());
+        String salida = usuario.getFechaHora_Salida();
+        System.out.println("Usuario " + usuario.getNombre() + " salio: " + salida);
+        ultimoAcceso.add(usuario);
+        guardarUsuarios();
+        guardarAccesoUsuarios();
+        return salida;
     }
 
     //Lista de Usuarios
