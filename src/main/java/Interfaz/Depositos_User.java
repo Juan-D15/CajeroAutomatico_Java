@@ -1,14 +1,12 @@
 package Interfaz;
 
 import cajero.modelo.Cajero;
-import control.actividades.Actividades_Usuario_Administrador;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import modelo.beans.Usuario;
 import modelo.logic.UsuarioLogic;
 
 /**
@@ -76,6 +74,11 @@ public class Depositos_User extends javax.swing.JPanel {
         txtNumTarjeta.setForeground(new java.awt.Color(0, 8, 66));
         txtNumTarjeta.setText("Número de Tarjeta");
         txtNumTarjeta.setBorder(null);
+        txtNumTarjeta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumTarjetaKeyTyped(evt);
+            }
+        });
         add(txtNumTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 490, 30));
 
         jSeparator1.setBackground(new java.awt.Color(0, 8, 66));
@@ -172,6 +175,12 @@ public class Depositos_User extends javax.swing.JPanel {
         lbValor.setText(Integer.toString(valorDeposito()));
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private void txtNumTarjetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumTarjetaKeyTyped
+        // TODO add your handling code here:
+        int key = evt.getKeyChar();
+        
+    }//GEN-LAST:event_txtNumTarjetaKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -211,19 +220,13 @@ public class Depositos_User extends javax.swing.JPanel {
 
             if (exito) {
                 JOptionPane.showMessageDialog(this, "Depósito realizado con éxito.");
-                Usuario obtener = UsuarioLogic.obtener(numTarjeta);
-                String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
-                Actividades_Usuario_Administrador.registrarActividadUsuario("Usuario: " + obtener.getNombre()
-                        + " Número de Tarjeta: " + numTarjeta
-                        + " Número de Cuenta: " + obtener.getNumCuenta()
-                        + " Depositó: " + Integer.toString(valorDeposito())
-                        + " Fecha y Hora: " + Fecha_Hora);
-                cantidadDeposito.clear();
+                cantidadDeposito.clear(); //Limpiar la lista
             } else {
-                JOptionPane.showMessageDialog(this, "Error en el depósito. Verifique los datos e intente nuevamente.");
+                JOptionPane.showMessageDialog(this, "Error en el depósito. Verifique los datos e intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                cantidadDeposito.clear();
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos para la denominación y la cantidad de billetes.");
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos para la denominación y la cantidad de billetes.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -242,7 +245,7 @@ public class Depositos_User extends javax.swing.JPanel {
                 cantidadDeposito.put(denominacion, cantidad);
             }
         } else {
-            System.out.println("Ingrese una cantidad válida.");
+            JOptionPane.showMessageDialog(this, "Ingrese una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
