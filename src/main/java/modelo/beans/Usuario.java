@@ -210,17 +210,11 @@ public class Usuario {
     }
 
     public String getFechaSalida() {
-        if (FechaSalida != null) {
-            return FechaSalida;
-        }
-        return "";
+        return FechaSalida != null ? FechaSalida : "";
     }
 
     public String getHoraSalida() {
-        if (HoraSalida != null) {
-            return HoraSalida;
-        }
-        return "";
+        return HoraSalida != null ? HoraSalida : "";
     }
 
     //Fecha y Hora juntos
@@ -229,6 +223,6 @@ public class Usuario {
     }
 
     public String getFechaHora_Salida() {
-        return FechaSalida + ", " + HoraSalida;
+        return (FechaSalida != null ? FechaSalida : "") + ", " + (HoraSalida != null ? HoraSalida : "");
     }
 }
