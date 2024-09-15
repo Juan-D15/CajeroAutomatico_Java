@@ -61,6 +61,7 @@ public class Cajero {
                     Billete billete = entry.getValue();
                     writer.write(billete.getDenominacion() + "," + billete.getCantidad() + System.lineSeparator());
                 }
+                writer.write("inicializado," + inicializado); // Guardar si el cajero fue inicializado
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,9 +80,13 @@ public class Cajero {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] data = line.split(",");
-                    int denominacion = Integer.parseInt(data[0]);
-                    int cantidad = Integer.parseInt(data[1]);
-                    billetes.put(denominacion, new Billete(denominacion, cantidad));
+                    if (data[0].equals("inicializado")) {
+                        inicializado = Boolean.parseBoolean(data[1]);
+                    } else {
+                        int denominacion = Integer.parseInt(data[0]);
+                        int cantidad = Integer.parseInt(data[1]);
+                        billetes.put(denominacion, new Billete(denominacion, cantidad));
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -107,11 +112,11 @@ public class Cajero {
                 total += cantidad * denominacion;
             }
 
-            if (total > max_Inicial) {
-                System.out.println("No se puede inicializar con más de Q. 10,000.00.");
+            if (total != max_Inicial) {
+                System.out.println("No se puede inicializar con menos de Q. 10,000.00.");
                 return false;
             }
-
+            // Inicializar los billetes en el cajero
             for (Map.Entry<Integer, Integer> entry : cantidades.entrySet()) {
                 int denominacion = entry.getKey();
                 int cantidad = entry.getValue();
@@ -238,7 +243,7 @@ public class Cajero {
         return resultado;
     }
 
-    private int obtenerTotal() {
+    public int obtenerTotal() {
         int total_Obtener = 0;
         for (Billete billete : billetes.values()) {
             total_Obtener += billete.getCantidad() * billete.getDenominacion();
