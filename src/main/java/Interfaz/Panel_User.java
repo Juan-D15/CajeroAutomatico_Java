@@ -16,13 +16,15 @@ public class Panel_User extends javax.swing.JFrame {
     /**
      * Creates new form Panel_User
      */
-    private Usuario user;
+    private Usuario user; //Referencia del usuario
 
     public Panel_User(Usuario usuario) {
         initComponents();
         this.setLocationRelativeTo(null);
         lbTitulo.setText("Bienvenido " + usuario.getNombre());
         user = usuario;
+        Gestion_User gestionUser = new Gestion_User(user);
+        CambioPanel(gestionUser);
     }
 
     /**

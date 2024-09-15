@@ -1,6 +1,6 @@
 package Interfaz;
 
-import control.actividades.Actividades_Usuario_Administrador;
+import control.actividades.RegistroActividades;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -132,7 +132,7 @@ public class Log_User extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void loginUsuario() {
-        Panel_User panelUser = new Panel_User(UsuarioLogic.obtener(txtNumTarjeta.getText()));
+        Panel_User panelUser = new Panel_User(UsuarioLogic.obtener(txtNumTarjeta.getText())); //Envia una referencia de el usuario
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
         topFrame.setVisible(false);  // Oculta el frame de login
 
@@ -142,12 +142,13 @@ public class Log_User extends javax.swing.JPanel {
 
     private void entrarUsuario() {
         if (!txtNumTarjeta.getText().isEmpty() && !String.valueOf(txtPinUser.getPassword()).isEmpty()) {
-            Usuario obtener = UsuarioLogic.obtener(txtNumTarjeta.getText());
-            String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
             if (UsuarioLogic.autentificar(txtNumTarjeta.getText(), String.valueOf(txtPinUser.getPassword()))) {
                 //Cambiar al frame de User
                 loginUsuario();
-                Actividades_Usuario_Administrador.registrarActividadUsuario("Login Usuario: " + "Usuario: " + obtener.getNombre()
+                //Registro actividades
+                Usuario obtener = UsuarioLogic.obtener(txtNumTarjeta.getText());
+                String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
+                RegistroActividades.registrarActividadUsuario("Login Usuario: " + "Usuario: " + obtener.getNombre()
                         + " Número de Tarjeta: " + txtNumTarjeta.getText()
                         + " Número de Cuenta: " + obtener.getNumCuenta()
                         + " Fecha y Hora: " + Fecha_Hora);

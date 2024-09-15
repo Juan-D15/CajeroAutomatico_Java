@@ -1,6 +1,6 @@
 package Interfaz;
 
-import control.actividades.Actividades_Usuario_Administrador;
+import control.actividades.RegistroActividades;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -252,6 +252,149 @@ public class Reg_User extends javax.swing.JPanel {
     private javax.swing.JTextField txtSaldoUser;
     // End of variables declaration//GEN-END:variables
 
+    private void modificarUsuario(Usuario usuario) {
+        if (!txtNombreUser.getText().isEmpty()
+                && !txtNumCuenta.getText().isEmpty()
+                && !txtNumTarjeta.getText().isEmpty()
+                && !String.valueOf(txtPinUser.getPassword()).isEmpty()
+                && !txtSaldoUser.getText().isEmpty()
+                && !txtMontoUser.getText().isEmpty()) {
+
+            String nombre = txtNombreUser.getText();
+            String numCuenta = txtNumCuenta.getText();
+            String numTarjeta = txtNumTarjeta.getText(); // Este es el nuevo número de tarjeta que se ingresa
+            String pin = String.valueOf(txtPinUser.getPassword());
+            String saldo = txtSaldoUser.getText();
+            String monto = txtMontoUser.getText();
+
+            // Crear un objeto Usuario con los nuevos datos
+            Usuario usuarioModificado = new Usuario(nombre, numCuenta, numTarjeta, pin, saldo, monto);
+
+            // Llamar al método modificar, pasando el número de tarjeta original
+            if (UsuarioLogic.modificar(usuarioModificado, usuario.getNumTarjeta())) {
+                JOptionPane.showMessageDialog(null, "Usuario Modificado");
+                txtMontoUser.setText("");
+                txtNombreUser.setText("");
+                txtNumTarjeta.setText("");
+                txtNumCuenta.setText("");
+                txtPinUser.setText("");
+                txtSaldoUser.setText("");
+                Usuario obtener = UsuarioLogic.obtener(usuarioModificado.getNumTarjeta());
+                String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
+                RegistroActividades.registrarActividadAdministrador("Se Modifico un Usuario: "
+                        + "Nombre: " + obtener.getNombre()
+                        + " Número de Cuenta: " + obtener.getNumCuenta()
+                        + " Número de Tarjeta: " + obtener.getNumTarjeta()
+                        + " PIN: " + obtener.getPIN()
+                        + " Saldo: " + obtener.getSaldo()
+                        + " Monto: " + obtener.getMonto()
+                        + " Fecha y Hora: " + Fecha_Hora);
+            } else {
+                JOptionPane.showMessageDialog(null, "El Usuario no existe");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
+        }
+    }
+
+    private Usuario buscarUsuario() {
+        if (!txtNumTarjeta.getText().isEmpty()) {
+            Usuario usuario = UsuarioLogic.obtener(txtNumTarjeta.getText());
+            if (usuario != null) {
+                txtNombreUser.setText("");
+                txtNombreUser.setText(usuario.getNombre());
+                txtNumCuenta.setText("");
+                txtNumCuenta.setText(usuario.getNumCuenta());
+                txtPinUser.setText("");
+                txtPinUser.setText(usuario.getPIN());
+                txtSaldoUser.setText("");
+                txtSaldoUser.setText(usuario.getSaldo());
+                txtMontoUser.setText("");
+                txtMontoUser.setText(usuario.getMonto());
+                Usuario obtener = UsuarioLogic.obtener(txtNumTarjeta.getText());
+                String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
+                RegistroActividades.registrarActividadAdministrador("Se Buscó un Usuario: "
+                        + "Nombre: " + obtener.getNombre()
+                        + " Número de Cuenta: " + obtener.getNumCuenta()
+                        + " Número de Tarjeta: " + obtener.getNumTarjeta()
+                        + " PIN: " + obtener.getPIN()
+                        + " Saldo: " + obtener.getSaldo()
+                        + " Monto: " + obtener.getMonto()
+                        + " Fecha y Hora: " + Fecha_Hora);
+                return usuario;
+            } else {
+                JOptionPane.showMessageDialog(null, "El Usuario no existe");
+                return null;
+            }
+        }
+        return null;
+    }
+
+    private void eliminarUsuario() {
+        if (!txtNumTarjeta.getText().isEmpty()) {
+            Usuario obtener = UsuarioLogic.obtener(txtNumTarjeta.getText());
+            String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
+            RegistroActividades.registrarActividadAdministrador("Se Eliminó un Usuario: "
+                    + "Nombre: " + obtener.getNombre()
+                    + " Número de Cuenta: " + obtener.getNumCuenta()
+                    + " Número de Tarjeta: " + obtener.getNumTarjeta()
+                    + " PIN: " + obtener.getPIN()
+                    + " Saldo: " + obtener.getSaldo()
+                    + " Monto: " + obtener.getMonto()
+                    + " Fecha y Hora: " + Fecha_Hora);
+            if (UsuarioLogic.eliminar(txtNumTarjeta.getText())) {
+                JOptionPane.showMessageDialog(null, "Usuario Eliminado");
+                txtMontoUser.setText("");
+                txtNombreUser.setText("");
+                txtNumTarjeta.setText("");
+                txtNumCuenta.setText("");
+                txtPinUser.setText("");
+                txtSaldoUser.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "El Usuario no existe");
+            }
+        }
+    }
+
+    private void registrarUsuario() {
+        if (!txtNombreUser.getText().isEmpty()
+                && !txtNumCuenta.getText().isEmpty()
+                && !txtNumTarjeta.getText().isEmpty()
+                && !String.valueOf(txtPinUser.getPassword()).isEmpty()
+                && !txtSaldoUser.getText().isEmpty()
+                && !txtMontoUser.getText().isEmpty()) {
+
+            String nombre = txtNombreUser.getText();
+            String numCuenta = txtNumCuenta.getText();
+            String numTarjeta = txtNumTarjeta.getText();
+            String pin = String.valueOf(txtPinUser.getPassword());
+            String saldo = txtSaldoUser.getText();
+            String monto = txtMontoUser.getText();
+
+            Usuario usuario = new Usuario(nombre, numCuenta, numTarjeta, pin, saldo, monto);
+            if (UsuarioLogic.insertar(usuario)) {
+                JOptionPane.showMessageDialog(null, "Usuario Registrado");
+                String Fecha_Hora = UsuarioLogic.registrarAcceso(usuario);
+                RegistroActividades.registrarActividadAdministrador("Se Registro un Usuario: "
+                        + "Nombre: " + nombre
+                        + " Número de Cuenta: " + numCuenta
+                        + " Número de Tarjeta: " + numTarjeta
+                        + " PIN: " + pin
+                        + " Saldo: " + saldo
+                        + " Monto: " + monto
+                        + " Fecha y Hora: " + Fecha_Hora);
+                txtMontoUser.setText("");
+                txtNombreUser.setText("");
+                txtNumTarjeta.setText("");
+                txtNumCuenta.setText("");
+                txtPinUser.setText("");
+                txtSaldoUser.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario ya existente");
+            }
+        }
+    }
+
     private void initListeners() {
         txtNombreUser.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent evt) {
@@ -346,148 +489,5 @@ public class Reg_User extends javax.swing.JPanel {
                 }
             }
         });
-    }
-
-    private void modificarUsuario(Usuario usuario) {
-        if (!txtNombreUser.getText().isEmpty()
-                && !txtNumCuenta.getText().isEmpty()
-                && !txtNumTarjeta.getText().isEmpty()
-                && !String.valueOf(txtPinUser.getPassword()).isEmpty()
-                && !txtSaldoUser.getText().isEmpty()
-                && !txtMontoUser.getText().isEmpty()) {
-
-            String nombre = txtNombreUser.getText();
-            String numCuenta = txtNumCuenta.getText();
-            String numTarjeta = txtNumTarjeta.getText(); // Este es el nuevo número de tarjeta que se ingresa
-            String pin = String.valueOf(txtPinUser.getPassword());
-            String saldo = txtSaldoUser.getText();
-            String monto = txtMontoUser.getText();
-
-            // Crear un objeto Usuario con los nuevos datos
-            Usuario usuarioModificado = new Usuario(nombre, numCuenta, numTarjeta, pin, saldo, monto);
-
-            // Llamar al método modificar, pasando el número de tarjeta original
-            if (UsuarioLogic.modificar(usuarioModificado, usuario.getNumTarjeta())) {
-                JOptionPane.showMessageDialog(null, "Usuario Modificado");
-                txtMontoUser.setText("");
-                txtNombreUser.setText("");
-                txtNumTarjeta.setText("");
-                txtNumCuenta.setText("");
-                txtPinUser.setText("");
-                txtSaldoUser.setText("");
-                Usuario obtener = UsuarioLogic.obtener(usuarioModificado.getNumTarjeta());
-                String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
-                Actividades_Usuario_Administrador.registrarActividadAdministrador("Se Modifico un Usuario: "
-                        + "Nombre: " + obtener.getNombre()
-                        + " Número de Cuenta: " + obtener.getNumCuenta()
-                        + " Número de Tarjeta: " + obtener.getNumTarjeta()
-                        + " PIN: " + obtener.getPIN()
-                        + " Saldo: " + obtener.getSaldo()
-                        + " Monto: " + obtener.getMonto()
-                        + " Fecha y Hora: " + Fecha_Hora);
-            } else {
-                JOptionPane.showMessageDialog(null, "El Usuario no existe");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, rellene todos los campos.");
-        }
-    }
-
-    private Usuario buscarUsuario() {
-        if (!txtNumTarjeta.getText().isEmpty()) {
-            Usuario usuario = UsuarioLogic.obtener(txtNumTarjeta.getText());
-            if (usuario != null) {
-                txtNombreUser.setText("");
-                txtNombreUser.setText(usuario.getNombre());
-                txtNumCuenta.setText("");
-                txtNumCuenta.setText(usuario.getNumCuenta());
-                txtPinUser.setText("");
-                txtPinUser.setText(usuario.getPIN());
-                txtSaldoUser.setText("");
-                txtSaldoUser.setText(usuario.getSaldo());
-                txtMontoUser.setText("");
-                txtMontoUser.setText(usuario.getMonto());
-                Usuario obtener = UsuarioLogic.obtener(txtNumTarjeta.getText());
-                String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
-                Actividades_Usuario_Administrador.registrarActividadAdministrador("Se Buscó un Usuario: "
-                        + "Nombre: " + obtener.getNombre()
-                        + " Número de Cuenta: " + obtener.getNumCuenta()
-                        + " Número de Tarjeta: " + obtener.getNumTarjeta()
-                        + " PIN: " + obtener.getPIN()
-                        + " Saldo: " + obtener.getSaldo()
-                        + " Monto: " + obtener.getMonto()
-                        + " Fecha y Hora: " + Fecha_Hora);
-                return usuario;
-            } else {
-                JOptionPane.showMessageDialog(null, "El Usuario no existe");
-                return null;
-            }
-        }
-        return null;
-    }
-
-    private void eliminarUsuario() {
-        if (!txtNumTarjeta.getText().isEmpty()) {
-            Usuario obtener = UsuarioLogic.obtener(txtNumTarjeta.getText());
-            String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
-            Actividades_Usuario_Administrador.registrarActividadAdministrador("Se Eliminó un Usuario: "
-                    + "Nombre: " + obtener.getNombre()
-                    + " Número de Cuenta: " + obtener.getNumCuenta()
-                    + " Número de Tarjeta: " + obtener.getNumTarjeta()
-                    + " PIN: " + obtener.getPIN()
-                    + " Saldo: " + obtener.getSaldo()
-                    + " Monto: " + obtener.getMonto()
-                    + " Fecha y Hora: " + Fecha_Hora);
-            if (UsuarioLogic.eliminar(txtNumTarjeta.getText())) {
-                JOptionPane.showMessageDialog(null, "Usuario Eliminado");
-                txtMontoUser.setText("");
-                txtNombreUser.setText("");
-                txtNumTarjeta.setText("");
-                txtNumCuenta.setText("");
-                txtPinUser.setText("");
-                txtSaldoUser.setText("");
-            } else {
-                JOptionPane.showMessageDialog(null, "El Usuario no existe");
-            }
-        }
-    }
-
-    private void registrarUsuario() {
-        if (!txtNombreUser.getText().isEmpty()
-                && !txtNumCuenta.getText().isEmpty()
-                && !txtNumTarjeta.getText().isEmpty()
-                && !String.valueOf(txtPinUser.getPassword()).isEmpty()
-                && !txtSaldoUser.getText().isEmpty()
-                && !txtMontoUser.getText().isEmpty()) {
-
-            String nombre = txtNombreUser.getText();
-            String numCuenta = txtNumCuenta.getText();
-            String numTarjeta = txtNumTarjeta.getText();
-            String pin = String.valueOf(txtPinUser.getPassword());
-            String saldo = txtSaldoUser.getText();
-            String monto = txtMontoUser.getText();
-
-            Usuario usuario = new Usuario(nombre, numCuenta, numTarjeta, pin, saldo, monto);
-            if (UsuarioLogic.insertar(usuario)) {
-                JOptionPane.showMessageDialog(null, "Usuario Registrado");
-                String Fecha_Hora = UsuarioLogic.registrarAcceso(usuario);
-                Actividades_Usuario_Administrador.registrarActividadAdministrador("Se Registro un Usuario: "
-                        + "Nombre: " + nombre
-                        + " Número de Cuenta: " + numCuenta
-                        + " Número de Tarjeta: " + numTarjeta
-                        + " PIN: " + pin
-                        + " Saldo: " + saldo
-                        + " Monto: " + monto
-                        + " Fecha y Hora: " + Fecha_Hora);
-                txtMontoUser.setText("");
-                txtNombreUser.setText("");
-                txtNumTarjeta.setText("");
-                txtNumCuenta.setText("");
-                txtPinUser.setText("");
-                txtSaldoUser.setText("");
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuario ya existente");
-            }
-        }
     }
 }

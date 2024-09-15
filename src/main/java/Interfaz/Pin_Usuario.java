@@ -1,6 +1,6 @@
 package Interfaz;
 
-import control.actividades.Actividades_Usuario_Administrador;
+import control.actividades.RegistroActividades;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -200,7 +200,7 @@ public class Pin_Usuario extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Usuario Modificado");
                     Usuario obtener = UsuarioLogic.obtener(usuarioModificado.getNumTarjeta());
                     String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
-                    Actividades_Usuario_Administrador.registrarActividadUsuario("Cambio de PIN Usuario: "
+                    RegistroActividades.registrarActividadUsuario("Cambio de PIN Usuario: "
                             + "Nombre: " + obtener.getNombre()
                             + " Número de Cuenta: " + obtener.getNumCuenta()
                             + " Número de Tarjeta: " + obtener.getNumTarjeta()

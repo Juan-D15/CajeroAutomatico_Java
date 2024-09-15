@@ -21,6 +21,7 @@ public class Panel_Admin extends javax.swing.JFrame {
 
     public Panel_Admin(Administrador admin) {
         cajero = Cajero.getInstancia();
+        cajero.mostrarTotal();/////////////////////
         initComponents();
         this.setLocationRelativeTo(null);
         administrador = admin;

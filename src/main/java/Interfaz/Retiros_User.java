@@ -1,12 +1,10 @@
 package Interfaz;
 
 import cajero.modelo.Cajero;
-import control.actividades.Actividades_Usuario_Administrador;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JOptionPane;
-import modelo.beans.Usuario;
 import modelo.logic.UsuarioLogic;
 
 /**
@@ -146,14 +144,6 @@ public class Retiros_User extends javax.swing.JPanel {
 
             if (exito) {
                 JOptionPane.showMessageDialog(this, "Retiro realizado con éxito.");
-                Usuario obtener = UsuarioLogic.obtener(numTarjeta);
-                String Fecha_Hora = UsuarioLogic.registrarAcceso(obtener);
-                Actividades_Usuario_Administrador.registrarActividadUsuario("Usuario: " + obtener.getNombre()
-                        + " Número de Tarjeta: " + numTarjeta
-                        + " Número de Cuenta: " + obtener.getNumCuenta()
-                        + " Retiró: " + cantidad
-                        + " Fecha y Hora: " + Fecha_Hora);
-
             } else {
                 JOptionPane.showMessageDialog(this, "Error en el retiro. Verifique los datos o saldo insuficiente.");
             }

@@ -1,6 +1,6 @@
 package Interfaz;
 
-import control.actividades.Actividades_Usuario_Administrador;
+import control.actividades.RegistroActividades;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -129,7 +129,7 @@ public class Log_Admin extends javax.swing.JPanel {
             if (AdministradorLogic.autentificar(txtNombre.getText(), String.valueOf(txtPassword.getPassword()))) {
                 //Cambiar al frame de Admin
                 loginAdmin();
-                Actividades_Usuario_Administrador.registrarActividadAdministrador("Login Admin: " + "Administradot: " + Nombre
+                RegistroActividades.registrarActividadAdministrador("Login Admin: " + "Administradot: " + Nombre
                         + " Fecha y Hora: " + Fecha_Hora);
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrectos");
