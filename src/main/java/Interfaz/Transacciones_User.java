@@ -56,6 +56,7 @@ public class Transacciones_User extends javax.swing.JFrame {
         lbTitulo.setFont(new java.awt.Font("Poppins Medium", 0, 24)); // NOI18N
         lbTitulo.setText("Transacciones");
 
+        tblTransaccionesUser.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         tblTransaccionesUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

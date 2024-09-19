@@ -71,6 +71,11 @@ public class Retiros_User extends javax.swing.JPanel {
         txtNumTarjeta.setForeground(new java.awt.Color(0, 8, 66));
         txtNumTarjeta.setText("Número de Tarjeta");
         txtNumTarjeta.setBorder(null);
+        txtNumTarjeta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumTarjetaKeyTyped(evt);
+            }
+        });
         add(txtNumTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 490, 30));
 
         jSeparator1.setBackground(new java.awt.Color(0, 8, 66));
@@ -90,6 +95,11 @@ public class Retiros_User extends javax.swing.JPanel {
         txtPinUser.setForeground(new java.awt.Color(0, 8, 66));
         txtPinUser.setText("****");
         txtPinUser.setBorder(null);
+        txtPinUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPinUserKeyTyped(evt);
+            }
+        });
         add(txtPinUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 490, -1));
 
         jSeparator3.setBackground(new java.awt.Color(0, 8, 66));
@@ -105,6 +115,11 @@ public class Retiros_User extends javax.swing.JPanel {
         txtDineroRetirar.setForeground(new java.awt.Color(0, 8, 66));
         txtDineroRetirar.setText("Retirar");
         txtDineroRetirar.setBorder(null);
+        txtDineroRetirar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDineroRetirarKeyTyped(evt);
+            }
+        });
         add(txtDineroRetirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 490, 30));
 
         jSeparator4.setBackground(new java.awt.Color(0, 8, 66));
@@ -116,6 +131,41 @@ public class Retiros_User extends javax.swing.JPanel {
         retirarUsuario();
         cajero.mostrarTotal();
     }//GEN-LAST:event_btnRetirarActionPerformed
+
+    private void txtNumTarjetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumTarjetaKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+
+        if (txtNumTarjeta.getText().trim().length() == 16) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumTarjetaKeyTyped
+
+    private void txtDineroRetirarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDineroRetirarKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDineroRetirarKeyTyped
+
+    private void txtPinUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPinUserKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+
+        if (String.valueOf(txtPinUser.getPassword()).trim().length() == 4) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPinUserKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

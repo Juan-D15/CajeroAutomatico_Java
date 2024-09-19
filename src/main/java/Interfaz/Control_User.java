@@ -136,6 +136,8 @@ public class Control_User extends javax.swing.JPanel {
         lbSTitulo1.setText("Total Retirado por todos los Usuarios");
         add(lbSTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
+        txtTotalRetirado.setEditable(false);
+        txtTotalRetirado.setBackground(new java.awt.Color(255, 255, 255));
         txtTotalRetirado.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtTotalRetirado.setForeground(new java.awt.Color(0, 8, 66));
         txtTotalRetirado.setBorder(null);
@@ -146,10 +148,12 @@ public class Control_User extends javax.swing.JPanel {
         add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 220, 10));
 
         lbSTitulo2.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
-        lbSTitulo2.setForeground(new java.awt.Color(153, 153, 153));
+        lbSTitulo2.setForeground(new java.awt.Color(0, 8, 66));
         lbSTitulo2.setText("Acceso de Usuarios");
         add(lbSTitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, -1, -1));
 
+        txtPromedioDeposito.setEditable(false);
+        txtPromedioDeposito.setBackground(new java.awt.Color(255, 255, 255));
         txtPromedioDeposito.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtPromedioDeposito.setForeground(new java.awt.Color(0, 8, 66));
         txtPromedioDeposito.setBorder(null);
@@ -164,6 +168,7 @@ public class Control_User extends javax.swing.JPanel {
         lbSTitulo3.setText("Promedio del monto depositado");
         add(lbSTitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
 
+        tblAccesoUsuarios.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         tblAccesoUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -180,10 +185,11 @@ public class Control_User extends javax.swing.JPanel {
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 330, 330, 180));
 
         lbSTitulo4.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
-        lbSTitulo4.setForeground(new java.awt.Color(153, 153, 153));
+        lbSTitulo4.setForeground(new java.awt.Color(0, 8, 66));
         lbSTitulo4.setText("Usuarios con cambio de PIN");
         add(lbSTitulo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, -1, -1));
 
+        tblCambioPin.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         tblCambioPin.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -195,6 +201,8 @@ public class Control_User extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCambioPin.setGridColor(new java.awt.Color(255, 255, 255));
+        tblCambioPin.setSelectionBackground(new java.awt.Color(255, 255, 255));
         jScrollPane3.setViewportView(tblCambioPin);
 
         add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 330, 180));

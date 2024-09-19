@@ -8,9 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import modelo.beans.Administrador;
-import modelo.beans.Usuario;
 import modelo.logic.AdministradorLogic;
-import modelo.logic.UsuarioLogic;
 
 /**
  *

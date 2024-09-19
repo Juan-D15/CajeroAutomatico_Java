@@ -65,6 +65,11 @@ public class Pin_Usuario extends javax.swing.JFrame {
         txtNumTarjeta.setForeground(new java.awt.Color(0, 8, 66));
         txtNumTarjeta.setText("Número de Tarjeta");
         txtNumTarjeta.setBorder(null);
+        txtNumTarjeta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumTarjetaKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtNumTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 350, 30));
 
         jSeparator1.setBackground(new java.awt.Color(0, 8, 66));
@@ -79,6 +84,11 @@ public class Pin_Usuario extends javax.swing.JFrame {
         txtPinUser.setForeground(new java.awt.Color(0, 8, 66));
         txtPinUser.setText("****");
         txtPinUser.setBorder(null);
+        txtPinUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPinUserKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtPinUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 350, -1));
 
         lbStitulo1.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
@@ -95,6 +105,11 @@ public class Pin_Usuario extends javax.swing.JFrame {
         txtPinUserConfirm.setForeground(new java.awt.Color(0, 8, 66));
         txtPinUserConfirm.setText("****");
         txtPinUserConfirm.setBorder(null);
+        txtPinUserConfirm.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPinUserConfirmKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtPinUserConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 350, -1));
 
         jSeparator3.setBackground(new java.awt.Color(0, 8, 66));
@@ -132,6 +147,45 @@ public class Pin_Usuario extends javax.swing.JFrame {
         cambiarPin();
         this.dispose();
     }//GEN-LAST:event_btnCambiarPinActionPerformed
+
+    private void txtPinUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPinUserKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+
+        if (String.valueOf(txtPinUser.getPassword()).trim().length() == 4) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPinUserKeyTyped
+
+    private void txtPinUserConfirmKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPinUserConfirmKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+
+        if (String.valueOf(txtPinUserConfirm.getPassword()).trim().length() == 4) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPinUserConfirmKeyTyped
+
+    private void txtNumTarjetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumTarjetaKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+
+        if (txtNumTarjeta.getText().trim().length() == 16) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumTarjetaKeyTyped
 
     /**
      * @param args the command line arguments

@@ -4,6 +4,7 @@ import control.actividades.RegistroActividades;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import modelo.beans.Usuario;
 import modelo.logic.UsuarioLogic;
@@ -74,6 +75,11 @@ public class Reg_User extends javax.swing.JPanel {
         txtNombreUser.setForeground(new java.awt.Color(0, 8, 66));
         txtNombreUser.setText("Nombre de Usuario");
         txtNombreUser.setBorder(null);
+        txtNombreUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreUserKeyTyped(evt);
+            }
+        });
         add(txtNombreUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 490, 30));
 
         jSeparator1.setBackground(new java.awt.Color(0, 8, 66));
@@ -89,6 +95,11 @@ public class Reg_User extends javax.swing.JPanel {
         txtNumTarjeta.setForeground(new java.awt.Color(0, 8, 66));
         txtNumTarjeta.setText("Número de Tarjeta");
         txtNumTarjeta.setBorder(null);
+        txtNumTarjeta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumTarjetaKeyTyped(evt);
+            }
+        });
         add(txtNumTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 480, 30));
 
         jSeparator2.setBackground(new java.awt.Color(0, 8, 66));
@@ -104,6 +115,11 @@ public class Reg_User extends javax.swing.JPanel {
         txtPinUser.setForeground(new java.awt.Color(0, 8, 66));
         txtPinUser.setText("**********");
         txtPinUser.setBorder(null);
+        txtPinUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPinUserKeyTyped(evt);
+            }
+        });
         add(txtPinUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 490, -1));
 
         jSeparator3.setBackground(new java.awt.Color(0, 8, 66));
@@ -119,6 +135,11 @@ public class Reg_User extends javax.swing.JPanel {
         txtSaldoUser.setForeground(new java.awt.Color(0, 8, 66));
         txtSaldoUser.setText("Saldo Actual");
         txtSaldoUser.setBorder(null);
+        txtSaldoUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSaldoUserKeyTyped(evt);
+            }
+        });
         add(txtSaldoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 490, 30));
 
         jSeparator4.setBackground(new java.awt.Color(0, 8, 66));
@@ -134,6 +155,11 @@ public class Reg_User extends javax.swing.JPanel {
         txtMontoUser.setForeground(new java.awt.Color(0, 8, 66));
         txtMontoUser.setText("Monto Máximo Diario");
         txtMontoUser.setBorder(null);
+        txtMontoUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMontoUserKeyTyped(evt);
+            }
+        });
         add(txtMontoUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, 490, 30));
 
         jSeparator5.setBackground(new java.awt.Color(0, 8, 66));
@@ -201,6 +227,11 @@ public class Reg_User extends javax.swing.JPanel {
         txtNumCuenta.setForeground(new java.awt.Color(0, 8, 66));
         txtNumCuenta.setText("Número de Cuenta");
         txtNumCuenta.setBorder(null);
+        txtNumCuenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumCuentaKeyTyped(evt);
+            }
+        });
         add(txtNumCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 490, 30));
 
         jSeparator6.setBackground(new java.awt.Color(0, 8, 66));
@@ -225,6 +256,73 @@ public class Reg_User extends javax.swing.JPanel {
     private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
         usuarioOriginal = buscarUsuario();
     }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
+
+    private void txtNombreUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreUserKeyTyped
+        // Condicionar jTextField solo para letras
+        if (!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)) {
+            evt.consume();
+        }
+        if (txtNombreUser.getText().length() == 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreUserKeyTyped
+
+    private void txtNumCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumCuentaKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+
+        if (txtNumCuenta.getText().trim().length() == 10) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumCuentaKeyTyped
+
+    private void txtNumTarjetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumTarjetaKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+
+        if (txtNumTarjeta.getText().trim().length() == 16) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumTarjetaKeyTyped
+
+    private void txtPinUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPinUserKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+
+        if (String.valueOf(txtPinUser.getPassword()).trim().length() == 4) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPinUserKeyTyped
+
+    private void txtSaldoUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoUserKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSaldoUserKeyTyped
+
+    private void txtMontoUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoUserKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMontoUserKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarUsuario;

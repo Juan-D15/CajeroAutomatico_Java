@@ -68,6 +68,11 @@ public class Init_Cajero extends javax.swing.JPanel {
 
         txtCantidadBilletes.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtCantidadBilletes.setSelectionColor(new java.awt.Color(12, 33, 193));
+        txtCantidadBilletes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantidadBilletesKeyTyped(evt);
+            }
+        });
         add(txtCantidadBilletes, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, 132, -1));
 
         jLabel2.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
@@ -115,6 +120,11 @@ public class Init_Cajero extends javax.swing.JPanel {
 
         txtCantidadBilletes_Efect.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtCantidadBilletes_Efect.setSelectionColor(new java.awt.Color(12, 33, 193));
+        txtCantidadBilletes_Efect.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantidadBilletes_EfectKeyTyped(evt);
+            }
+        });
         add(txtCantidadBilletes_Efect, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 370, 132, -1));
 
         btnAgregarInit.setBackground(new java.awt.Color(12, 33, 193));
@@ -173,6 +183,24 @@ public class Init_Cajero extends javax.swing.JPanel {
     private void btnEnviar_EfectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar_EfectActionPerformed
         EnviarEfectivoCajero();
     }//GEN-LAST:event_btnEnviar_EfectActionPerformed
+
+    private void txtCantidadBilletesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadBilletesKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCantidadBilletesKeyTyped
+
+    private void txtCantidadBilletes_EfectKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadBilletes_EfectKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCantidadBilletes_EfectKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

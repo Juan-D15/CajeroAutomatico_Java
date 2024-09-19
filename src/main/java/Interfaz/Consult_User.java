@@ -79,6 +79,11 @@ public class Consult_User extends javax.swing.JPanel {
         txtNumTarjeta.setForeground(new java.awt.Color(0, 8, 66));
         txtNumTarjeta.setText("Número de Tarjeta");
         txtNumTarjeta.setBorder(null);
+        txtNumTarjeta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumTarjetaKeyTyped(evt);
+            }
+        });
         add(txtNumTarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 480, 30));
 
         jSeparator2.setBackground(new java.awt.Color(0, 8, 66));
@@ -90,10 +95,17 @@ public class Consult_User extends javax.swing.JPanel {
         lbSTitulo5.setText("No. Cuenta");
         add(lbSTitulo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, -1, -1));
 
+        txtNumCuenta.setEditable(false);
+        txtNumCuenta.setBackground(new java.awt.Color(255, 255, 255));
         txtNumCuenta.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtNumCuenta.setForeground(new java.awt.Color(0, 8, 66));
         txtNumCuenta.setText("Número de Cuenta");
         txtNumCuenta.setBorder(null);
+        txtNumCuenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumCuentaKeyTyped(evt);
+            }
+        });
         add(txtNumCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 490, 30));
 
         jSeparator6.setBackground(new java.awt.Color(0, 8, 66));
@@ -105,10 +117,17 @@ public class Consult_User extends javax.swing.JPanel {
         lbSTitulo6.setText("Cantidad Retirada");
         add(lbSTitulo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
 
+        txtCantRetirada.setEditable(false);
+        txtCantRetirada.setBackground(new java.awt.Color(255, 255, 255));
         txtCantRetirada.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtCantRetirada.setForeground(new java.awt.Color(0, 8, 66));
         txtCantRetirada.setText("Cantidad Retirada");
         txtCantRetirada.setBorder(null);
+        txtCantRetirada.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantRetiradaKeyTyped(evt);
+            }
+        });
         add(txtCantRetirada, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 490, 30));
 
         jSeparator7.setBackground(new java.awt.Color(0, 8, 66));
@@ -120,10 +139,17 @@ public class Consult_User extends javax.swing.JPanel {
         lbSTitulo7.setText("Saldo Actual");
         add(lbSTitulo7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, -1));
 
+        txtSaldoActual.setEditable(false);
+        txtSaldoActual.setBackground(new java.awt.Color(255, 255, 255));
         txtSaldoActual.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtSaldoActual.setForeground(new java.awt.Color(0, 8, 66));
         txtSaldoActual.setText("Saldo Actual");
         txtSaldoActual.setBorder(null);
+        txtSaldoActual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSaldoActualKeyTyped(evt);
+            }
+        });
         add(txtSaldoActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 330, 490, 30));
 
         jSeparator8.setBackground(new java.awt.Color(0, 8, 66));
@@ -135,6 +161,8 @@ public class Consult_User extends javax.swing.JPanel {
         lbSTitulo8.setText("Último Acceso");
         add(lbSTitulo8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, -1, -1));
 
+        txtUltimoAcceso.setEditable(false);
+        txtUltimoAcceso.setBackground(new java.awt.Color(255, 255, 255));
         txtUltimoAcceso.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtUltimoAcceso.setForeground(new java.awt.Color(0, 8, 66));
         txtUltimoAcceso.setText("Último Acceso");
@@ -169,6 +197,50 @@ public class Consult_User extends javax.swing.JPanel {
         tabla.setDefaultCloseOperation(Transacciones_User.DISPOSE_ON_CLOSE);
         tabla.setVisible(true);
     }//GEN-LAST:event_btnTransaccionesActionPerformed
+
+    private void txtNumTarjetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumTarjetaKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+
+        if (txtNumTarjeta.getText().trim().length() == 16) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumTarjetaKeyTyped
+
+    private void txtNumCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumCuentaKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+
+        if (txtNumCuenta.getText().trim().length() == 16) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumCuentaKeyTyped
+
+    private void txtCantRetiradaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantRetiradaKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCantRetiradaKeyTyped
+
+    private void txtSaldoActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoActualKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSaldoActualKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

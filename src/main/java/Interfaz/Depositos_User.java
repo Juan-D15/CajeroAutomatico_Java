@@ -94,6 +94,11 @@ public class Depositos_User extends javax.swing.JPanel {
         txtPinUser.setForeground(new java.awt.Color(0, 8, 66));
         txtPinUser.setText("****");
         txtPinUser.setBorder(null);
+        txtPinUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPinUserKeyTyped(evt);
+            }
+        });
         add(txtPinUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 490, -1));
 
         jSeparator3.setBackground(new java.awt.Color(0, 8, 66));
@@ -109,6 +114,11 @@ public class Depositos_User extends javax.swing.JPanel {
         txtNumCuenta.setForeground(new java.awt.Color(0, 8, 66));
         txtNumCuenta.setText("Número de Cuenta");
         txtNumCuenta.setBorder(null);
+        txtNumCuenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumCuentaKeyTyped(evt);
+            }
+        });
         add(txtNumCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 490, 30));
 
         jSeparator4.setBackground(new java.awt.Color(0, 8, 66));
@@ -147,6 +157,11 @@ public class Depositos_User extends javax.swing.JPanel {
 
         txtCantidadBilletes.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtCantidadBilletes.setSelectionColor(new java.awt.Color(12, 33, 193));
+        txtCantidadBilletes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantidadBilletesKeyTyped(evt);
+            }
+        });
         add(txtCantidadBilletes, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, 132, -1));
 
         btnAgregar.setBackground(new java.awt.Color(12, 33, 193));
@@ -176,10 +191,52 @@ public class Depositos_User extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void txtNumTarjetaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumTarjetaKeyTyped
-        // TODO add your handling code here:
+        // Condicionar el jTextField para números
         int key = evt.getKeyChar();
-        
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+
+        if (txtNumTarjeta.getText().trim().length() == 16) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtNumTarjetaKeyTyped
+
+    private void txtPinUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPinUserKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+
+        if (String.valueOf(txtPinUser.getPassword()).trim().length() == 4) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtPinUserKeyTyped
+
+    private void txtNumCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumCuentaKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+
+        if (txtNumCuenta.getText().trim().length() == 10) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumCuentaKeyTyped
+
+    private void txtCantidadBilletesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadBilletesKeyTyped
+        // Condicionar el jTextField para números
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57; //ASCII
+        if (!numero) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCantidadBilletesKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

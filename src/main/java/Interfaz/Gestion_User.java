@@ -68,6 +68,7 @@ public class Gestion_User extends javax.swing.JPanel {
         lbSTitulo.setText("Saldo Disponible");
         add(lbSTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, -1));
 
+        tblTransacciones.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         tblTransacciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -93,6 +94,8 @@ public class Gestion_User extends javax.swing.JPanel {
         lbSTitulo2.setText("Monto Máximo Retiro");
         add(lbSTitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, -1, -1));
 
+        txtMontoMaximo.setEditable(false);
+        txtMontoMaximo.setBackground(new java.awt.Color(255, 255, 255));
         txtMontoMaximo.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtMontoMaximo.setForeground(new java.awt.Color(0, 8, 66));
         txtMontoMaximo.setBorder(null);
@@ -107,6 +110,8 @@ public class Gestion_User extends javax.swing.JPanel {
         lbSTitulo3.setText("Monto Disponible en el Día");
         add(lbSTitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 380, -1, -1));
 
+        txtMontoDisponible.setEditable(false);
+        txtMontoDisponible.setBackground(new java.awt.Color(255, 255, 255));
         txtMontoDisponible.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtMontoDisponible.setForeground(new java.awt.Color(0, 8, 66));
         txtMontoDisponible.setBorder(null);
@@ -121,6 +126,8 @@ public class Gestion_User extends javax.swing.JPanel {
         lbSTitulo4.setText("Saldo");
         add(lbSTitulo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, -1, -1));
 
+        txtSaldoDisponible.setEditable(false);
+        txtSaldoDisponible.setBackground(new java.awt.Color(255, 255, 255));
         txtSaldoDisponible.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         txtSaldoDisponible.setForeground(new java.awt.Color(0, 8, 66));
         txtSaldoDisponible.setBorder(null);
