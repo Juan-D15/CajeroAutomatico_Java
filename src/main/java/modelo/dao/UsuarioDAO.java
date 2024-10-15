@@ -1,12 +1,16 @@
 package modelo.dao;
 
 import cajero.modelo.Cajero;
+import conexionSQLServer.CConexion;
 import control.actividades.RegistroActividades;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,12 +25,14 @@ import modelo.beans.Transaccion;
  */
 public class UsuarioDAO {
 
+    private CConexion conexion;
     private List<Usuario> usuarios;
     private List<Usuario> ultimoAcceso;
 
     public UsuarioDAO() {
         usuarios = new ArrayList<>();
         ultimoAcceso = new ArrayList<>();
+        conexion = new CConexion();
         cargarUsuarios();
         cargarAccesoUsuarios();
     }
@@ -160,9 +166,12 @@ public class UsuarioDAO {
 
     //Agregar a un Usuario
     public boolean insertar(Usuario usuario) {
-        if (buscar(usuario.getNumTarjeta()) == -1 && buscarPin(usuario.getPIN()) == -1) { // si el usuario no existe
+        if (buscar(usuario.getNumTarjeta()) == -1
+                && buscarPin(usuario.getPIN()) == -1
+                && buscarCuenta(usuario.getNumCuenta()) == -1) { // si el usuario no existe
             usuarios.add(usuario); //agrega al usuario
             guardarUsuarios();
+            
             return true;
         } else {
             return false;
@@ -424,12 +433,15 @@ public class UsuarioDAO {
 
     // Método para registrar la fecha y hora de acceso
     public String registrarAcceso(Usuario usuario) {
-        FechaHora fh = new FechaHora();
-        usuario.setFechaAcceso(fh.FechaAcceso());
-        usuario.setHoraAcceso(fh.HoraAcceso());
-        String acceso = usuario.getFechaHora_Acceso();
-        //System.out.println("Usuario " + usuario.getNombre() + " ingresó el " + usuario.getFechaAcceso() + " a las " + usuario.getHoraAcceso());
-        return acceso;
+        if (usuario != null) {
+            FechaHora fh = new FechaHora();
+            usuario.setFechaAcceso(fh.FechaAcceso());
+            usuario.setHoraAcceso(fh.HoraAcceso());
+            String acceso = usuario.getFechaHora_Acceso();
+            //System.out.println("Usuario " + usuario.getNombre() + " ingresó el " + usuario.getFechaAcceso() + " a las " + usuario.getHoraAcceso());
+            return acceso;
+        }
+        return null;
     }
 
     // Método para registrar la fecha y hora de salida
