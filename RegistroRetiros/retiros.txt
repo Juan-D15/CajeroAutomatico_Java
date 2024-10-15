@@ -1,0 +1,2 @@
+Usuario: Juan Díaz Número de Tarjeta: 7328748326896918 Número de Cuenta: 2020202020 Retiro: 100Token: fb1f500b-545f-42c8-9c69-dd4f5b8aca73 Fecha y Hora: 19/9/2024, 15:20:50
+Usuario: María Pérez Número de Tarjeta: 3920130934809328 Número de Cuenta: 4040404040 Retiro: 200Token: aca806b0-c934-4cf7-931e-218d6770cad1 Fecha y Hora: 19/9/2024, 15:20:50
