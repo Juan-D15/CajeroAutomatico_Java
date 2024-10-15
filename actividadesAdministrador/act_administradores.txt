@@ -1,2 +1,10 @@
-Login Admin: Administradot: admin1 Fecha y Hora: 15/9/2024, 18:1:56
-Login Admin: Administradot: admin1 Fecha y Hora: 15/9/2024, 18:4:29
+Login Admin: Administrador: admin1 Fecha y Hora: 19/9/2024, 15:20:50
+Se Registro un Usuario: Nombre: Juan Chen Número de Cuenta: 2020202020 Número de Tarjeta: 7328748326896918 PIN: 4567 Saldo: 2000 Monto: 4000 Fecha y Hora: 19/9/2024, 15:20:50
+Se Registro un Usuario: Nombre: María Pérez Número de Cuenta: 4040404040 Número de Tarjeta: 3920130934809328 PIN: 7890 Saldo: 1000 Monto: 3000 Fecha y Hora: 19/9/2024, 15:20:50
+Se Buscó un Usuario: Nombre: Juan Chen Número de Cuenta: 2020202020 Número de Tarjeta: 7328748326896918 PIN: 4567 Saldo: 2000 Monto: 4000 Fecha y Hora: 19/9/2024, 15:20:50
+Se Modifico un Usuario: Nombre: Juan Díaz Número de Cuenta: 2020202020 Número de Tarjeta: 7328748326896918 PIN: 4567 Saldo: 2000 Monto: 4000 Fecha y Hora: 19/9/2024, 15:20:50
+Login Admin: Administrador: admin1 Fecha y Hora: 19/9/2024, 15:20:50
+Inicialización Cajero: Admistrador: admin1 Cantidad: 10000 Fecha y Hora: 19/9/2024, 15:20:50
+Login Admin: Administrador: admin1 Fecha y Hora: 19/9/2024, 15:20:50
+Login Admin: Administrador: admin1 Fecha y Hora: 19/9/2024, 15:20:50
+Se Buscó un Usuario: Nombre: María Pérez Número de Cuenta: 4040404040 Número de Tarjeta: 3920130934809328 PIN: 7890 Saldo: 850 Monto: 3000 Fecha y Hora: 19/9/2024, 15:20:50

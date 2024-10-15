@@ -127,7 +127,7 @@ public class Log_Admin extends javax.swing.JPanel {
             if (AdministradorLogic.autentificar(txtNombre.getText(), String.valueOf(txtPassword.getPassword()))) {
                 //Cambiar al frame de Admin
                 loginAdmin();
-                RegistroActividades.registrarActividadAdministrador("Login Admin: " + "Administradot: " + Nombre
+                RegistroActividades.registrarActividadAdministrador("Login Admin: " + "Administrador: " + Nombre
                         + " Fecha y Hora: " + Fecha_Hora);
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario o Contraseña incorrectos");
