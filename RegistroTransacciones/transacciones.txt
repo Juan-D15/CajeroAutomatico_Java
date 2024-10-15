@@ -1,0 +1,4 @@
+Token: fb1f500b-545f-42c8-9c69-dd4f5b8aca73 Tipo: Retiro Monto: 100 Fecha y Hora: 19/9/2024, 15:20:50
+Token: 94d5ee66-8b44-478a-a80d-3710df6fa40c Tipo: Depósito Monto: 200 Fecha y Hora: 19/9/2024, 15:20:50
+Token: 04be3580-4ceb-43a5-8581-3f4a7860001d Tipo: Depósito Monto: 50 Fecha y Hora: 19/9/2024, 15:20:50
+Token: aca806b0-c934-4cf7-931e-218d6770cad1 Tipo: Retiro Monto: 200 Fecha y Hora: 19/9/2024, 15:20:50
