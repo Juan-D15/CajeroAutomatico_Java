@@ -1,0 +1,6 @@
+Login Usuario: Usuario: Juan Díaz Número de Tarjeta: 7328748326896918 Número de Cuenta: 2020202020 Fecha y Hora: 19/9/2024, 15:20:50
+Cambio de PIN Usuario: Nombre: Juan Díaz Número de Cuenta: 2020202020 Número de Tarjeta: 7328748326896918 Nuevo PIN: 2345 Saldo: 2000 Monto: 4000 Fecha y Hora: 19/9/2024, 15:20:50
+Login Usuario: Usuario: Juan Díaz Número de Tarjeta: 7328748326896918 Número de Cuenta: 2020202020 Fecha y Hora: 19/9/2024, 15:20:50
+Login Usuario: Usuario: Juan Díaz Número de Tarjeta: 7328748326896918 Número de Cuenta: 2020202020 Fecha y Hora: 19/9/2024, 15:20:50
+Login Usuario: Usuario: María Pérez Número de Tarjeta: 3920130934809328 Número de Cuenta: 4040404040 Fecha y Hora: 19/9/2024, 15:20:50
+Login Usuario: Usuario: María Pérez Número de Tarjeta: 3920130934809328 Número de Cuenta: 4040404040 Fecha y Hora: 19/9/2024, 15:20:50
