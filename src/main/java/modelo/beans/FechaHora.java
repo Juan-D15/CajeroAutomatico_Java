@@ -20,7 +20,7 @@ public class FechaHora {
         mes = Fecha.get(Calendar.MONTH);
         anio = Fecha.get(Calendar.YEAR);
 
-        return FechaActual = dia + "/" + (mes + 1) + "/" + anio;
+        return FechaActual = anio + "-" + (mes + 1) + "-" + dia;
     }
 
     public String HoraAcceso() {
